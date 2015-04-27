@@ -1,0 +1,799 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"marg",
+				"margin-left"
+			],
+			[
+				"back",
+				"background-color"
+			],
+			[
+				"pa",
+				"padding-right"
+			],
+			[
+				"FONT",
+				"font-size"
+			],
+			[
+				"font",
+				"font-size"
+			],
+			[
+				"fo",
+				"font-size"
+			],
+			[
+				"mar",
+				"margin-left"
+			],
+			[
+				"margi",
+				"margin-top"
+			],
+			[
+				"text",
+				"text-transform"
+			],
+			[
+				"padd",
+				"padding-top"
+			],
+			[
+				"bac",
+				"background-color"
+			],
+			[
+				"ba",
+				"background-color"
+			],
+			[
+				"searchByPe",
+				"searchUserByPeopleId($idpeople)	mixed"
+			],
+			[
+				"las",
+				"last_insert_id"
+			],
+			[
+				"var_",
+				"var_dump〔function〕"
+			],
+			[
+				"wi",
+				"width"
+			],
+			[
+				"peopleo",
+				"$peopleObj〔variable〕"
+			],
+			[
+				"is_n",
+				"is_null〔function〕"
+			],
+			[
+				"emp",
+				"empty〔keyword〕"
+			],
+			[
+				"searchUser",
+				"searchUserByPeopleId"
+			],
+			[
+				"user_",
+				"users_model"
+			],
+			[
+				"th",
+				"$this〔variable〕"
+			],
+			[
+				"for",
+				"for	for …"
+			],
+			[
+				"ele",
+				"elements"
+			],
+			[
+				"base",
+				"base"
+			],
+			[
+				"array",
+				"array_merge〔function〕"
+			],
+			[
+				"ov",
+				"$ovni〔variable〕"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"parse",
+				"parseFloat〔function〕"
+			],
+			[
+				"repla",
+				"replaceWith	.replaceWith()"
+			],
+			[
+				"pan",
+				"parent	.parent()"
+			],
+			[
+				"favori",
+				"favorite"
+			],
+			[
+				"Sa",
+				"Sant'Anna"
+			],
+			[
+				"removec",
+				"removeClass	.removeClass()"
+			],
+			[
+				"remove",
+				"removeAttr	.removeAttr()"
+			],
+			[
+				"exper",
+				"experiência"
+			],
+			[
+				"experti",
+				"expertise"
+			],
+			[
+				"in",
+				"inline"
+			],
+			[
+				"ma",
+				"markets"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "application/views/home/view_home.php",
+			"settings":
+			{
+				"buffer_size": 10493,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "application/views/login/view_login.php",
+			"settings":
+			{
+				"buffer_size": 3798,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "assets/css/website.css",
+			"settings":
+			{
+				"buffer_size": 3714,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/upcesar/dev-php/betadevconsult/assets/css/style.css",
+			"settings":
+			{
+				"buffer_size": 25985,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"less",
+				"Set Syntax: LESS"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: ins",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: inst",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: install",
+				"Package Control: Install Package"
+			],
+			[
+				"package ins",
+				"Package Control: Install Package"
+			],
+			[
+				"package install",
+				"Package Control: Install Package"
+			],
+			[
+				"package in",
+				"Package Control: Install Package"
+			],
+			[
+				"package control",
+				"Preferences: Package Control Settings – Default"
+			],
+			[
+				"pack",
+				"Preferences: Browse Packages"
+			],
+			[
+				"Package Control",
+				"Preferences: Package Control Settings – Default"
+			],
+			[
+				"packa",
+				"Preferences: Package Control Settings – User"
+			],
+			[
+				"Package Control: INS",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: i",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 746.0
+	},
+	"console":
+	{
+		"height": 222.0,
+		"history":
+		[
+			"ls",
+			"find",
+			"git",
+			"reset",
+			"clear",
+			"help",
+			"ls",
+			"import urllib.request,os,hashlib; h = 'eb2297e1a458f27d836c04bb0cbaf282' + 'd0e7a3098092775ccb37ca9d6b2e4b7d'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)",
+			"help"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/upcesar/dev-php/crowdfunding-teens",
+		"/home/upcesar/dev-php/crowdfunding-teens/application",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/views",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/views/home",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/views/login",
+		"/home/upcesar/dev-php/crowdfunding-teens/assets",
+		"/home/upcesar/dev-php/crowdfunding-teens/assets/img",
+		"/home/upcesar/dev-php/crowdfunding-teens/assets/js"
+	],
+	"file_history":
+	[
+		"/home/upcesar/dev-php/crowdfunding-teens/assets/css/home.css",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/views/home/view_home.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/.htaccess",
+		"/home/upcesar/dev-php/crowdfunding-teens/assets/css/carousel.css",
+		"/home/upcesar/dev-php/crowdfunding-teens/assets/js/vendor/holder.js",
+		"/home/upcesar/dev-php/crowdfunding-teens/assets/js/ie10-viewport-bug-workaround.js",
+		"/home/upcesar/dev-php/crowdfunding-teens/assets/js/carousel.css",
+		"/home/upcesar/.config/sublime-text-3/Packages/LESS/README.md",
+		"/home/upcesar/.config/sublime-text-3/Packages/Less2Css/README.md",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/controllers/signup.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/controllers/home.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/config/routes.php",
+		"/home/upcesar/Documents/web-crowdfunding/Indiegogo  The Largest Global Crowdfunding & Fundraising Site Online_files/71ikiLcMrGYIGyvMYn7ZsljFfaS4wGaxf80-aqUxjBw.js",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/controllers/login.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/config/database.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/sftp-config.json",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/.htaccess",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/controllers/signup.php-tmp",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/views/view_login.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/assets/js/validator.js",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/views/view_signup.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/config/facebook.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/assets/js/dtpicker-setup.js",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/models/people_model.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/models/users_model.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/config/email.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/views/view_dashboard.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/controllers/dashboard.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/libraries/facebook/facebook.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/libraries/facebook/src/Facebook/HttpClients/FacebookCurlHttpClient.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/libraries/facebook/src/Facebook/FacebookRedirectLoginHelper.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/assets/css/login.css",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/models/markets_model.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/views/view_sidebar.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/libraries/fb_connect.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/controllers/stations.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/libraries/fb_connect.php-tmp",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/views/view_create_password.php",
+		"/home/upcesar/dev-php/teenager-crowdfunding/teenager-crowdfunding.sublime-project",
+		"/home/upcesar/dev-php/teenager-crowdfunding/application/models/people_model.php",
+		"/home/upcesar/dev-php/teenager-crowdfunding/application/models/users_model.php",
+		"/home/upcesar/dev-php/betadevconsult/sftp-config.json",
+		"/home/upcesar/dev-php/teenager-crowdfunding/application/controllers/login.php",
+		"/home/upcesar/dev-php/teenager-crowdfunding/sftp-config.json",
+		"/home/upcesar/dev-php/teenager-crowdfunding/.htaccess.remote",
+		"/home/upcesar/dev-php/teenager-crowdfunding/assets/css/login.css",
+		"/home/upcesar/dev-php/teenager-crowdfunding/application/views/view_login.php",
+		"/home/upcesar/dev-php/teenager-crowdfunding/application/controllers/dashboard.php",
+		"/home/upcesar/dev-php/teenager-crowdfunding/application/views/view_password_recovery.php",
+		"/home/upcesar/dev-php/teenager-crowdfunding/application/views/view_create_password.php",
+		"/home/upcesar/dev-php/teenager-crowdfunding/application/.htaccess",
+		"/home/upcesar/dev-php/teenager-crowdfunding/application/config/database.php",
+		"/home/upcesar/dev-php/teenager-crowdfunding/system/core/Common.php",
+		"/home/upcesar/dev-php/teenager-crowdfunding/application/config/config.php",
+		"/home/upcesar/dev-php/teenager-crowdfunding/.htaccess",
+		"/home/upcesar/dev-php/teenager-crowdfunding/radar5.sublime-project",
+		"/home/upcesar/dev-php/ovnis/elements.php",
+		"/home/upcesar/dev-php/ovnis/ovnis.php",
+		"/home/upcesar/dev-php/ovnis/index.php",
+		"/tmp/tmp0jc8w8.txt",
+		"/tmp/tmpo1kfnu.html",
+		"/home/upcesar/dev-php/laravel/learning-laravel/app/Http/Controllers/Auth/PasswordController.php",
+		"/home/upcesar/dev-php/laravel/learning-laravel/config/app.php",
+		"/home/upcesar/dev-php/betadevconsult/index.html",
+		"/home/upcesar/dev-php/betadevconsult-unversioned/parallax-v.1.0/js/scrolling.js",
+		"/home/upcesar/dev-php/betadevconsult-unversioned/parallax-v.1.0/js/scrollanimation.js",
+		"/home/upcesar/dev-php/betadevconsult/js/move-top.js",
+		"/home/upcesar/dev-php/betadevconsult-unversioned/parallax-v.1.0/index.html",
+		"/home/upcesar/dev-php/betadevconsult/js/wow.min.js",
+		"/home/upcesar/dev-php/betadevconsult/js/easing.js",
+		"/home/upcesar/dev-php/betadevconsult/css/style.css",
+		"/home/upcesar/dev-php/Lightbox-for-Bootstrap/index.html",
+		"/home/upcesar/dev-php/betadevconsult/css/bootstrap.lightbox.css",
+		"/home/upcesar/dev-php/amanda/index.html",
+		"/home/upcesar/dev-php/betadevconsult-unversioned/coming-soon/Template-ComingSoon/index.html",
+		"/home/upcesar/dev-php/betadevconsult-unversioned/coming-soon/Template-ComingSoon/js/language-picker.js",
+		"/home/upcesar/dev-php/betadevconsult-unversioned/last-coming-son/index.html",
+		"/home/upcesar/dev-php/betadevconsult-unversioned/parallax-v.1.1/index.html",
+		"/home/upcesar/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
+		"/home/upcesar/dev-php/betadevconsult/js/jquery.min.js",
+		"/home/upcesar/dev-php/betadevconsult/css/sftp-config.json",
+		"/home/upcesar/dev-php/betadevconsult/git-versioned/index.html",
+		"/home/upcesar/dev-php/betadevconsult/git-versioned/README.md",
+		"/home/upcesar/.config/sublime-text-3/Packages/User/SFTP.errors.log",
+		"/home/upcesar/dev-php/betadevconsult/ftpsync.settings",
+		"/home/upcesar/dev-php/betadevconsult/git-versioned/css/style.css",
+		"/home/upcesar/dev-php/betadevconsult/git-versioned/css/sftp-config.json",
+		"/home/upcesar/dev-php/betadevconsult/unversioned/last-coming-son/index.html",
+		"/home/upcesar/.config/sublime-text-3/Packages/Package Control/Package Control.sublime-settings",
+		"/home/upcesar/.config/sublime-text-3/Packages/User/Package Control.sublime-settings",
+		"/home/upcesar/dev-php/betadevconsult/parallax-v.1.1/index.html",
+		"/home/upcesar/dev-php/betadevconsult/parallax-v.1.1/css/bootstrap.css",
+		"/home/upcesar/dev-php/euroswinger/README.md",
+		"/home/upcesar/dev-php/euroswinger/~readme.html",
+		"/home/upcesar/dev-php/euroswinger/readme.html",
+		"/home/upcesar/dev-php/radar5/system/core/Common.php",
+		"/home/upcesar/dev-php/radar5/.htaccess",
+		"/home/upcesar/dev-php/radar5/application/config/database.php",
+		"/home/upcesar/Google Drive/Work/Ometz/dbvis.license",
+		"/home/upcesar/dev-php/radar5/application/controllers/dashboard.php",
+		"/home/upcesar/dev-php/radar5/radar5.sublime-project",
+		"/home/upcesar/.config/sublime-text-3/Packages/User/GitHub.sublime-settings"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"1px solid #dddddd",
+			";\n",
+			"border",
+			"col-md-3",
+			"border",
+			"marketing",
+			"campaigns",
+			"dashboard",
+			"view",
+			"inputEmail",
+			"md5",
+			"searchPeopleByEmail",
+			"searchUserByUserName",
+			"inputEmail",
+			"searchPeopleByEmail",
+			"form>",
+			"login",
+			"recoverpassword",
+			"searchPeopleByEmail",
+			"people_data",
+			"searchPeopleByEmail",
+			"mb_strlen",
+			" mb_strlen",
+			"redirect",
+			"session",
+			"searchUserByFacebookId",
+			"get(",
+			"sync_from_facebook",
+			"searchPeopleByEmail",
+			"_add_from_facebook",
+			"people",
+			"searchUser",
+			"view",
+			"isValidRedirect",
+			"getUser",
+			"recoverpassword",
+			"create_password",
+			"idpeople",
+			"searchUserByPeopleId",
+			"idpeople",
+			"idusers",
+			"users_model",
+			"Email(",
+			"users_model",
+			"Email",
+			"create_",
+			"_countRecords",
+			"Ovnis",
+			"Selection_List(",
+			"product",
+			"show_result",
+			".portfolio-work-grid-pic",
+			".portfolio-work-grid-caption",
+			"scroll\"",
+			"scroll",
+			"#pull {",
+			"#pull",
+			"port\"",
+			"port",
+			"c-face",
+			".twitter",
+			".face",
+			"twitter",
+			".logo",
+			".logo480",
+			".logo",
+			"@media",
+			".top-nav ul li a",
+			".top-nav ul li a{",
+			".top-nav ul li a",
+			"@media",
+			"nav-icon",
+			"@media",
+			"logo320",
+			"@media",
+			"click",
+			"scroll",
+			"scrollHandler",
+			"href=\"/images/",
+			"href=\"images/",
+			"href=\"/",
+			"icon",
+			"apresentamos",
+			"services\"",
+			".leran-more",
+			".leran-more{",
+			"expertise\"",
+			".expertise{",
+			"expertise",
+			"expertice",
+			"port\"",
+			"port",
+			"contact",
+			".expert",
+			"nav ul",
+			"#pull",
+			"banner-info",
+			"banner",
+			"logo",
+			"@media",
+			"logo",
+			"@media",
+			"logo",
+			".logo",
+			".banner",
+			"banner-info",
+			"home",
+			"header",
+			"top-he",
+			"boots",
+			".map"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"col-md-2",
+			"campaigns",
+			"home",
+			"signup",
+			"strlen",
+			"searchPeople",
+			"iduser",
+			"people_model",
+			"Element(",
+			"Element",
+			"href=\"images/",
+			"href=\"/images/",
+			".goto-portfolio"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "application/views/home/view_home.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 10493,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2912,
+								2912
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"function_name_status_row": 56,
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 561.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "application/views/login/view_login.php",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 3798,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2481,
+								2481
+							]
+						],
+						"settings":
+						{
+							"function_name_status_row": 50,
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": -0.0,
+						"translation.y": 539.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "assets/css/website.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3714,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3712,
+								3712
+							]
+						],
+						"settings":
+						{
+							"function_name_status_row": 211,
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3357.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/home/upcesar/dev-php/betadevconsult/assets/css/style.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 25985,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								16936,
+								16936
+							]
+						],
+						"settings":
+						{
+							"function_name_status_row": 907,
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 15414.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 25.0
+	},
+	"input":
+	{
+		"height": 33.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.sftp":
+	{
+		"height": 112.0
+	},
+	"project": "crowdfunding-teens.sublime-project",
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+			[
+				"",
+				"~/dev-php/betadevconsult/betadev-site.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 243.0,
+		"selected_items":
+		[
+		],
+		"width": 392.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 332.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

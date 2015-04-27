@@ -1,0 +1,82 @@
+body {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #fff;
+}
+
+.form-login {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-login .form-login-heading,
+.form-login .checkbox {
+  margin-bottom: 10px;
+}
+.form-login .checkbox {
+  font-weight: normal;
+}
+.form-login .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-login .form-control:focus {
+  z-index: 2;
+  border-color: #74c14a;
+}
+.form-login input[type="text"] .new-password{
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-login input[type="password"] .confirm-password {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.form-login input[type="email"] {
+  margin-bottom: 10px;  
+  
+}
+
+.logo_login{
+	height: 190px;
+	width:  300px;
+}
+.form-login .password-recovery{
+	margin-top: 14px;
+	text-align: center;
+}
+
+.form-login .password-recovery a{
+	font-weight: normal;
+	font-size: 14px;
+	color: #7c7c7c;	
+}
+
+.form-login .info-recovery{
+	color: black;
+	text-align: center;
+}
+
+.form-login .btn-primary{
+	margin-top: 14px;
+	background-color: #74c14a;
+	border-color: #74c14a;
+}
+
+.form-login .btn-facebook{
+  margin-top: 14px;
+  background-color: #3c5b9a;
+  border-color: #3c5b9a;
+  width: 8em;
+  color: white;
+}
+.form-login .facebook-text{
+  padding-left:0.8em;
+}
