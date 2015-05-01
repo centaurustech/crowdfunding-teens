@@ -2,10 +2,15 @@
 -------------------------------------------------- */
 /* Padding below the footer and lighter body text */
 
+html{
+  height:  100%;
+}
+
 body {
   padding-bottom: 40px;
-  color: #5a5a5a;
-  background-color: #292c35;
+  background-color: #f0f3f7;
+  color: #292c35;
+  height:  100%;
 }
 
 
@@ -19,6 +24,9 @@ body {
   right: 0;
   left: 0;
   z-index: 20;
+  padding-top: 15px;
+  background-color: #292c35;
+  height: 95px;
 }
 
 /* Flip around the padding for proper display in narrow viewports */
@@ -27,15 +35,22 @@ body {
   padding-left: 0;
 }
 
+.img-responsive {
+  height: 70px;
+}
+
 /* Define menú area
 -------------------------------------------------- */
 #navbar{
-  margin-left: 2em;
-  margin-top:  2.7em;
+  margin-left: 0em;
+  margin-top:  0.7em;
 }
 .menuset {
   float: left;
-  width: 70%;
+}
+
+.navbar-wrapper .container {
+  padding-bottom:  0px;
 }
 
 .navbar-wrapper .navbar {
@@ -43,23 +58,17 @@ body {
   padding-left: 15px;
 }
 .navbar-wrapper .navbar .container {
-  width: auto;
+  
 }
 .navbar-wrapper .container .navbar-default{
   background-color: transparent;
   border-color: transparent;
+  margin-top: -10px;
 }
 .navbar-wrapper .navbar .container .navbar-header .navbar-brand {
-  height: auto;
-  width: auto;
-}
-
-.navbar-wrapper .navbar .container .navbar-right{
-
-}
-
-.navbar-nav > li.menu-login {
-  padding-left:  15em;
+  width: 220px;
+  height: 75px;
+  margin-top: -10px;
 }
 
 .navbar-nav > li.last-element {
@@ -69,6 +78,8 @@ body {
 .navbar-nav > li {
   float:left;
   border-right: 1px solid #dddddd;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .navbar-default .navbar-nav > li > a{
@@ -84,12 +95,13 @@ body {
     color: white;
 }
 
-.search-icon {
+.nav>li>a.search-icon {
+
   float: right;
-  margin-top: -3.6em;
+  margin-top: -4em;
   color: white;
-  margin-right: 2.5em;
-  zoom: 130%;
+  margin-right: -1.2em;
+
 }
 
 a:focus.search-icon {
@@ -100,6 +112,9 @@ a:focus.search-icon {
     display: none;
 }
 
+#inputSearch {
+  border-radius: 0em 0.25em 0.25em 0em;
+}
 
 
 /* CUSTOMIZE THE CAROUSEL
@@ -107,13 +122,21 @@ a:focus.search-icon {
 
 /* Carousel base class */
 .carousel {
-  margin-top:  150px;
+  margin-top:  96px;
   height: 500px;
   margin-bottom: 60px;
 }
 /* Since positioning the image, we need to help out the caption */
-.carousel-caption {
+.carousel-box {
   z-index: 10;
+  right: 0px;
+  left: 0px;
+  bottom: 0px;
+  opacity:0.7;
+  background-color: #000000;
+  padding-top: 140px;
+  height: 100%;
+  width: 100%;
 }
 
 /* Declare heights because of positioning of img element */
@@ -121,12 +144,58 @@ a:focus.search-icon {
   height: 500px;
   background-color: #777;
 }
+
+.carousel-caption {
+  padding-bottom: 85px;
+}
+
 .carousel-inner > .item > img {
   position: absolute;
   top: 0;
   left: 0;
   min-width: 100%;
-  height: 500px;
+  height: 100%;
+}
+
+.btn-carousel{
+  color: #fff;
+  border-color: #fff;
+  margin-top: 2em;
+}
+
+.btn-carousel:hover{
+  color: #000;
+  border-color: #000;
+  background-color: #fff;
+}
+
+.carousel-control {
+  top: 0px;
+}
+
+
+/* MAIN BUTTONS HOME
+-------------------------------------------------- */
+.home-header-buttons{
+  margin-bottom: 50px;
+}
+
+
+.btn-header-options {
+  color: #fff;
+  background-color: #1cbcb2;
+  border-color: #1aada4;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.btn-header-options:hover {
+  color: #dadada;
+  opacity: 0.7;
+}
+
+.btn-header-options:focus {
+  color: #cacaca;
 }
 
 
@@ -136,20 +205,68 @@ a:focus.search-icon {
 /* Center align the text within the three columns below the carousel */
 .campaigns{
   font-size:  14px;
+  padding-bottom:  220px;
+}
+
+.thumbnail {
+  background-color: #395a97;
+  padding: 0px;
+  border: none;
 }
 
 .campaigns .col-md-3 {
   padding-top:  20px;
   margin-bottom: 20px;
+  color: #fff;
   text-align: center;
-  border: 1px solid #dddddd;
 }
+
 .campaigns h2 {
-  font-weight: normal;
+   color: #79797c;
 }
+
+.campaigns h3 {
+  color: #050607;
+  background-color: #f0f3f7;
+  padding-top: 0.85em;
+  padding-bottom: 0.85em;
+  margin-top: 0em;
+}
+
 .campaigns .col-md-3 p {
+  color: #9daccc;
   margin-right: 10px;
   margin-left: 10px;
+  text-align: left;
+  height: 100px;
+  font-size: 14px;
+}
+
+.campaigns .col-md-3 .campaign-values p{
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  height: 100%;
+  padding-bottom: 5px;
+}
+
+.campaigns .col-md-3 .campaign-values .progress{
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.campaigns .col-md-3 .campaign-values .progress-bar{
+  background-color: #e90e79;
+}
+
+.img-gift {
+  margin-top: -10px;
+  margin-bottom: 1em;
+}
+
+.thumbnail>img {
+  width: 100%;
+  height: 100%;
 }
 
 
@@ -167,6 +284,44 @@ a:focus.search-icon {
   letter-spacing: -1px;
 }
 
+/* Footer Section
+------------------------- */
+footer{
+  color: #f0f3f7;
+  background-color: #292c35;
+  position: relative;
+  margin-top: -150px; /* negative value of footer height */
+  clear:both;
+}
+
+footer .container{
+  padding-top: 3em;
+  padding-bottom: 3em;
+}
+
+.footer-divider {
+  margin-top: 50px;
+}
+
+.footer-title {
+  width: 100%;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.footer-links {
+  font-weight: normal;
+  line-height: 20px;
+  display: block;
+  color: #ffffff;
+  padding-left: 1.2em;
+  padding-top: 0.4em;
+}
+.footer-links:hover, .footer-links:active {
+  text-decoration: underline;
+  color: #dadada;
+}
+
 
 /* RESPONSIVE CSS
 -------------------------------------------------- */
@@ -177,24 +332,21 @@ a:focus.search-icon {
     background-color: #ffffff;
     border: 1px solid #5a5a5a;
     border-radius: 5px;
-    margin: 0em 0em 0em 0em;
+    margin: -0.35em 0em 0em 0em;
   }
 
   .navbar-nav {
     margin: 0em 0em 0em 0em;
-    
   }
-  
+
+
   .navbar-toggle {
-    margin-top: 65px;
-    margin-right: 240px;
-    
+     margin-top: 25px;
   }
-  
+
   .navbar-collapse {
     padding-right: 8px;
   }
-  
 
   .navbar-nav > li {
     width:  50%;
@@ -228,30 +380,53 @@ a:focus.search-icon {
     display: table-cell;
   }
 
-  .navbar-nav > li.menu-login {
-    padding-left: 0em;
+  .hide-search{
+    display: block;
   }
+
+
+  .bubble {
+    border: none;
+    background-color: transparent !important;
+  }
+
+  .bubble:after {
+    border: none;
+    background-color: transparent !important;
+  }
+
 
   .navbar-nav > li.last-element-mobile {
     border-right: 1px solid #dddddd;
   }
 
-
 }
 
 
 @media (min-width: 768px) {
-  .menuset {
-    width: 65%;
+  
+  .navbar-wrapper .navbar .container .navbar-header .navbar-brand {
+    margin-top: -20px;
   }
 
-  /* Navbar positioning foo */
-  .navbar-wrapper {
-    margin-top: 20px;
+  .img-responsive {
+    height: 90px;
   }
+  
+  .menuset {
+    width: 60%;
+    margin-left: 5em;
+
+  }
+
+  .navbar-wrapper{
+    height: 130px;
+  }
+
   .navbar-wrapper .container {
-    padding-right: 15px;
-    padding-left: 15px;
+    padding-right: 5px;
+    padding-left: 5px;
+    width: 92%;
   }
   .navbar-wrapper .navbar {
     padding-right: 0;
@@ -264,23 +439,58 @@ a:focus.search-icon {
 
 
   /* SEACH FORM */
-  .navbar-nav > li.search-campaign {
-    position: absolute;
-    margin-top:  4em;
-    margin-left: 15em;
-    width: 35%;
-  }
-  .navbar-form .input-group>.form-control {
-    font-size: 75%;
+
+  .search-form-area{
+    margin-top: 6px;
+    width: 390px;
+    padding-left: 10px;
+    padding-right: 30px;
   }
 
-  .navbar-default .navbar-form  {
+  #inputSearch {
+    font-size: 75%;
+    border-radius: 0em 0.5em 0.5em 0em;
+  }
+
+  .hide-search{
     display: none;
   }
 
-  .navbar-nav > li.menu-login {
-    padding-left:  0em;
+
+  .bubble {
+    position: relative;
+    width: 325px;
+    height: 55px;
+    padding: 2px;
+    background: #FFFFFF;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
   }
+
+  /*
+  .bubble:after {
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 0 10px 11px;
+    border-color: #FFFFFF transparent;
+    display: block;
+    width: 0;
+    z-index: 1;
+    margin-left: -10px;
+    top: -11px;
+    left: 80%;
+  }
+  */
+
+  .navbar-nav > li.search-campaign {
+    position: absolute;
+    margin-top:  4em;
+    margin-left: 0em;
+    width: 35%;
+  }
+
 
   /* The navbar becomes detached from the top, so we round the corners */
   .navbar-wrapper .navbar {
@@ -294,14 +504,56 @@ a:focus.search-icon {
     line-height: 1.4;
   }
 
+  /*
+  Choose option layout
+   */
+  .btn-header-options {
+    font-size: 18px;
+    width: 70%;
+  }
+
+  .centered {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
+  }
+
   .featurette-heading {
     font-size: 50px;
   }
 }
 
 @media (min-width: 992px) {
+
+  .navbar-wrapper .navbar .container .navbar-header .navbar-brand {
+    margin-top: -20px;
+  }
+
+  .img-responsive {
+    height: 90px;
+  }
+
+  .menuset {
+    width: 75%;
+  }
+
+  .navbar-wrapper{
+    height: 95px;
+  }
+
+  .navbar-wrapper .container {
+    padding-right: 0px;
+    padding-left: 5px;
+  }
+
   .featurette-heading {
     margin-top: 120px;
+  }
+
+  .navbar-wrapper .navbar .container {
+    width: 950px;
   }
 
   .navbar-default .navbar-nav > li > a {
@@ -309,11 +561,28 @@ a:focus.search-icon {
   }
 
   /* SEACH FORM */
+  .search-form-area{
+    width: 280px;
+  }
+  
+  li.menu-login{
+    margin-right: -25px;
+  }
+
+  li.menu-sign-up{
+    padding-left: 45px;
+  }
+
+
   .navbar-nav > li.search-campaign {
     position: relative;
     margin-top:  0em;
     margin-left:  0em;
-    width: 30%;
+    width: 40%;
+  }
+
+  #inputSearch {
+    border-radius: 0em 0.25em 0.25em 0em;
   }
   
   .nav>li>a.search-icon {
@@ -328,26 +597,80 @@ a:focus.search-icon {
     display: table-cell;
   }
 
-  .navbar-default .navbar-form  {
+  .search-form  {
     display: block;
   }
 
-  .navbar-nav > li.menu-login {
-    padding-left: 3.3em;
+  .bubble {
+    border: none;
+    background-color: transparent !important;
+  }
 
+  .bubble:after {
+    border: none;
+    background-color: transparent !important;
+  }
+
+  .campaigns .col-md-3 {
+    width: 25%;
+  }
+
+  .campaigns .col-md-3 p {
+    height: 150px;
+  }
+  .thumbnail>img {
+    height: 150px;
+  }
+
+  /*
+  Font size for choose buttons
+   */
+  .btn-header-options {
+    font-size: 22px;
   }
 
 }
 
 @media (min-width:1200px){
   
-  .navbar-nav > li.menu-login {
-    padding-left:  9em;
+  .navbar-wrapper .navbar .container .navbar-header .navbar-brand {
+    margin-top: -20px;
   }
 
+  .img-responsive {
+    height: 90px;
+  }
 
-}
+  .menuset {
+    width: 75%;
+  }
 
-@media (max-width:1366px){
+  .navbar-wrapper .navbar .container {
+    width: auto;
+  }
+
+  li.menu-login{
+    margin-right: -75px;
+  }
+
+  li.menu-sign-up{
+    padding-left: 130px;
+  }
+
+  .navbar-nav > li.search-campaign {
+    width: 300px;
+  }
+  
+  .campaigns .col-md-3 p {
+    height: 100px;
+  }
+
+  /*
+  Font size for choose buttons
+   */
+  .btn-header-options {
+    font-size: 24px;
+  }
+
 
 }

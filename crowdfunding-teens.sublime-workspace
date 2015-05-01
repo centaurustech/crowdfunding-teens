@@ -4,23 +4,115 @@
 		"selected_items":
 		[
 			[
-				"marg",
-				"margin-left"
+				"padd",
+				"padding-left"
+			],
+			[
+				"mar",
+				"margin-right"
+			],
+			[
+				"mouse",
+				"mouseenter	.mouseenter()"
+			],
+			[
+				"add",
+				"addClass	.addClass()"
+			],
+			[
+				"fon",
+				"font-size"
+			],
+			[
+				"wit",
+				"width"
+			],
+			[
+				"fun",
+				"function〔keyword〕"
+			],
+			[
+				"ba",
+				"background-color"
+			],
+			[
+				"font",
+				"font-weight"
+			],
+			[
+				"text",
+				"text-align"
+			],
+			[
+				"bo",
+				"border"
+			],
+			[
+				"pa",
+				"padding-top"
+			],
+			[
+				"margin",
+				"margin-top"
+			],
+			[
+				"pad",
+				"padding"
 			],
 			[
 				"back",
 				"background-color"
 			],
 			[
-				"pa",
-				"padding-right"
+				"bacl",
+				"background-color"
+			],
+			[
+				"boder",
+				"border"
+			],
+			[
+				"border",
+				"border-radius"
+			],
+			[
+				"tab",
+				"table"
+			],
+			[
+				"table",
+				"table-cell"
+			],
+			[
+				"marg",
+				"margin-top"
+			],
+			[
+				"b",
+				"inline-block"
+			],
+			[
+				"ta",
+				"table-cell"
+			],
+			[
+				"no",
+				"none〔value〕"
+			],
+			[
+				"pos",
+				"position"
+			],
+			[
+				"w",
+				"width"
+			],
+			[
+				"ma",
+				"margin-top"
 			],
 			[
 				"FONT",
-				"font-size"
-			],
-			[
-				"font",
 				"font-size"
 			],
 			[
@@ -28,27 +120,11 @@
 				"font-size"
 			],
 			[
-				"mar",
-				"margin-left"
-			],
-			[
 				"margi",
 				"margin-top"
 			],
 			[
-				"text",
-				"text-transform"
-			],
-			[
-				"padd",
-				"padding-top"
-			],
-			[
 				"bac",
-				"background-color"
-			],
-			[
-				"ba",
 				"background-color"
 			],
 			[
@@ -112,10 +188,6 @@
 				"$ovni〔variable〕"
 			],
 			[
-				"fun",
-				"function"
-			],
-			[
 				"parse",
 				"parseFloat〔function〕"
 			],
@@ -154,45 +226,17 @@
 			[
 				"in",
 				"inline"
-			],
-			[
-				"ma",
-				"markets"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "application/views/home/view_home.php",
+			"file": "application/views/view_footer.php",
 			"settings":
 			{
-				"buffer_size": 10493,
+				"buffer_size": 2624,
 				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "application/views/login/view_login.php",
-			"settings":
-			{
-				"buffer_size": 3798,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "assets/css/website.css",
-			"settings":
-			{
-				"buffer_size": 3714,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/upcesar/dev-php/betadevconsult/assets/css/style.css",
-			"settings":
-			{
-				"buffer_size": 25985,
-				"line_ending": "Windows"
 			}
 		}
 	],
@@ -298,17 +342,26 @@
 	[
 		"/home/upcesar/dev-php/crowdfunding-teens",
 		"/home/upcesar/dev-php/crowdfunding-teens/application",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/controllers",
 		"/home/upcesar/dev-php/crowdfunding-teens/application/views",
 		"/home/upcesar/dev-php/crowdfunding-teens/application/views/home",
-		"/home/upcesar/dev-php/crowdfunding-teens/application/views/login",
 		"/home/upcesar/dev-php/crowdfunding-teens/assets",
-		"/home/upcesar/dev-php/crowdfunding-teens/assets/img",
-		"/home/upcesar/dev-php/crowdfunding-teens/assets/js"
+		"/home/upcesar/dev-php/crowdfunding-teens/assets/css",
+		"/home/upcesar/dev-php/crowdfunding-teens/assets/js",
+		"/home/upcesar/dev-php/crowdfunding-teens/assets/uploads"
 	],
 	"file_history":
 	[
-		"/home/upcesar/dev-php/crowdfunding-teens/assets/css/home.css",
+		"/home/upcesar/dev-php/crowdfunding-teens/assets/css/website.css",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/controllers/home.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/controllers/login.php",
 		"/home/upcesar/dev-php/crowdfunding-teens/application/views/home/view_home.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/assets/js/website.js",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/views/view_footer.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/views/view_header.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/assets/js/stations.js",
+		"/home/upcesar/dev-php/betadevconsult/assets/css/style.css",
+		"/home/upcesar/dev-php/crowdfunding-teens/assets/css/home.css",
 		"/home/upcesar/dev-php/crowdfunding-teens/.htaccess",
 		"/home/upcesar/dev-php/crowdfunding-teens/assets/css/carousel.css",
 		"/home/upcesar/dev-php/crowdfunding-teens/assets/js/vendor/holder.js",
@@ -317,10 +370,8 @@
 		"/home/upcesar/.config/sublime-text-3/Packages/LESS/README.md",
 		"/home/upcesar/.config/sublime-text-3/Packages/Less2Css/README.md",
 		"/home/upcesar/dev-php/crowdfunding-teens/application/controllers/signup.php",
-		"/home/upcesar/dev-php/crowdfunding-teens/application/controllers/home.php",
 		"/home/upcesar/dev-php/crowdfunding-teens/application/config/routes.php",
 		"/home/upcesar/Documents/web-crowdfunding/Indiegogo  The Largest Global Crowdfunding & Fundraising Site Online_files/71ikiLcMrGYIGyvMYn7ZsljFfaS4wGaxf80-aqUxjBw.js",
-		"/home/upcesar/dev-php/crowdfunding-teens/application/controllers/login.php",
 		"/home/upcesar/dev-php/crowdfunding-teens/application/config/database.php",
 		"/home/upcesar/dev-php/crowdfunding-teens/sftp-config.json",
 		"/home/upcesar/dev-php/crowdfunding-teens/application/.htaccess",
@@ -427,6 +478,111 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"img-re",
+			".btn-header-options {",
+			".btn-header-options",
+			"centered",
+			"#inputSearch",
+			"border-radius:",
+			"-radiu",
+			".img-responsive",
+			"Pesquisar",
+			"input",
+			"inputSearch",
+			"-right",
+			"hide-search",
+			"search-form-area",
+			".search-form-area",
+			".search-form-area{",
+			".search-form-area {",
+			".bubble",
+			".js",
+			"search-icon",
+			".campaigns .col-md-3 {",
+			".btn-header-options {",
+			".btn-header-options",
+			"img",
+			".navbar-wrapper .container {",
+			".navbar-nav > li.search-campaign {",
+			".search-form-",
+			"menu-lo",
+			"#navbar",
+			".navbar-wrapper .container {",
+			".navbar-wrapper .navbar .container {",
+			"#nvabar",
+			".menuset",
+			".menu",
+			"menu-login",
+			"menuset",
+			"menu",
+			".thumbnail>img",
+			"thumbnail>img",
+			".campaign-values {",
+			"click",
+			"<img class=\"img-gift\"",
+			"campaign-values",
+			"h3>",
+			"h5>",
+			"h4>",
+			"h3>",
+			"h2>",
+			"_get_imgur_data",
+			".campaigns .col-md-3 {",
+			"Privacidade",
+			".container",
+			".navbar-wrapper .container {",
+			"container",
+			"footer",
+			"#navbar",
+			".carousel-caption p",
+			".carousel-caption",
+			".carousel-caption {",
+			".carousel-inner > .item > img {",
+			":after",
+			"bubble",
+			".navbar-wrapper {",
+			".navbar-wrapper ",
+			".navbar-wrapper",
+			"#input",
+			".bubble:a",
+			".bubble",
+			"search-form",
+			"#inputSearch",
+			".navbar-default .navbar-form",
+			".navbar-form .input-group>.form-control",
+			".search-button-right",
+			".search-button-left",
+			".search-form",
+			"white",
+			".navbar-default .navbar-nav > li > a{",
+			".searc",
+			".last-element",
+			".navbar-nav > li {",
+			"border",
+			"-right",
+			"display: none;",
+			"search-campaign",
+			"search-icon",
+			"search",
+			".navbar-form",
+			".search-i",
+			".menuset",
+			".search-icon",
+			"white",
+			".navbar-default .navbar-nav > li > a {",
+			"70%",
+			".navbar-nav {",
+			".nav .navbar-nav {",
+			".nav navbar {",
+			".navbar {",
+			".navbar-wrapper .navbar {",
+			".navbar-wrapper .navbar",
+			".menuset",
+			"search-ca",
+			".navbar-default .navbar-nav > li > a",
+			"font-size",
+			".navbar-brand>img",
+			"px",
 			"1px solid #dddddd",
 			";\n",
 			"border",
@@ -449,95 +605,7 @@
 			"people_data",
 			"searchPeopleByEmail",
 			"mb_strlen",
-			" mb_strlen",
-			"redirect",
-			"session",
-			"searchUserByFacebookId",
-			"get(",
-			"sync_from_facebook",
-			"searchPeopleByEmail",
-			"_add_from_facebook",
-			"people",
-			"searchUser",
-			"view",
-			"isValidRedirect",
-			"getUser",
-			"recoverpassword",
-			"create_password",
-			"idpeople",
-			"searchUserByPeopleId",
-			"idpeople",
-			"idusers",
-			"users_model",
-			"Email(",
-			"users_model",
-			"Email",
-			"create_",
-			"_countRecords",
-			"Ovnis",
-			"Selection_List(",
-			"product",
-			"show_result",
-			".portfolio-work-grid-pic",
-			".portfolio-work-grid-caption",
-			"scroll\"",
-			"scroll",
-			"#pull {",
-			"#pull",
-			"port\"",
-			"port",
-			"c-face",
-			".twitter",
-			".face",
-			"twitter",
-			".logo",
-			".logo480",
-			".logo",
-			"@media",
-			".top-nav ul li a",
-			".top-nav ul li a{",
-			".top-nav ul li a",
-			"@media",
-			"nav-icon",
-			"@media",
-			"logo320",
-			"@media",
-			"click",
-			"scroll",
-			"scrollHandler",
-			"href=\"/images/",
-			"href=\"images/",
-			"href=\"/",
-			"icon",
-			"apresentamos",
-			"services\"",
-			".leran-more",
-			".leran-more{",
-			"expertise\"",
-			".expertise{",
-			"expertise",
-			"expertice",
-			"port\"",
-			"port",
-			"contact",
-			".expert",
-			"nav ul",
-			"#pull",
-			"banner-info",
-			"banner",
-			"logo",
-			"@media",
-			"logo",
-			"@media",
-			"logo",
-			".logo",
-			".banner",
-			"banner-info",
-			"home",
-			"header",
-			"top-he",
-			"boots",
-			".map"
+			" mb_strlen"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -545,6 +613,12 @@
 		"regex": false,
 		"replace_history":
 		[
+			"<img",
+			"h4>",
+			"h3>",
+			"h5>",
+			"h4>",
+			".search-form",
 			"col-md-2",
 			"campaigns",
 			"home",
@@ -573,25 +647,25 @@
 			[
 				{
 					"buffer": 0,
-					"file": "application/views/home/view_home.php",
+					"file": "application/views/view_footer.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 10493,
+						"buffer_size": 2624,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2912,
-								2912
+								1095,
+								1095
 							]
 						],
 						"settings":
 						{
 							"auto_complete": false,
-							"function_name_status_row": 56,
+							"function_name_status_row": 22,
 							"incomplete_sync": null,
 							"remote_loading": false,
 							"synced": false,
@@ -599,112 +673,11 @@
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
-						"translation.x": 0.0,
-						"translation.y": 561.0,
+						"translation.x": 194.0,
+						"translation.y": 162.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "application/views/login/view_login.php",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 3798,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2481,
-								2481
-							]
-						],
-						"settings":
-						{
-							"function_name_status_row": 50,
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": -0.0,
-						"translation.y": 539.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "assets/css/website.css",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3714,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3712,
-								3712
-							]
-						],
-						"settings":
-						{
-							"function_name_status_row": 211,
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/CSS/CSS.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 3357.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "/home/upcesar/dev-php/betadevconsult/assets/css/style.css",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 25985,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								16936,
-								16936
-							]
-						],
-						"settings":
-						{
-							"function_name_status_row": 907,
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/CSS/CSS.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 15414.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
 					"type": "text"
 				}
 			]
@@ -712,7 +685,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 25.0
+		"height": 26.0
 	},
 	"input":
 	{
@@ -752,7 +725,7 @@
 	"project": "crowdfunding-teens.sublime-project",
 	"replace":
 	{
-		"height": 64.0
+		"height": 48.0
 	},
 	"save_all_on_build": true,
 	"select_file":

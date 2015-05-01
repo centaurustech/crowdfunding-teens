@@ -32,6 +32,7 @@ class login extends CI_Controller {
 
 	public function index() {
 		$this->load->view('login/view_login');
+
 	}
 
 	public function password_recovery() {
