@@ -1,0 +1,6 @@
+RewriteEngine On
+RewriteBase /projects/crowdfunding-teens/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond $1 !^(index\.php|images|assets|robots\.txt)
+RewriteRule ^(.*)$ /projects/crowdfunding-teens/index.php?/$1 [L]
