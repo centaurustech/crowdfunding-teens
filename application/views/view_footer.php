@@ -21,11 +21,11 @@
             </div>
             <div class="col-md-4">
               <div class="footer-title">Contato</div>
-              <span class  ="footer-links" href="#">0800-5555.5555</span>
-              <span class  ="footer-links" href="#">0300-5555.5555</span>
-              <span class  ="footer-links" href="#">Facebook</span>
-              <span class  ="footer-links" href="#">Twitter</span>
-              <span class  ="footer-links" href="#">Instagram</span>
+              <span class  ="contact-info">0800-5555.5555</span>
+              <span class  ="contact-info">0300-5555.5555</span>
+              <span class  ="contact-info">Facebook</span>
+              <span class  ="contact-info">Twitter</span>
+              <span class  ="contact-info">Instagram</span>
             </div>
           </div>
 
