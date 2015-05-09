@@ -37,9 +37,7 @@ class home extends CI_Controller {
 			//$this->load->view('view_home', $data);
 		} else {
 			//redirect(base_url('/login'));
-			$this->load->view('/view_header');
-			$this->load->view('/home/view_home');
-			$this->load->view('/view_footer');
+			$this->masterpage->view('/home/view_home');
 		}
 
 	}

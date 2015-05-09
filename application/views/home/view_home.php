@@ -84,7 +84,7 @@
         <hr>
 
         <div class="row">
-          <div class="col-md-3">
+          <div class="col-md-3 campaign-list">
             <div class="thumbnail">
               <h3>João Oliveira</h3>
               <img class="img-gift" src="assets/uploads/joaozinho/PlayStation-4.jpg" alt="Playstation 4">
@@ -102,7 +102,7 @@
               </div>
             </div>
           </div><!-- /.col-md-3 -->
-          <div class="col-md-3">
+          <div class="col-md-3 campaign-list ">
             <div class="thumbnail">
               <h3>Cláudio Alves</h3>
               <img class="img-gift" src="assets/uploads/joaozinho/nike-air-max.jpg" alt="Playstation 4">
@@ -120,7 +120,7 @@
               </div>
             </div>
           </div><!-- /.col-md-3 -->
-          <div class="col-md-3">
+          <div class="col-md-3 campaign-list">
             <div class="thumbnail">
               <h3>Mari Junqueira</h3>
                 <img class="img-gift" src="assets/uploads/joaozinho/iphone-6-plus.jpg" alt="Playstation 4">
@@ -138,7 +138,7 @@
               </div>
             </div>
           </div><!-- /.col-md-3 -->
-          <div class="col-md-3">
+          <div class="col-md-3 campaign-list">
             <div class="thumbnail">
               <h3>Carol Battis</h3>
               <img class="img-gift" src="assets/uploads/joaozinho/samsung-smart-tv.jpg" alt="Playstation 4">
@@ -158,10 +158,10 @@
           </div><!-- /.col-md-3 -->
 
 
-        <!--div><!-- /.row -->
-        <!-- div class="row" -->
+        <!--/div><!-- /.row -->
+        <!--div class="row" -->
 
-          <div class="col-md-3">
+          <div class="col-md-3 campaign-list">
             <div class="thumbnail">
               <h3>João Oliveira</h3>
               <img class="img-gift" src="assets/uploads/joaozinho/PlayStation-4.jpg" alt="Playstation 4">
@@ -179,7 +179,7 @@
               </div>
             </div>
           </div><!-- /.col-md-3 -->
-          <div class="col-md-3">
+          <div class="col-md-3 campaign-list">
             <div class="thumbnail">
               <h3>Cláudio Alves</h3>
               <img class="img-gift" src="assets/uploads/joaozinho/nike-air-max.jpg" alt="Playstation 4">
@@ -197,7 +197,7 @@
               </div>
             </div>
           </div><!-- /.col-md-3 -->
-          <div class="col-md-3">
+          <div class="col-md-3 campaign-list">
             <div class="thumbnail">
               <h3>Mari Junqueira</h3>
                 <img class="img-gift" src="assets/uploads/joaozinho/iphone-6-plus.jpg" alt="Playstation 4">
@@ -215,7 +215,7 @@
               </div>
             </div>
           </div><!-- /.col-md-3 -->
-          <div class="col-md-3">
+          <div class="col-md-3 campaign-list">
             <div class="thumbnail">
               <h3>Carol Battis</h3>
               <img class="img-gift" src="assets/uploads/joaozinho/samsung-smart-tv.jpg" alt="Playstation 4">

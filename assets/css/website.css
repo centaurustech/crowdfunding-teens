@@ -214,7 +214,13 @@ a:focus.search-icon {
   border: none;
 }
 
-.campaigns .col-md-3 {
+.campaign-list-right .thumbnail {
+  padding-top: 8px;
+  padding-bottom: 20px;
+  margin-top:  -20px;
+}
+
+.campaign-list, .campaign-list-right {
   padding-top:  20px;
   margin-bottom: 20px;
   color: #fff;
@@ -233,7 +239,7 @@ a:focus.search-icon {
   margin-top: 0em;
 }
 
-.campaigns .col-md-3 p {
+.campaign-list p, .campaign-list-right p {
   color: #9daccc;
   margin-right: 10px;
   margin-left: 10px;
@@ -242,7 +248,7 @@ a:focus.search-icon {
   font-size: 14px;
 }
 
-.campaigns .col-md-3 .campaign-values p{
+.campaign-list .campaign-values p, .campaign-list-right .campaign-values p{
   color: #fff;
   font-size: 14px;
   font-weight: bold;
@@ -250,12 +256,12 @@ a:focus.search-icon {
   padding-bottom: 5px;
 }
 
-.campaigns .col-md-3 .campaign-values .progress{
+.campaign-list .campaign-values .progress, .campaign-list-right .campaign-values .progress{
   margin-left: 5px;
   margin-right: 5px;
 }
 
-.campaigns .col-md-3 .campaign-values .progress-bar{
+.campaign-list .campaign-values .progress-bar, .campaign-list-right .campaign-values .progress-bar{
   background-color: #e90e79;
 }
 
@@ -283,6 +289,122 @@ a:focus.search-icon {
   line-height: 1;
   letter-spacing: -1px;
 }
+
+
+/* Campaign Details
+-------------------------------------------------- */
+
+.campaign-details{
+  padding-top: 120px;
+  padding-bottom: 250px;
+}
+
+.grey-line{
+  border: 1px solid #cacacd;
+}
+
+.bubble-description {
+    position: relative;
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    background: #e4e4e4;
+    color: #999999;
+    -webkit-border-radius: 0px 0px 5px 5px;
+    -moz-border-radius: 0px 0px 5px 5px;
+    border-radius: 0px 0px 5px 5px;
+    margin-left: 0px;
+  }
+
+  
+  .bubble-description:after {
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 10px 10px 0;
+    border-color: #dadada transparent;
+    display: block;
+    width: 0;
+    z-index: 1;
+    margin-left: -10px;
+    bottom: -10px;
+    left: 10%;
+  }
+
+  .profile-picture{
+    width: 128px;
+    height: 128px;
+  }
+
+  .campaign-full-picture {
+    height: 100%;
+    width: 100%;
+  }
+
+  .campaign-owner{
+    margin-top: 10px;
+    padding-left: 10px;
+  }
+
+  .inputDonate{
+    width: 100%
+  }
+
+  .share-campaign {
+    margin-top: 24px;
+  }
+
+  .campaign-last-message {
+    background-color: #f8b8d8;
+  }
+
+  .alert-default {
+    color: #888887;
+    background-color: #e4e4e4;
+    border-color: #f5f5f5;
+  }
+
+
+  .alert-dismissible .close {
+    position: relative;
+    top: -10px;
+    right: -30px;
+    color: #f9f9f9;
+    background-color: #e9127b;
+    border-radius: 50%;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  .alert-dismissible .next {
+    top: 12px;
+    right: -52px;
+  }
+
+  .alert-comments{
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
+  .comments-area {
+    border: 6px solid #c5c5c5;
+  }
+
+  .next-campaign-comment{
+    padding:  12px 12px 12px 12px;
+  }
+
+  .hightlight-red {
+    color:  #a94442 !important;
+  }
+
+  .alert-hightlight {
+    color: #888887;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+  }
+
+
 
 /* Footer Section
 ------------------------- */
@@ -468,7 +590,7 @@ footer .container{
     border-radius: 5px;
   }
 
-  /*
+  
   .bubble:after {
     content: '';
     position: absolute;
@@ -482,7 +604,7 @@ footer .container{
     top: -11px;
     left: 80%;
   }
-  */
+  
 
   .navbar-nav > li.search-campaign {
     position: absolute;
@@ -611,11 +733,11 @@ footer .container{
     background-color: transparent !important;
   }
 
-  .campaigns .col-md-3 {
+  .campaign-list {
     width: 25%;
   }
 
-  .campaigns .col-md-3 p {
+  .campaign-list p {
     height: 150px;
   }
   .thumbnail>img {
@@ -627,6 +749,13 @@ footer .container{
    */
   .btn-header-options {
     font-size: 22px;
+  }
+
+  /*
+  Comment Section For Campaign Details
+   */
+  .comments-area {
+    margin-top: -100px;
   }
 
 }
@@ -661,7 +790,7 @@ footer .container{
     width: 300px;
   }
   
-  .campaigns .col-md-3 p {
+  .campaign-list p {
     height: 100px;
   }
 
@@ -672,5 +801,11 @@ footer .container{
     font-size: 24px;
   }
 
+  /*
+  Comment Section For Campaign Details
+   */
+  .comments-area {
+    margin-top: -140px;
+  }
 
 }

@@ -23,7 +23,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <!-- Custom styles for this template -->
-    <link href="assets/css/website.css" rel="stylesheet">
+    <link href="<?php echo base_url('assets/css/website.css');?>" rel="stylesheet">
   </head>
   <!-- NAVBAR
   ================================================== -->
@@ -40,7 +40,7 @@
               <span class="icon-bar"></span>
               </button>
               <a class="navbar-brand" href="#" title="Crowdfunding Site">
-                <img class="featurette-image img-responsive center-block" src="assets/img/logo.png" alt="Presente Top">
+                <img class="featurette-image img-responsive center-block" src="<?php echo base_url('assets/img/logo.png');?>" alt="Presente Top">
               </a>
             </div>
 
