@@ -222,7 +222,7 @@ a:focus.search-icon {
 
 .campaign-list, .campaign-list-right {
   padding-top:  20px;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
   color: #fff;
   text-align: center;
 }
@@ -239,6 +239,50 @@ a:focus.search-icon {
   margin-top: 0em;
 }
 
+a.campaign-name {
+  color: #ffffff;
+}
+
+.edit-campaign-name {
+  color:#e90e79;
+  padding-top:  28px;
+  text-align: center;
+}
+
+.price-title{
+  padding-left: 24px;
+  text-align: justify;
+}
+
+.price-amount{
+  padding-left: 10px;
+  text-align: justify;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.campaign-progress {
+  height: 28px;
+  margin-bottom: 5px;
+}
+
+.campaign-progress-info {
+  text-align: justify;
+  padding-left: 12px;
+  padding-top: 4px;
+}
+
+.edit-price{
+  text-align: right;
+  padding-top: 6px;
+  padding-right: 32px;
+}
+
+a.link-edit{
+  color:#e90e79;
+}
+
+
 .campaign-list p, .campaign-list-right p {
   color: #9daccc;
   margin-right: 10px;
@@ -250,10 +294,10 @@ a:focus.search-icon {
 
 .campaign-list .campaign-values p, .campaign-list-right .campaign-values p{
   color: #fff;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: bold;
   height: 100%;
-  padding-bottom: 5px;
+  padding-top: 15px;
 }
 
 .campaign-list .campaign-values .progress, .campaign-list-right .campaign-values .progress{
@@ -294,9 +338,27 @@ a:focus.search-icon {
 /* Campaign Details
 -------------------------------------------------- */
 
+.form-edit{
+  padding-bottom: 16px;
+}
+
 .campaign-details{
   padding-top: 120px;
   padding-bottom: 250px;
+}
+
+.campaign-details h1 {
+  padding-left: 32px;
+  // font-size:  48px;
+  padding-bottom: 24px;
+}
+
+.campaign-details h2 {
+  padding-left: 32px;
+  font-size:  36px;
+  padding-bottom: 12px;
+  font-weight: bold;
+  text-align: center;
 }
 
 .grey-line{
@@ -306,10 +368,11 @@ a:focus.search-icon {
 .bubble-description {
     position: relative;
     width: 100%;
-    height: 80px;
+    height: 115px;
     padding: 10px;
     background: #e4e4e4;
-    color: #999999;
+    color: #333231;
+    font-size: 16px;
     -webkit-border-radius: 0px 0px 5px 5px;
     -moz-border-radius: 0px 0px 5px 5px;
     border-radius: 0px 0px 5px 5px;
@@ -332,8 +395,9 @@ a:focus.search-icon {
   }
 
   .profile-picture{
-    width: 128px;
-    height: 128px;
+    width: 88px;
+    height: 88px;
+    margin-left:10%;
   }
 
   .campaign-full-picture {
@@ -350,8 +414,64 @@ a:focus.search-icon {
     width: 100%
   }
 
-  .share-campaign {
-    margin-top: 24px;
+  /* Share campaign area
+   --------------------*/
+  .bubble-short-link {
+    position: relative;
+    width: 135px;
+    height: 30px;
+    padding: 6px;
+    background: #fff;
+    color: #333231;
+    border: 1px solid #ccc;
+    font-size: 10px;
+    -webkit-border-radius: 0px 0px 5px 5px;
+    -moz-border-radius: 0px 0px 5px 5px;
+    border-radius: 2px 2px 2px 2px;
+    margin-left: 0px;
+  }
+
+  .bubble-short-link:before {
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 5px 5px 0;
+    border-color: #ccc transparent;
+    display: block;
+    width: 0;
+    z-index: 0;
+    margin-left: -6px;
+    bottom: -6px;
+    left: 20%;
+  }
+
+  .bubble-short-link:after {
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 4px 4px 0;
+    border-color: #fff transparent;
+    display: block;
+    width: 0;
+    z-index: 1;
+    margin-left: -5px;
+    bottom: -4px;
+    left: 20%;
+  }
+
+  .short-link-badge {
+    padding-top: 8px;
+    padding-left: 17px;
+  }
+
+  .share-campaign-area {
+    margin-top: 12px;
+    padding-left: 64px;
+    padding-bottom: 12px;
+  }
+
+  .share-campaign-element {
+    padding-bottom: 18px;
   }
 
   .campaign-last-message {
@@ -402,6 +522,50 @@ a:focus.search-icon {
     color: #888887;
     background-color: #f2dede;
     border-color: #ebccd1;
+  }
+
+  #form-edit-price-amount {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .text-area-box {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100% !important;
+  }
+
+  #inputCampDescription { 
+    resize: none; 
+    margin: 2px 2px 2px 2px;
+    height: 54px;
+    border-radius: 5px;
+    display: block;
+  }
+
+  .btn-group-edit-photo {
+    margin-left: 32px;
+    padding-bottom: 12px;
+    padding-top: 4px;
+  }
+
+  /*
+  Comment Section For Campaign Details
+   */
+  .campaign-contribution-amount{
+    width: 90%;
+    margin-left:14px;
+  }
+
+  .cyan-title {
+    color: #1cbcb2;
+    font-weight: bold;
+  }
+
+  .btn-contribute-now {
+    margin-top: -5px;
+    margin-left: -16px;
   }
 
 
@@ -520,6 +684,10 @@ footer .container{
 
   .navbar-nav > li.last-element-mobile {
     border-right: 1px solid #dddddd;
+  }
+
+  .btn-contribute-now {
+    width: 90%;
   }
 
 }
@@ -645,6 +813,15 @@ footer .container{
   .featurette-heading {
     font-size: 50px;
   }
+
+
+  /*
+  Comment Section For Campaign Details
+   */
+  .campaign-contribution-amount{
+    width: 205%;
+    margin-left:0px;
+  }
 }
 
 @media (min-width: 992px) {
@@ -755,7 +932,19 @@ footer .container{
   Comment Section For Campaign Details
    */
   .comments-area {
-    margin-top: -100px;
+    margin-top: -220px;
+  }
+
+  .campaign-contribution-amount{
+    width: 155%;
+  }
+  .edit-campaign-name {
+    text-align: left;
+  }
+
+  .contribution-log {
+    margin-right: 15px;
+    margin-left: -15px;
   }
 
 }
@@ -805,7 +994,11 @@ footer .container{
   Comment Section For Campaign Details
    */
   .comments-area {
-    margin-top: -140px;
+    margin-top: -280px;
+  }
+
+  .campaign-contribution-amount{
+    width: 190%;
   }
 
 }

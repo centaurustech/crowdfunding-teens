@@ -43,16 +43,6 @@
         </section>
       </footer>
 
-      <!-- Bootstrap core JavaScript
-      ================================================== -->
-      <!-- Placed at the end of the document so the pages load faster -->
 
-      <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-      <!-- script src="assets/js/vendor/holder.js"></script -->
-      <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-      <script src="<?php echo base_url('assets/js/website.js');?>"></script>
-      <script src="<?php echo base_url('assets/js/ie10-viewport-bug-workaround.js');?>"></script>
     </body>
   </html>

@@ -27,7 +27,7 @@
 	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css"/>
 	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
 	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/language/pt_BR.js"></script>
-	<script src="<?php echo asset_url();?>js/validator.js"></script>
+	<script src="<?php echo base_url('assets/js/validator.js');?>"></script>
 
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
@@ -57,7 +57,7 @@
 <?php
 if (isset($error_login) && $error_login != '') {
 	?>
-																																		<div id="error"><p><b style=color:red><?php echo $error_login;?></b></p></div>
+																																				<div id="error"><p><b style=color:red><?php echo $error_login;?></b></p></div>
 	<?php
 }
 ?>
