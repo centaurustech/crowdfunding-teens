@@ -195,10 +195,11 @@
 			            <div class="form-edit">
 				            <div id="current-CampPriceAmount" class="price-amount">R$ 3.540,00</div>
 
-							<div id="form-edit-CampPriceAmount" class="edit-campaign hide">
+							<div id="form-edit-CampPriceAmount" class="form-group edit-campaign hide">
 								<div class="input-group">
-							      <input id = "inputCampPriceAmount" name = "inputPriceAmount" type="text" class="form-control" placeholder="Insira um valor..." value="">
-							      <span class="input-group-btn">
+							      <label for="inputCampPriceAmount" class="sr-only">Preço</label>
+							      <input id = "inputCampPriceAmount" name = "inputCampPriceAmount" type="text" class="form-control currency" placeholder="Insira um valor..." value="">
+							      <span id="buttonsetCampPriceAmount" class="input-group-btn">
 							        <button id="save-CampPriceAmount" class="btn btn-success" type="button">
 							        	<i class="fa fa-check"></i>
 							        </button>
@@ -216,8 +217,10 @@
 			                <span class="sr-only">87% Complete</span>
 			              </div>
 			            </div>
-			            <div class="campaign-progress-info">87% completo com</div>
-			            <div class="campaign-progress-info"><span class="cyan-title">R$ 3.780,00</span> presenteados</div>
+			            <div class="campaign-progress-info-area">
+				            <div class="campaign-progress-info">87% completo com</div>
+				            <div class="campaign-progress-info"><span class="cyan-title">R$ 3.780,00</span> presenteados</div>
+			            </div>
 			        </div>
 	            </div>
 
@@ -228,10 +231,12 @@
 			              <p>Presentei com</p>
 
 			              	<form class="" role="form">
-				                <div class="form-group search-form-area">
-				                    <div class="input-group campaign-contribution-amount">
-										<input type="text" class="form-control" id="inputDonate" name = "inputDonate" placeholder="R$50, R$ 100, R$ 200">
-				              		</div><!-- /input-group -->
+				                <div class="contribute-form-area">
+				                    <div class="form-group">
+					                    <div class="input-group text-area-box">
+											<input type="text" class="form-control currency" id="inputContribute" name = "inputContribute" placeholder="R$50, R$ 100, R$ 200" value="">
+					              		</div><!-- /input-group -->
+				              		</div>
 				                </div>
 				            </form>
 

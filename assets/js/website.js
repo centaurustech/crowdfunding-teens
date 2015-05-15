@@ -28,12 +28,16 @@ $(document).ready(function() {
             cancelEdit: function () {
                 var currentField = "#" + $(this).attr('id').replace('cancel-edit-','current-');
                 var formId = "#" + currentField.replace('#current-','form-edit-');
+                var formValidation = $(currentField).parents('form');
+                $(formValidation).data('bootstrapValidator').resetForm(true);
                 $(formId).blur();
                 $(formId).addClass("hide");
                 $(".edit-area").removeClass("hide");
                 $(currentField).removeClass("hide");
                 $("#chooser-profile-picture").removeClass('hide');
                 $("#edit-camp-owner-photo").val('');
+
+
             },
 
             selectText: function (element) {
@@ -71,7 +75,6 @@ $(document).ready(function() {
 
     /* Show profile picture from client machine before uploading */
 
-    
     $("#edit-CampOwnerPhoto").change(function(e) {
 
          for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {

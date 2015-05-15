@@ -243,6 +243,7 @@ a.campaign-name {
   color: #ffffff;
 }
 
+
 .edit-campaign-name {
   color:#e90e79;
   padding-top:  28px;
@@ -262,8 +263,13 @@ a.campaign-name {
 }
 
 .campaign-progress {
-  height: 28px;
+  height: 20px;
+  margin-top: -8px;
   margin-bottom: 5px;
+}
+
+.campaign-progress-info-area {
+  margin-top: 20px;
 }
 
 .campaign-progress-info {
@@ -544,6 +550,15 @@ a.link-edit{
     display: block;
   }
 
+
+  #form-edit-CampPriceAmount{
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+  #inputCampPriceAmount {
+    font-size: 18px;
+  }
+
   .btn-group-edit-photo {
     margin-left: 32px;
     padding-bottom: 12px;
@@ -563,12 +578,18 @@ a.link-edit{
     font-weight: bold;
   }
 
+  .contribute-form-area{
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
   .btn-contribute-now {
     margin-top: -5px;
     margin-left: -16px;
   }
 
-
+  
 
 /* Footer Section
 ------------------------- */
@@ -994,7 +1015,7 @@ footer .container{
   Comment Section For Campaign Details
    */
   .comments-area {
-    margin-top: -280px;
+    margin-top: -220px;
   }
 
   .campaign-contribution-amount{
