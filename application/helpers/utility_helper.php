@@ -20,7 +20,7 @@ if (!function_exists('make_tiny()')) {
 if (!function_exists('tiny_site_url()')) {
 
 	function tiny_site_url() {
-		return make_tiny(current_url());
+		echo make_tiny(current_url());
 	}
 
 }

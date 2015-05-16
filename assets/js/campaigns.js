@@ -132,7 +132,9 @@ jQuery(function ($) {
 		/* Currency format for campaign price and campaign contributions (END)
 	    *****************************
 	    */
-	   $(".currency").autoNumeric({
+	   $(".currency").autoNumeric();
+
+	   $('.currency').autoNumeric('update', {
 	   		aSep: '.', 
 			wEmpty: '',
 			aSign: "R$ ",
@@ -140,6 +142,7 @@ jQuery(function ($) {
 			mDec: 2,
 			vMin : 0
 		});
+
 
 	   /* Event for class Currency formatter */
 	   $(".currency").keyup(function(e) {

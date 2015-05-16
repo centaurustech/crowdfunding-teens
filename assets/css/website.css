@@ -116,6 +116,24 @@ a:focus.search-icon {
   border-radius: 0em 0.25em 0.25em 0em;
 }
 
+/* Profile picture
+-------------------------------------------------- */
+.profile-info{
+  padding-top: 8px;
+  padding-bottom: 10px;
+  padding-right: 18px;
+}
+.profile-info>img{
+  height: 32px;
+  width: 32px;
+}
+.profile-info>small{
+  color:white;
+  padding-left: 10px;
+}
+
+
+
 
 /* CUSTOMIZE THE CAROUSEL
 -------------------------------------------------- */

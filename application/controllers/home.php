@@ -28,22 +28,14 @@ class home extends CI_Controller {
 	}
 
 	public function index() {
-		//$this->view();
-		if ($this->session->userdata('user')) {
-			$user_session         = $this->session->userdata('user');
-			$data['current_user'] = $user_session['fullname'];
-			$data['user_pic']     = $user_session['picture'];
 
-			//$this->load->view('view_home', $data);
-		} else {
-			//redirect(base_url('/login'));
-			$this->masterpage->view('/home/view_home');
-		}
+		$this->masterpage->use_session_info();
+		$this->masterpage->view('/home/view_home');
 
 	}
 
 	public function logout() {
-		redirect(base_url('/login/logout/'));
+		redirect(base_url('login/logout/'));
 	}
 }
 

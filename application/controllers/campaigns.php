@@ -24,7 +24,8 @@ class campaigns extends CI_Controller {
 
 	public function __construct() {
 		parent::__construct();
-		//$this->load->model('users_model');
+		$this->load->model('people_model');
+		$this->load->model('campaigns_model');
 	}
 
 	public function index() {
@@ -49,9 +50,15 @@ class campaigns extends CI_Controller {
 	}
 
 	public function show_details($id_campaign = "") {
-		$data['short_url'] = tiny_site_url();
 
-		$this->masterpage->view('campaigns/details', $data);
+		$data['rs'] = $this->campaigns_model->get_campaign_info($id_campaign);
+
+		if ($data['rs']) {
+			$view_name = "details";
+		} else {
+			$view_name = "not_found";
+		}
+		$this->masterpage->view("campaigns/".$view_name, $data);
 
 	}
 

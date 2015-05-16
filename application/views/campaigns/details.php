@@ -13,7 +13,10 @@
 
 <div class="container campaign-details">
 
-	<h1>João Oliveira Neto <span class="cyan-title">quer ganhar un...</span></h1>
+	<h1>
+		<?php echo $rs->camp_owner;?>
+		<span class="cyan-title">quer ganhar un...</span>
+	</h1>
 	<hr class="grey-line">
 
 	<form  id="form-campaign" action="edit-campaign" method="post"> <!-- Campaign data -->
@@ -21,7 +24,7 @@
 		<div class="row"> <!-- Campaign Name -->
 		  	<div class="col-md-7">
 			  	<div class = "col-xs-10">
-					<h2 id="current-CampName">PlayStation 4</h2>
+					<h2 id="current-CampName"><?php echo $rs->camp_name;?></h2>
 			  	</div>
 			  	<div class = "col-xs-2 edit-campaign-name">
 					<a id="edit-CampName" class="link-edit edit-area" href="#">Alterar</a>
@@ -31,7 +34,7 @@
 
 					<div class="form-group">
 						<label for="inputCampName" class="sr-only">Nome Presente</label>
-						<input type="text" id = "inputCampName" name = "inputCampName"  class="form-control" placeholder="Insira o Nome do seu Presente..." value="PlayStation 4">
+						<input type="text" id = "inputCampName" name = "inputCampName"  class="form-control" placeholder="Insira o Nome do seu Presente..." value="">
 						<div class="btn-group pull-right" role="group">
 							<button id="save-CampName" class="btn btn-success" type="button">
 								<i class="fa fa-check"></i>
@@ -49,13 +52,12 @@
 		<div class="row">	<!-- Basic Info Pane -->
 			<div class="col-md-7">
 
-				<img class="campaign-full-picture" src="<?php echo base_url('assets/uploads/joaozinho/PlayStation-4.jpg');?>" alt="Playstation 4">
+				<img class="campaign-full-picture" src="<?php echo $rs->imgurl;?>" alt="Playstation 4">
 
 				<div class="row bubble-description">
 
-					<div id="current-CampDescription">
-						Galera, meu aniversário é no dia 14 de julho e eu quero muito ganhar um PS4. Qualquer força já ajuda! Vamo que vamo!
-					</div>
+					<div id="current-CampDescription"><?php echo $rs->camp_description;?></div>
+
 					<span class="pull-right"><a id="edit-CampDescription" class="link-edit edit-area" href="#">Alterar</a></span>
 
 					<div id="form-edit-CampDescription" class="form-group edit-campaign hide">
@@ -81,8 +83,7 @@
 				<div class="row campaign-owner">
 					<div class="col-xs-4">
 						<div class="row">
-
-							<img id="current-CampOwnerPhoto" class="img-circle profile-picture" src="<?php echo base_url('assets/uploads/joaozinho/profile-pic.jpg');?>">
+							<img id="current-CampOwnerPhoto" class="img-circle profile-picture" src="<?php echo $rs->camp_owner_picture;?>">
 
 							<div id="form-edit-CampOwnerPhoto" class="form-group edit-campaign hide">
 								<div>
@@ -99,7 +100,7 @@
 							    </div>
 							</div>
 
-							<p id="current-CampOwnerName">João Oliveira Neto</p>
+							<p id="current-CampOwnerName"><?php echo $rs->camp_owner;?></p>
 							<p>
 								<a id="edit-CampOwnerName" class="link-edit edit-area" href="#">Alterar Nome</a>
 							</p>
@@ -134,17 +135,19 @@
 					<div class="col-xs-8 share-campaign-area">
 						<div class="row">
 							<div class="col-sm-4 share-campaign-element">
-								<div class="fb-share-button" data-href="<?php echo ($short_url);?>" data-layout="box_count">
+								<div class="fb-share-button" data-href="<?php tiny_site_url();?>" data-layout="box_count">
 
 								</div>
 							</div>
 							<div class="col-sm-2 share-campaign-element">
-								<a class="twitter-share-button"
-								  href="https://twitter.com/share"
-								  data-text="Gostaria de ganhar este presente."
-								  data-count="vertical"
-								  data-lang="pt-BR"
-								  data-url=  <?php echo ($short_url);?> >
+								<a
+									class="twitter-share-button"
+								  	href="https://twitter.com/share"
+								  	data-text="Gostaria de ganhar este presente."
+								  	data-count="vertical"
+								  	data-lang="pt-BR"
+								  	data-url=  <?php tiny_site_url();?>
+								  >
 								Tweet
 								</a>
 								<script>
@@ -160,13 +163,13 @@
 								</script>
 
 								<!-- Place this tag where you want the share button to render. -->
-								<div class="g-plus" data-action="share" data-annotation="vertical-bubble" data-height="60" data-href="<?php echo ($short_url);?>">
+								<div class="g-plus" data-action="share" data-annotation="vertical-bubble" data-height="60" data-href="<?php tiny_site_url();?>">
 								</div>
 
 
 							</div>
 							<div class="col-sm-7 share-campaign-element">
-								<div  id = "short-url-text" class="row bubble-short-link"><?php echo ($short_url);?></div>
+								<div  id = "short-url-text" class="row bubble-short-link"><?php tiny_site_url();?></div>
 								<div class="row short-link-badge">
 									<a id = "select-short-url" href="#" class="label label-default" title="Click para selecionar Link Curto. Após seleçao, usar Ctrl + C para copiar o link no portapapel.">
 										<i class="fa fa-link"></i> Link Curto
@@ -193,7 +196,9 @@
 				          	</div>
 				        </div>
 			            <div class="form-edit">
-				            <div id="current-CampPriceAmount" class="price-amount">R$ 3.540,00</div>
+				            <div id="current-CampPriceAmount" class="price-amount">
+				            	<span class="currency" data-a-sign="R$ " data-aSep ="." data-aDec =","><?php echo $rs->camp_goal;?></span>
+				            </div>
 
 							<div id="form-edit-CampPriceAmount" class="form-group edit-campaign hide">
 								<div class="input-group">
@@ -213,13 +218,17 @@
 
 
 			            <div class="progress campaign-progress">
-			              <div class="progress-bar" role="progressbar" aria-valuenow="87" aria-valuemin="0" aria-valuemax="100" style="width: 87%;">
-			                <span class="sr-only">87% Complete</span>
+			              <div class="progress-bar" role="progressbar" aria-valuenow="<?php echo $rs->camp_completed;?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $rs->camp_completed;?>%;">
+			                <span class="sr-only"><?php echo $rs->camp_completed;?>% Completo</span>
 			              </div>
 			            </div>
 			            <div class="campaign-progress-info-area">
-				            <div class="campaign-progress-info">87% completo com</div>
-				            <div class="campaign-progress-info"><span class="cyan-title">R$ 3.780,00</span> presenteados</div>
+				            <div class="campaign-progress-info"><?php echo $rs->camp_completed;?>% completo com</div>
+				            <div class="campaign-progress-info">
+				            	<span class="cyan-title currency" data-a-sign="R$ " data-aSep ="." data-aDec =","><?php echo $rs->camp_collected;?></span> presenteados
+				            </div>
+
+				            </span>
 			            </div>
 			        </div>
 	            </div>
