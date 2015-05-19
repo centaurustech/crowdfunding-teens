@@ -25,11 +25,12 @@ class home extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->model('users_model');
+
+		$this->masterpage->use_session_info();
 	}
 
 	public function index() {
 
-		$this->masterpage->use_session_info();
 		$this->masterpage->view('/home/view_home');
 
 	}

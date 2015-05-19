@@ -14,29 +14,32 @@
 <div class="container campaign-details">
 
 	<h1>
-		<?php echo $rs->camp_owner;?>
+<?php echo $rs->camp_owner;?>
 		<span class="cyan-title">quer ganhar un...</span>
 	</h1>
 	<hr class="grey-line">
 
 	<form  id="form-campaign" action="edit-campaign" method="post"> <!-- Campaign data -->
 
+		<input type="hidden" name= "idcampaign" id="idcampaign" class="pk_field"value="<?php echo $rs->idcampaign;?>">
+
 		<div class="row"> <!-- Campaign Name -->
 		  	<div class="col-md-7">
 			  	<div class = "col-xs-10">
 					<h2 id="current-CampName"><?php echo $rs->camp_name;?></h2>
 			  	</div>
-			  	<div class = "col-xs-2 edit-campaign-name">
-					<a id="edit-CampName" class="link-edit edit-area" href="#">Alterar</a>
-			  	</div>
-
-				<div id="form-edit-CampName" class="col-md-12 form-edit hide">
+<?php if ($rs->is_own_campaign) {?>
+	<div class = "col-xs-2 edit-campaign-name">
+																																																					<a id="edit-CampName" class="link-edit edit-area" href="#">Alterar</a>
+																																																			  	</div>
+	<?php }?>
+<div id="form-edit-CampName" class="col-md-12 form-edit hide">
 
 					<div class="form-group">
 						<label for="inputCampName" class="sr-only">Nome Presente</label>
-						<input type="text" id = "inputCampName" name = "inputCampName"  class="form-control" placeholder="Insira o Nome do seu Presente..." value="">
+						<input type="text" id = "inputCampName" name = "inputCampName" data-db-field="camp_name"  class="form-control" placeholder="Insira o Nome do seu Presente..." value="">
 						<div class="btn-group pull-right" role="group">
-							<button id="save-CampName" class="btn btn-success" type="button">
+							<button id="save-CampName" class="btn btn-success btn-save" type="button">
 								<i class="fa fa-check"></i>
 							</button>
 							<button id="cancel-edit-CampName" class="btn btn-default btn-cancel-edit" type="button">
@@ -52,14 +55,40 @@
 		<div class="row">	<!-- Basic Info Pane -->
 			<div class="col-md-7">
 
-				<img class="campaign-full-picture" src="<?php echo $rs->imgurl;?>" alt="Playstation 4">
+<?php if ($rs->is_own_campaign) {?>
+	<p class="edit-area">
+																												<small>
+																													Alterar Imagen do Presente
+																												</small>
+																												<small><input id="edit-CampaignFullPicture" class="file-selector" type="file"></small>
+																											</p>
+
+	<?php }?>
+
+				<img id="current-CampaignFullPicture" class="campaign-full-picture" src="<?php echo $rs->imgurl;?>" alt="Playstation 4">
+
+				<div id="form-edit-CampaignFullPicture" class="form-group edit-campaign hide">
+					<div>
+						<img id="inputCampaignFullPicture" class="campaign-full-picture" src="" data-db-field="img_url">
+					</div>
+
+					<div class="btn-group btn-group-edit-photo" role="group">
+				        <button id="save-CampaignFullPicture" class="btn btn-success" type="button">
+				        	<i class="fa fa-check"></i>
+				        </button>
+				        <button id="cancel-edit-CampaignFullPicture" class="btn btn-default btn-cancel-edit" type="button">
+				        	<i class="fa fa-times"></i>
+				        </button>
+				    </div>
+				</div>
 
 				<div class="row bubble-description">
 
 					<div id="current-CampDescription"><?php echo $rs->camp_description;?></div>
 
-					<span class="pull-right"><a id="edit-CampDescription" class="link-edit edit-area" href="#">Alterar</a></span>
-
+<?php if ($rs->is_own_campaign) {?>
+	<span class="pull-right"><a id="edit-CampDescription" class="link-edit edit-area" href="#">Alterar</a></span>
+	<?php }?>
 					<div id="form-edit-CampDescription" class="form-group edit-campaign hide">
 
 						<label for="inputCampDescription" class="sr-only">Descrição Presente</label>
@@ -101,11 +130,12 @@
 							</div>
 
 							<p id="current-CampOwnerName"><?php echo $rs->camp_owner;?></p>
-							<p>
-								<a id="edit-CampOwnerName" class="link-edit edit-area" href="#">Alterar Nome</a>
-							</p>
-
-							<div id="form-edit-CampOwnerName" class="form-group edit-campaign hide" action="edit-campaign" method="post">
+<?php if ($rs->is_own_campaign) {?>
+	<p>
+																																																						<a id="edit-CampOwnerName" class="link-edit edit-area" href="#">Alterar Nome</a>
+																																																					</p>
+	<?php }?>
+<div id="form-edit-CampOwnerName" class="form-group edit-campaign hide" action="edit-campaign" method="post">
 								<label for="inputCampOwnerName" class="sr-only">Nome Receptor</label>
 								<div class="text-area-box">
 							      <input id = "inputCampOwnerName" name = "inputCampOwnerName" type="text" class="form-control" placeholder="Insira seu Nome..." value="João Oliveira Neto" autocomplete="off">
@@ -121,12 +151,14 @@
 							    </div>
 						  	</div>
 
-							<p class="edit-area">
-								<small>
-									Alterar Foto de Perfil
-								</small>
-								<small><input id="edit-CampOwnerPhoto" type="file"></small>
-							</p>
+<?php if ($rs->is_own_campaign) {?>
+	<p class="edit-area">
+																																																					<small>
+																																																						Alterar Foto de Perfil
+																																																					</small>
+																																																					<small><input id="edit-CampOwnerPhoto" class = "file-selector" type="file"></small>
+																																																				</p>
+	<?php }?>
 						</div>
 					</div>
 
@@ -191,9 +223,11 @@
 				          	<div class = "col-xs-6 price-title">
 								<h4>Preço</h4>
 				          	</div>
-				          	<div class = "col-xs-6 edit-price">
-								<a id="edit-CampPriceAmount" class="link-edit edit-area" href="#">Alterar</a>
-				          	</div>
+<?php if ($rs->is_own_campaign) {?>
+	<div class = "col-xs-6 edit-price">
+																																																			<a id="edit-CampPriceAmount" class="link-edit edit-area" href="#">Alterar</a>
+																																															          	</div>
+	<?php }?>
 				        </div>
 			            <div class="form-edit">
 				            <div id="current-CampPriceAmount" class="price-amount">
@@ -292,12 +326,15 @@
 
 			<div class="row">
 				<div class="row alert alert-hightlight hightlight-red alert-dismissible alert-comments" role="alert">
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<button type="button" class="close next" aria-label="Seguinte">
-						<span aria-hidden="true">+</span>
-					</button>
+<?php if ($rs->is_own_campaign) {?>
+	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+																																									<span aria-hidden="true">&times;</span>
+																																								</button>
+
+																																									<button type="button" class="close next" aria-label="Seguinte">
+																																										<span aria-hidden="true">+</span>
+																																									</button>
+	<?}?>
 					<p align="justify">
 						Parabéns anticipado, man!
 						Dei uma forcinha aí e espero que você alcance o PS4!!

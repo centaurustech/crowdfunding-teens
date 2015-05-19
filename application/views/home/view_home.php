@@ -88,7 +88,7 @@
             <div class="thumbnail">
               <h3>João Oliveira</h3>
               <img class="img-gift" src="assets/uploads/joaozinho/PlayStation-4.jpg" alt="Playstation 4">
-              <h4><a class = "campaign-name" href="campaigns/show_details/1">Playstation 4</a></h4>
+              <h4><a class = "campaign-name" href="campaigns/details/1">Playstation 4</a></h4>
               <p>Vai pessoal ajuda ae! Faltam bem pouquinhoooo!!!!<br>
               Partiu aniversário de João!</p>
               <div class = "campaign-values">
@@ -106,7 +106,7 @@
             <div class="thumbnail">
               <h3>Cláudio Alves</h3>
               <img class="img-gift" src="assets/uploads/joaozinho/nike-air-max.jpg" alt="Playstation 4">
-              <h4><a class = "campaign-name" href="campaigns/show_details/2">Nike Air Max</a></h4>
+              <h4><a class = "campaign-name" href="campaigns/details/2">Nike Air Max</a></h4>
               <p>Vale todo mundo que contribuiu! Já comprei e ficou sensacional :)))
               </p>
               <div class = "campaign-values">
@@ -124,7 +124,7 @@
             <div class="thumbnail">
               <h3>Mari Junqueira</h3>
                 <img class="img-gift" src="assets/uploads/joaozinho/iphone-6-plus.jpg" alt="Playstation 4">
-                <h4><a class = "campaign-name" href="campaigns/show_details/3">iPhone 6 plus</a></h4>
+                <h4><a class = "campaign-name" href="campaigns/details/3">iPhone 6 plus</a></h4>
                 <p>Meu aniversário é no dia 18 e vou ficar muito feliz se vocês me ajudarem a comprar um iphone 6 novinho.
                 </p>
               <div class = "campaign-values">
@@ -142,7 +142,7 @@
             <div class="thumbnail">
               <h3>Carol Battis</h3>
               <img class="img-gift" src="assets/uploads/joaozinho/samsung-smart-tv.jpg" alt="Playstation 4">
-              <h4><a class = "campaign-name" href="campaigns/show_details/4">Smart TV 55'</a></h4>
+              <h4><a class = "campaign-name" href="campaigns/details/4">Smart TV 55'</a></h4>
               <p>MUITO OBRIGADO A TODO MUNDO QUE ME AJUDOU A COMPRAR UMA TV NOVA PRO MEU QUARTO! DEUS É PAI!
               </p>
               <div class = "campaign-values">
@@ -165,7 +165,7 @@
             <div class="thumbnail">
               <h3>João Oliveira</h3>
               <img class="img-gift" src="assets/uploads/joaozinho/PlayStation-4.jpg" alt="Playstation 4">
-              <h4><a class = "campaign-name" href="campaigns/show_details/1">Playstation 4</a></h4>
+              <h4><a class = "campaign-name" href="campaigns/details/1">Playstation 4</a></h4>
               <p>Vai pessoal ajuda ae! Faltam bem pouquinhoooo!!!!<br>
               Partiu aniversário de João!</p>
               <div class = "campaign-values">
@@ -183,7 +183,7 @@
             <div class="thumbnail">
               <h3>Cláudio Alves</h3>
               <img class="img-gift" src="assets/uploads/joaozinho/nike-air-max.jpg" alt="Playstation 4">
-              <h4><a class = "campaign-name" href="campaigns/show_details/2">Nike Air Max</a></h4>
+              <h4><a class = "campaign-name" href="campaigns/details/2">Nike Air Max</a></h4>
               <p>Vale todo mundo que contribuiu! Já comprei e ficou sensacional :)))
               </p>
               <div class = "campaign-values">
@@ -201,7 +201,7 @@
             <div class="thumbnail">
               <h3>Mari Junqueira</h3>
                 <img class="img-gift" src="assets/uploads/joaozinho/iphone-6-plus.jpg" alt="Playstation 4">
-                <h4><a class = "campaign-name" href="campaigns/show_details/3">iPhone 6 plus</a></h4>
+                <h4><a class = "campaign-name" href="campaigns/details/3">iPhone 6 plus</a></h4>
                 <p>Meu aniversário é no dia 18 e vou ficar muito feliz se vocês me ajudarem a comprar um iphone 6 novinho.
                 </p>
               <div class = "campaign-values">
@@ -219,7 +219,7 @@
             <div class="thumbnail">
               <h3>Carol Battis</h3>
               <img class="img-gift" src="assets/uploads/joaozinho/samsung-smart-tv.jpg" alt="Playstation 4">
-              <h4><a class = "campaign-name" href="campaigns/show_details/4">Smart TV 55'</a></h4>
+              <h4><a class = "campaign-name" href="campaigns/details/4">Smart TV 55'</a></h4>
               <p>MUITO OBRIGADO A TODO MUNDO QUE ME AJUDOU A COMPRAR UMA TV NOVA PRO MEU QUARTO! DEUS É PAI!
               </p>
               <div class = "campaign-values">

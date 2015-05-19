@@ -38,6 +38,8 @@
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/language/pt_BR.js"></script>
 
+    <script src="<?php echo base_url('assets/js/bootbox.min.js');?>"></script>
+
     <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
     <!-- script src="assets/js/vendor/holder.js"></script -->
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
@@ -88,26 +90,26 @@
                   </div>
                 </li>
 
-                <?php if (isset($current_user)) {?>
-                <li class="menu-sign-up last-element-mobile">
-                  <div class="profile-info">
-                    <img class="img-rounded" src="<?php echo $user_pic;?>">
-                    <small><?php echo $current_user;?>
-                    </small>
-                  </div>
-                </li>
-                <li class = "menu-login last-element">
-                  <a href="<?php echo base_url('logout');?>">Logout</a>
-                </li>
-                <?php } else {?>
+<?php if (isset($current_user)) {?>
+				                <li class="menu-sign-up last-element-mobile">
+				                  <div class="profile-info">
+				                    <img class="img-rounded" src="<?php echo $user_pic;?>">
+				                    <small><?php echo $current_user;?>
+				                    </small>
+				                  </div>
+				                </li>
+				                <li class = "menu-login last-element">
+				                  <a href="<?php echo base_url('logout');?>">Logout</a>
+				                </li>
+	<?php } else {?>
 
-                <li class="menu-sign-up last-element-mobile">
-                  <a href="<?php echo base_url('signup');?>">Registre-se</a>
-                </li>
-                <li class = "menu-login last-element">
-                  <a href="<?php echo base_url('login');?>">Login</a>
-                </li>
-                <?php }?>
+				                <li class="menu-sign-up last-element-mobile">
+				                  <a href="<?php echo base_url('signup');?>">Registre-se</a>
+				                </li>
+				                <li class = "menu-login last-element">
+				                  <a href="<?php echo base_url('login');?>">Login</a>
+				                </li>
+	<?php }?>
 
               </ul>
             </div>

@@ -44,11 +44,11 @@ class login extends CI_Controller {
 
 		$password = md5($this->input->post('inputPassword'));
 
-		$data['iduser'] = $user['iduser'];
-		$data['userpassword'] = $password;
+		$data['iduser']         = $user['iduser'];
+		$data['userpassword']   = $password;
 		$data['changepassword'] = 0;
-		$data['hash_value'] = null;
-		$data['hash_date'] = null;
+		$data['hash_value']     = null;
+		$data['hash_date']      = null;
 
 		$this->users_model->update($data);
 
@@ -70,13 +70,13 @@ class login extends CI_Controller {
 
 				$user_data = $this->users_model->searchUserByPeopleId($people_data->idpeople);
 
-				$randomHash = md5($user_data->username) . md5($date->getTimestamp());
+				$randomHash = md5($user_data->username).md5($date->getTimestamp());
 
-				$data['iduser'] = $user_data->iduser;
+				$data['iduser']     = $user_data->iduser;
 				$data['hash_value'] = $randomHash;
-				$new_hour = Time() + (60 * 60 * 2);
-				$new_date = date("Y-m-d H:i.s", $new_hour);
-				$data['hash_date'] = $new_date;
+				$new_hour           = Time()+(60*60*2);
+				$new_date           = date("Y-m-d H:i.s", $new_hour);
+				$data['hash_date']  = $new_date;
 
 				$result = $this->users_model->update($data);
 
@@ -84,11 +84,11 @@ class login extends CI_Controller {
 					/*$email_from = $this->config->item('sender_email');
 					$name_from = $this->config->item('sender_name');*/
 					$name_from = "Crowdfunding";
-					$email_to = $email_user;
-					$subject = "Alteração de senha";
+					$email_to  = $email_user;
+					$subject   = "Alteração de senha";
 
 					$link_hash = base_url('/login/recoverpassword');
-					$link_hash .= "/" . $randomHash;
+					$link_hash .= "/".$randomHash;
 
 					$message = '<h1 style="font-size:14px; color:#000000; font-family:Verdana, Arial, Helvetica, sans-serif;">%saludo%</h1>';
 					$message .= '<p style="font-size:12;">%cuerpo%</p>';
@@ -99,12 +99,12 @@ class login extends CI_Controller {
 					$saludo = "Prezado";
 					$cuerpo = "Segue abaixo o link para criar uma nova senha e assim ter acesso na sua conta:";
 
-					$message = str_replace('%saludo%', $saludo . ' ' . $people_data->fullname . ',', $message);
+					$message = str_replace('%saludo%', $saludo.' '.$people_data->fullname.',', $message);
 					$message = str_replace('%cuerpo%', $cuerpo, $message);
 					$message = str_replace('%url%', $link_hash, $message);
 
-					$config_email['protocol'] = $this->config->item("protocol");
-					$config_email['mailtype'] = $this->config->item("mailtype");
+					$config_email['protocol']  = $this->config->item("protocol");
+					$config_email['mailtype']  = $this->config->item("mailtype");
 					$config_email['smtp_host'] = $this->config->item("smtp_host");
 					$config_email['smtp_user'] = $this->config->item("smtp_user");
 					$config_email['smtp_pass'] = $this->config->item("smtp_pass");
@@ -153,15 +153,15 @@ class login extends CI_Controller {
 
 		if (!empty($userObj)) {
 
-			$peopleObj = $this->people_model->get($userObj->idpeople);
+			$peopleObj    = $this->people_model->get($userObj->idpeople);
 			$current_date = floatval(strtotime('now'));
-			$hash_date = floatval(strtotime($userObj->hash_date));
+			$hash_date    = floatval(strtotime($userObj->hash_date));
 
 			if ($current_date < $hash_date && $hash == $userObj->hash_value) {
 
 				$data_user["fullname"] = $peopleObj->fullname;
-				$data_user["email"] = $peopleObj->email;
-				$data_user["iduser"] = $userObj->iduser;
+				$data_user["email"]    = $peopleObj->email;
+				$data_user["iduser"]   = $userObj->iduser;
 				$data_user["username"] = $userObj->username;
 
 				$this->session->set_userdata('user', $data_user);
@@ -203,17 +203,17 @@ class login extends CI_Controller {
 				}
 				 */
 
-				$peopleObj = $this->people_model->get($userObj->idpeople);
+				$peopleObj             = $this->people_model->get($userObj->idpeople);
 				$data_user["username"] = $username;
 				$data_user["fullname"] = $peopleObj->fullname;
-				$data_user["picture"] = is_null($peopleObj->picture_url) ? "" : $peopleObj->picture_url;
-				$data_user["iduser"] = $userObj->iduser;
+				$data_user["picture"]  = is_null($peopleObj->picture_url)|empty($peopleObj->picture_url)?base_url("assets/img/no-profile-picture.jpg"):$peopleObj->picture_url;
+				$data_user["iduser"]   = $userObj->iduser;
 
 				$this->session->set_userdata('user', $data_user);
 
 				if ($userObj->changepassword == "0") {
 
-					redirect(base_url('dashboard/'));
+					redirect(base_url('home/'));
 				} else {
 					redirect(base_url('login/create_password/'));
 				}
@@ -261,10 +261,10 @@ class login extends CI_Controller {
 
 			$userObj = $this->users_model->sync_from_facebook($peopleObj->idpeople, $fb_usr);
 
-			$data_user["username"] = is_null($userObj->username) ? "Autenticado por Facebook" : $userObj->username;
+			$data_user["username"] = is_null($userObj->username)?"Autenticado por Facebook":$userObj->username;
 			$data_user["fullname"] = $peopleObj->fullname;
-			$data_user["picture"] = $peopleObj->picture_url;
-			$data_user["iduser"] = $userObj->iduser;
+			$data_user["picture"]  = $peopleObj->picture_url;
+			$data_user["iduser"]   = $userObj->iduser;
 
 			$this->session->set_userdata('user', $data_user);
 			redirect(base_url('home/'));

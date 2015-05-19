@@ -26,30 +26,16 @@ class campaigns extends CI_Controller {
 		parent::__construct();
 		$this->load->model('people_model');
 		$this->load->model('campaigns_model');
+		$this->masterpage->use_session_info();
 	}
 
 	public function index() {
-		//$this->view();
-		if ($this->session->userdata('user')) {
-			$user_session         = $this->session->userdata('user');
-			$data['current_user'] = $user_session['fullname'];
-			$data['user_pic']     = $user_session['picture'];
-
-			//$this->load->view('view_campaigns', $data);
-		} else {
-			//redirect(base_url('/login'));
-			/*
-		$this->load->view('/view_header');
-		$this->load->view('/campaigns/view_campaigns');
-		$this->load->view('/view_footer');
-		 */
-		}
 
 		$this->masterpage->view('/campaigns/view_list_campaigns');
 
 	}
 
-	public function show_details($id_campaign = "") {
+	public function details($id_campaign = "") {
 
 		$data['rs'] = $this->campaigns_model->get_campaign_info($id_campaign);
 
@@ -59,6 +45,40 @@ class campaigns extends CI_Controller {
 			$view_name = "not_found";
 		}
 		$this->masterpage->view("campaigns/".$view_name, $data);
+
+	}
+
+	public function save() {
+
+		if (!$this->input->post()) {
+			show_404();
+		}
+
+		$new_data = array(
+			$this->input->post('fieldName')=> $this->input->post('value'),
+		);
+
+		$result = $this->campaigns_model->update(
+			$this->input->post('record_id'),
+			$new_data
+		);
+
+		if ($result === true && $this->campaigns_model->affected_rows() > 0) {
+			echo json_encode(
+				array(
+					"result"    => true,
+					"msg"       => "Registro atualizado",
+					"new_value" => $this->input->post('value'),
+				)
+			);
+		} else {
+			echo json_encode(
+				array(
+					"result" => false,
+					"msg"    => "Erro ao atualizar campo.",
+				)
+			);
+		}
 
 	}
 
