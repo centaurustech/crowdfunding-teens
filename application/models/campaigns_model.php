@@ -34,26 +34,22 @@ class campaigns_model extends MY_Model {
 		->where('c.idcampaign', $id)
 		->get();
 
-		$session = $this->session->userdata('user');
+		$session = $this->users_model->get_auth_user();
 		$row     = $result->row();
 
-		if ($result) {
+		if ($result && $result->num_rows > 0) {
 
 			// Edit campaign enabled if user logged is the campaign owner.
-			if ($session) {
-				$row->is_own_campaign = $row->iduser == $session["iduser"];
+			if ($session && ($row->iduser == $session->iduser)) {
+				$row->is_own_campaign = TRUE;
 			} else {
-				$row->is_own_campaign = false;
+				$row->is_own_campaign = FALSE;
 			}
 
 			return $row;
 		}
 
 		return false;
-	}
-
-	public function upload_picture() {
-
 	}
 
 	public function getAll() {

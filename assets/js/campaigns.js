@@ -8,7 +8,7 @@ jQuery(function ($) {
 	    /* Form validation for campaign and campaign owner
 	    *****************************
 	    */
-	    $('#form-campaign')
+	    $('#form-campaigns')
 	        .bootstrapValidator({
 	        	//container: 'tooltip',
 	            feedbackIcons: {

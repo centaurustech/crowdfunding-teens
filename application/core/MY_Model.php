@@ -109,6 +109,7 @@ class MY_Model extends CI_Model {
 		array_unshift($this->before_update, 'protect_attributes');
 
 		$this->_temporary_return_type = $this->return_type;
+
 	}
 
 	/* --------------------------------------------------------------
@@ -282,6 +283,7 @@ class MY_Model extends CI_Model {
 		$data = $this->trigger('before_update', $data);
 
 		if ($this->validate($data) !== FALSE) {
+
 			$this->_set_where($args);
 			$result = $this->_database->set($data)
 			               ->update($this->_table);

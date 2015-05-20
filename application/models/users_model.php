@@ -264,11 +264,49 @@ class users_model extends MY_Model {
 		$this->db->delete('users', array('iduser' => $id));
 	}
 
-	function isLogged() {
+	public function isLogged() {
 		if ($this->session->userdata("user")) {
 			return true;
-		} else {
-			return false;
 		}
+
+		return false;
+
 	}
+
+	public function get_auth_user() {
+
+		$user_session = $this->session->userdata("user");
+
+		if ($user_session) {
+
+			$obj = new stdClass();
+
+			$obj->username = $user_session['username'];
+			$obj->iduser   = $user_session['iduser'];
+			$obj->fullname = $user_session['fullname'];
+			$obj->user_pic = $user_session['picture'];
+
+			return $obj;
+		}
+
+		return false;
+	}
+
+	public function create_user_folder() {
+
+		$auth_user = $this->get_auth_user();
+
+		if ($auth_user) {
+			$path = FCPATH.'assets/uploads/'.strtolower($auth_user->username);
+
+			if (!is_dir($path)) {
+				mkdir($path, 0755, true);
+			}
+
+			return $path;
+
+		}
+		return FALSE;
+	}
+
 }

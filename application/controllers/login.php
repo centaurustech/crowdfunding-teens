@@ -2,7 +2,7 @@
 	exit('No direct script access allowed');
 }
 
-class login extends CI_Controller {
+class login extends MY_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -22,7 +22,6 @@ class login extends CI_Controller {
 
 	public function login() {
 		parent::__construct();
-		$this->load->model('users_model');
 		$this->load->model('people_model');
 		$this->load->model('permissions_model');
 		$this->load->config('email');
@@ -261,7 +260,7 @@ class login extends CI_Controller {
 
 			$userObj = $this->users_model->sync_from_facebook($peopleObj->idpeople, $fb_usr);
 
-			$data_user["username"] = is_null($userObj->username)?"Autenticado por Facebook":$userObj->username;
+			$data_user["username"] = is_null($userObj->username)?"fb-".$userObj->facebook_id:$userObj->username;
 			$data_user["fullname"] = $peopleObj->fullname;
 			$data_user["picture"]  = $peopleObj->picture_url;
 			$data_user["iduser"]   = $userObj->iduser;

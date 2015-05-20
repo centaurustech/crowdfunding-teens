@@ -2,7 +2,7 @@
 	exit('No direct script access allowed');
 }
 
-class signup extends CI_Controller {
+class signup extends MY_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -22,7 +22,6 @@ class signup extends CI_Controller {
 
 	public function signup() {
 		parent::__construct();
-		$this->load->model('users_model');
 		$this->load->model('people_model');
 		$this->load->model('permissions_model');
 		$this->load->config('email');

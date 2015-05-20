@@ -526,8 +526,8 @@ a.link-edit{
   }
 
   .alert-comments{
-    margin-left: 0px;
-    margin-right: 0px;
+    margin-left: 14px;
+    margin-right: 14px;
   }
 
   .comments-area {
@@ -535,7 +535,7 @@ a.link-edit{
   }
 
   .next-campaign-comment{
-    padding:  12px 12px 12px 12px;
+    padding:  12px 24px 24px 24px;
   }
 
   .hightlight-red {
@@ -971,7 +971,7 @@ footer .container{
   Comment Section For Campaign Details
    */
   .comments-area {
-    margin-top: -220px;
+    /*margin-top: -220px;*/
   }
 
   .campaign-contribution-amount{
@@ -1033,7 +1033,7 @@ footer .container{
   Comment Section For Campaign Details
    */
   .comments-area {
-    margin-top: -220px;
+    /*margin-top: -220px;*/
   }
 
   .campaign-contribution-amount{

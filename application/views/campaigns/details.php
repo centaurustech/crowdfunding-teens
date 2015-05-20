@@ -19,9 +19,11 @@
 	</h1>
 	<hr class="grey-line">
 
-	<form  id="form-campaign" action="edit-campaign" method="post"> <!-- Campaign data -->
+	<form  id="form-campaigns" action="edit-campaigns/" method="post"> <!-- Campaign data -->
 
 		<input type="hidden" name= "idcampaign" id="idcampaign" class="pk_field"value="<?php echo $rs->idcampaign;?>">
+		<input type="hidden" name= "controllername" id="controllername" value="<?php echo $controller_name;?>">
+
 
 		<div class="row"> <!-- Campaign Name -->
 		  	<div class="col-md-7">
@@ -30,14 +32,14 @@
 			  	</div>
 <?php if ($rs->is_own_campaign) {?>
 	<div class = "col-xs-2 edit-campaign-name">
-																																																					<a id="edit-CampName" class="link-edit edit-area" href="#">Alterar</a>
-																																																			  	</div>
+																																																																																																																																																													<a id="edit-CampName" class="link-edit edit-area" href="#">Alterar</a>
+																																																																																																																																																											  	</div>
 	<?php }?>
 <div id="form-edit-CampName" class="col-md-12 form-edit hide">
 
 					<div class="form-group">
 						<label for="inputCampName" class="sr-only">Nome Presente</label>
-						<input type="text" id = "inputCampName" name = "inputCampName" data-db-field="camp_name"  class="form-control" placeholder="Insira o Nome do seu Presente..." value="">
+						<input type="text" id = "inputCampName" name = "inputCampName" data-controller="campaigns" data-db-field="camp_name"  class="form-control" placeholder="Insira o Nome do seu Presente..." value="">
 						<div class="btn-group pull-right" role="group">
 							<button id="save-CampName" class="btn btn-success btn-save" type="button">
 								<i class="fa fa-check"></i>
@@ -55,32 +57,46 @@
 		<div class="row">	<!-- Basic Info Pane -->
 			<div class="col-md-7">
 
-<?php if ($rs->is_own_campaign) {?>
-	<p class="edit-area">
-																												<small>
-																													Alterar Imagen do Presente
-																												</small>
-																												<small><input id="edit-CampaignFullPicture" class="file-selector" type="file"></small>
-																											</p>
 
-	<?php }?>
-
-				<img id="current-CampaignFullPicture" class="campaign-full-picture" src="<?php echo $rs->imgurl;?>" alt="Playstation 4">
+				<img id="current-CampaignFullPicture" class="campaign-full-picture" src="<?php echo $rs->imgurl;?>">
 
 				<div id="form-edit-CampaignFullPicture" class="form-group edit-campaign hide">
 					<div>
-						<img id="inputCampaignFullPicture" class="campaign-full-picture" src="" data-db-field="img_url">
+						<img id="inputCampaignFullPicture" class="campaign-full-picture" src="" data-controller="campaigns" data-db-field="imgurl">
 					</div>
 
-					<div class="btn-group btn-group-edit-photo" role="group">
-				        <button id="save-CampaignFullPicture" class="btn btn-success" type="button">
-				        	<i class="fa fa-check"></i>
-				        </button>
-				        <button id="cancel-edit-CampaignFullPicture" class="btn btn-default btn-cancel-edit" type="button">
-				        	<i class="fa fa-times"></i>
-				        </button>
-				    </div>
 				</div>
+
+<?php if ($rs->is_own_campaign) {?>
+												<form id="fake" name="fake"></form>
+												<div class="row">
+													<form id="imgUploadFullPicture" name="imgUploadFullPicture" method = "post" action="<?php echo base_url('campaigns/save_img/');?>" enctype="multipart/form-data">
+														<p class="edit-area2">
+															<small class="col-md-offset-1 col-md-11">
+																Alterar Imagen do Presente
+															</small>
+															<small>
+																<div class="col-md-offset-1 col-md-8">
+																	<input id="edit-CampaignFullPicture" name ="uploadCampaignPict" class="file-selector" type="file" />
+																</div>
+																<div class="col-md-3 btn-edit-CampaignFullPicture hide">
+																	<div class="btn-group btn-group-edit-photo" role="group">
+																        <button type = "submit" id="save-CampaignFullPicture" name ="btnUpload" class="btn btn-success" type="button">
+																        	<i class="fa fa-check"></i>
+																        </button>
+																        <button id="cancel-edit-CampaignFullPicture" class="btn btn-default btn-cancel-edit" type="button">
+																        	<i class="fa fa-times"></i>
+																        </button>
+																    </div>
+																</div>
+															</small>
+														</p>
+													</form>
+
+												</div>
+
+
+	<?php }?>
 
 				<div class="row bubble-description">
 
@@ -93,11 +109,11 @@
 
 						<label for="inputCampDescription" class="sr-only">Descrição Presente</label>
 						<div class="text-area-box">
-							<textarea id = "inputCampDescription" name = "inputCampDescription" class="form-control" placeholder="Escreva em poucas palavras porque você merece ganhar esse presente. Seja convincente!"></textarea>
+							<textarea id = "inputCampDescription" name = "inputCampDescription" class="form-control" data-controller="campaigns" data-db-field="camp_description" placeholder="Escreva em poucas palavras porque você merece ganhar esse presente. Seja convincente!"></textarea>
 						</div>
 
 					    <div class="btn-group pull-right" role="group">
-					        <button id="save-CampDescription" class="btn btn-success" type="button">
+					        <button id="save-CampDescription" class="btn btn-success btn-save" type="button">
 					        	<i class="fa fa-check"></i>
 					        </button>
 					        <button id="cancel-edit-CampDescription" class="btn btn-default btn-cancel-edit" type="button">
@@ -132,8 +148,8 @@
 							<p id="current-CampOwnerName"><?php echo $rs->camp_owner;?></p>
 <?php if ($rs->is_own_campaign) {?>
 	<p>
-																																																						<a id="edit-CampOwnerName" class="link-edit edit-area" href="#">Alterar Nome</a>
-																																																					</p>
+																																																																																																																																																														<a id="edit-CampOwnerName" class="link-edit edit-area" href="#">Alterar Nome</a>
+																																																																																																																																																													</p>
 	<?php }?>
 <div id="form-edit-CampOwnerName" class="form-group edit-campaign hide" action="edit-campaign" method="post">
 								<label for="inputCampOwnerName" class="sr-only">Nome Receptor</label>
@@ -153,11 +169,11 @@
 
 <?php if ($rs->is_own_campaign) {?>
 	<p class="edit-area">
-																																																					<small>
-																																																						Alterar Foto de Perfil
-																																																					</small>
-																																																					<small><input id="edit-CampOwnerPhoto" class = "file-selector" type="file"></small>
-																																																				</p>
+																																																																																																																																																													<small>
+																																																																																																																																																														Alterar Foto de Perfil
+																																																																																																																																																													</small>
+																																																																																																																																																													<small><input id="edit-CampOwnerPhoto" class = "file-selector" type="file"></small>
+																																																																																																																																																												</p>
 	<?php }?>
 						</div>
 					</div>
@@ -225,8 +241,8 @@
 				          	</div>
 <?php if ($rs->is_own_campaign) {?>
 	<div class = "col-xs-6 edit-price">
-																																																			<a id="edit-CampPriceAmount" class="link-edit edit-area" href="#">Alterar</a>
-																																															          	</div>
+																																																																																																																																																											<a id="edit-CampPriceAmount" class="link-edit edit-area" href="#">Alterar</a>
+																																																																																																																																																							          	</div>
 	<?php }?>
 				        </div>
 			            <div class="form-edit">
@@ -262,7 +278,6 @@
 				            	<span class="cyan-title currency" data-a-sign="R$ " data-aSep ="." data-aDec =","><?php echo $rs->camp_collected;?></span> presenteados
 				            </div>
 
-				            </span>
 			            </div>
 			        </div>
 	            </div>
@@ -273,7 +288,7 @@
 						<div class = "campaign-values">
 			              <p>Presentei com</p>
 
-			              	<form class="" role="form">
+			              	<form class="frmContribute" role="form">
 				                <div class="contribute-form-area">
 				                    <div class="form-group">
 					                    <div class="input-group text-area-box">
@@ -287,6 +302,64 @@
 			        	</div>
 		            </div>
 				</div>
+
+
+				<div class="row comments-area"> <!-- Right Pane -->
+
+					<div class="row">
+						<div class="row alert alert-hightlight hightlight-red alert-dismissible alert-comments" role="alert">
+<?php if ($rs->is_own_campaign) {?>
+	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+																																																																																									<span aria-hidden="true">&times;</span>
+																																																																																								</button>
+
+																																																																																									<button type="button" class="close next" aria-label="Seguinte">
+																																																																																										<span aria-hidden="true">+</span>
+																																																																																									</button>
+	<?}?>
+							<p align="justify">
+								Parabéns anticipado, man!
+								Dei uma forcinha aí e espero que você alcance o PS4!!
+								Abraço!!!
+							</p>
+							<p align="right">
+								Cadu
+							</p>
+						</div>
+
+
+					</div>
+
+					<div class="row next-campaign-comment">
+						<p align="justify">
+							João meu sobrinho querido.
+							Nem acredito que você está fazendo 15 anos.
+							Como o tempo passa!
+							Estou morrendo de saudade de você e quero te desejar um excelente aniversário e que você alcance tudo o que sempre sonhou.
+							Um beijo de sua tia que te ama muito!
+						</p>
+						<p align="right">
+							Tia Zefa.
+						</p>
+					</div>
+
+				</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 			</div>
 		</div>
 
@@ -322,47 +395,7 @@
 
 		</div>	<!-- Left Pane -->
 
-		<div class="col-md-5 comments-area"> <!-- Right Pane -->
 
-			<div class="row">
-				<div class="row alert alert-hightlight hightlight-red alert-dismissible alert-comments" role="alert">
-<?php if ($rs->is_own_campaign) {?>
-	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-																																									<span aria-hidden="true">&times;</span>
-																																								</button>
-
-																																									<button type="button" class="close next" aria-label="Seguinte">
-																																										<span aria-hidden="true">+</span>
-																																									</button>
-	<?}?>
-					<p align="justify">
-						Parabéns anticipado, man!
-						Dei uma forcinha aí e espero que você alcance o PS4!!
-						Abraço!!!
-					</p>
-					<p align="right">
-						Cadu
-					</p>
-				</div>
-
-
-			</div>
-
-			<div class="row next-campaign-comment">
-				<p align="justify">
-					João meu sobrinho querido.
-					Nem acredito que você está fazendo 15 anos.
-					Como o tempo passa!
-					Estou morrendo de saudade de você e quero te desejar um excelente aniversário e que você alcance tudo o que sempre sonhou.
-					Um beijo de sua tia que te ama muito!
-				</p>
-				<p align="right">
-					Tia Zefa.
-				</p>
-			</div>
-
-
-		</div>
 	</div> <!-- Right Pane -->
 
 

@@ -11,11 +11,14 @@ $(document).ready(function() {
             initEdit: function () {
                 var formId = "#form-" + $(this).attr('id');
                 var currentField = "#current-" + $(this).attr('id').replace('edit-','');
+                var buttonSet = ".btn-" + $(this).attr('id');
+
                 var inputField = "#input" + $(this).attr('id').replace('edit-','');
                 $("#chooser-profile-picture").addClass('hide');
                 $(".edit-area").addClass("hide");
                 $(currentField).addClass("hide");
                 $(formId).removeClass("hide");
+                $(buttonSet).removeClass("hide");
 
                 if($(inputField).is('input') | $(inputField).is('textarea')){
                     $(inputField).val($(currentField).text().trim());
@@ -31,7 +34,21 @@ $(document).ready(function() {
                 var formValidation = $(currentField).parents('form');
                 var inputField = "#input" + $(this).attr('id').replace('save-','');
 
-                var url = window.location.href.replace('/details/','/save/');
+                var url = '';
+                var controllerInput = $(inputField).data('controller');
+                var baseURL = document.URL.toLowerCase().substr(0,document.URL.indexOf( $('#controllername').val() ));
+
+                url = baseURL + controllerInput + '/save/';
+
+                //Disabling button and show Loading
+                var loadingImg = baseURL + 'assets/img/img-loading.gif';
+                var savingMsg = '';
+                savingMsg = '<span id = "label-msg-saving"> ' +
+                                '<img src="'+loadingImg+'"> ' +
+                                    'Salvando, aguarde...'+
+                                '</span>';
+
+                $(inputField).after(savingMsg);
 
                 $.ajax({
                     url: url,
@@ -39,7 +56,7 @@ $(document).ready(function() {
                     data: { 
                         record_id : $(".pk_field").val(),
                         fieldName: $(inputField).data("db-field"),
-                        value: $(inputField).val() 
+                        value: $(inputField).val(),
                     },
                     success: function(data) {
                         var json = $.parseJSON(data);
@@ -50,7 +67,7 @@ $(document).ready(function() {
                         if(json.result){
                             $(currentField).html(json.new_value);
                             $(currentField).after(label);
-                            $(".btn-cancel-edit").cancelEdit();
+                            $(currentField).cancelEdit();
                         }
                         else{
                             $(inputField).after(label);
@@ -61,6 +78,7 @@ $(document).ready(function() {
                         $("#label-msg-save").fadeOut(1500, function() {
                             // Destroy the message in the DOM
                             $(this).remove();
+                            $("#label-msg-saving").remove();
                             
                         });
 
@@ -75,12 +93,14 @@ $(document).ready(function() {
                 var formId = "#" + currentField.replace('#current-','form-edit-');
                 var formValidation = $(currentField).parents('form');
                 var inputField = "#input" + $(this).attr('id').replace('cancel-edit-','');
+                var buttonSet = ".btn-" + $(this).attr('id').replace('cancel-','');
 
                 $(formValidation).data('bootstrapValidator').resetForm(true);
                 $(formId).blur();
                 $(formId).addClass("hide");
                 $(".edit-area").removeClass("hide");
                 $(currentField).removeClass("hide");
+                $(buttonSet).addClass("hide");
                 $(".file-selector").removeClass('hide');
                 $(".file-selector").val('');
                 
@@ -89,16 +109,22 @@ $(document).ready(function() {
                 }
             },
             
-            previewImage:function(e, selector){
+            previewImage:function(e, elementID){
 
-                for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
-                     var file = e.originalEvent.srcElement.files[i];
-                     var reader = new FileReader();
-                     reader.onloadend = function() {
-                          $(selector).attr('src', reader.result);
-                     }
-                     reader.readAsDataURL(file);
-                 }
+                var preview = document.getElementById(elementID);
+                var file    = document.getElementById($(this).attr('id')).files[0];
+                var reader  = new FileReader();
+
+                reader.onloadend = function () {
+                    preview.src = reader.result;
+                }
+
+                if (file) {
+                    reader.readAsDataURL(file);
+                } else {
+                    preview.src = "";
+                }
+
              },
 
             selectText: function (element) {
@@ -134,8 +160,36 @@ $(document).ready(function() {
 
     $(document).on("click", ".btn-save", function(ev){
         ev.preventDefault();
-
         $(this).saveEdit();
+    });
+
+    $(document).on("click", ".btn-save-img", function(ev){
+        ev.preventDefault();
+
+        var formData2 = new FormData($("#imgUploadFullPicture")[0]);
+
+        $("#imgUploadFullPicture").submit(function() {
+            
+            var baseURL = document.URL.toLowerCase().substr(0,document.URL.indexOf( $('#controllername').val() ));
+            var urlSaveImg = baseURL + $('#controllername').val() + "/save_img";
+
+            var formData = new FormData($(this)[0]);
+
+            $.ajax({
+                url: $(this).attr('action'),
+                type: 'POST',
+                data: formData,
+                async: false,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    alert(data);
+                }
+            });
+
+            return false;
+        });
 
     });
 
@@ -146,14 +200,14 @@ $(document).ready(function() {
 
     $("#edit-CampOwnerPhoto").change(function(e) {
 
-         $(this).previewImage(e, "#inputCampOwnerPhoto");
+         $(this).previewImage(e, "inputCampOwnerPhoto");
          $(this).initEdit();
 
     });
 
     $("#edit-CampaignFullPicture").change(function(e) {
 
-         $(this).previewImage(e, "#inputCampaignFullPicture");
+         $(this).previewImage(e, "inputCampaignFullPicture");
          $(this).initEdit();
 
     });

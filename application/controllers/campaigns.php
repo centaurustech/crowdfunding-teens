@@ -4,7 +4,7 @@ if (!defined('BASEPATH')) {
 	exit('No direct script access allowed');
 }
 
-class campaigns extends CI_Controller {
+class campaigns extends MY_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -26,6 +26,8 @@ class campaigns extends CI_Controller {
 		parent::__construct();
 		$this->load->model('people_model');
 		$this->load->model('campaigns_model');
+		$this->load->model('campaigns_images_gallery_model', 'camp_pictures');
+
 		$this->masterpage->use_session_info();
 	}
 
@@ -37,7 +39,8 @@ class campaigns extends CI_Controller {
 
 	public function details($id_campaign = "") {
 
-		$data['rs'] = $this->campaigns_model->get_campaign_info($id_campaign);
+		$data['rs']              = $this->campaigns_model->get_campaign_info($id_campaign);
+		$data['controller_name'] = $this->router->class;
 
 		if ($data['rs']) {
 			$view_name = "details";
@@ -52,6 +55,7 @@ class campaigns extends CI_Controller {
 
 		if (!$this->input->post()) {
 			show_404();
+			return;
 		}
 
 		$new_data = array(
@@ -79,6 +83,34 @@ class campaigns extends CI_Controller {
 				)
 			);
 		}
+	}
+
+	public function save_img() {
+		/*
+		if (!$this->input->post()) {
+		show_404();
+		return;
+		}*/
+
+		//Check for private user folder and set it for uploading.
+		$path = $this->users_model->create_user_folder();
+
+		//Upload the image.
+		$file = $this->camp_pictures->upload($path, "uploadCampaignPict");
+
+		// Image successfully uploaded
+		if (isset($file["upload_data"])) {
+			$upload_data = $file["upload_data"];
+			$imgurl      = str_replace(FCPATH, base_url(), $upload_data["full_path"]);
+
+			$campaign_id = "1";// Get idcampaign from HTML (later)
+			//Save the image url in DB.
+			$result = $this->camp_pictures->update_by_campaing_id($campaign_id, $imgurl);
+
+			redirect(base_url('campaigns/details/1'));
+		}
+
+		var_dump($file);// Meanwhile, we spit variable. Later, create a view for error.
 
 	}
 

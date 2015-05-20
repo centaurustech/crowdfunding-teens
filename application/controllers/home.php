@@ -4,7 +4,7 @@ if (!defined('BASEPATH')) {
 	exit('No direct script access allowed');
 }
 
-class home extends CI_Controller {
+class home extends MY_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -24,8 +24,6 @@ class home extends CI_Controller {
 
 	public function __construct() {
 		parent::__construct();
-		$this->load->model('users_model');
-
 		$this->masterpage->use_session_info();
 	}
 
