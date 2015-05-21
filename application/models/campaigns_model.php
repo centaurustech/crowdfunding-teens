@@ -30,7 +30,7 @@ class campaigns_model extends MY_Model {
 		->from("campaigns as c")
 		->join("users as u", "u.iduser = c.iduser")
 		->join("people as p", "u.idpeople = p.idpeople")
-		->join("campaings_images_gallery as i", "i.idcampaign = c.idcampaign", 'left')
+		->join("campaigns_images_gallery as i", "i.idcampaign = c.idcampaign", 'left')
 		->where('c.idcampaign', $id)
 		->get();
 
@@ -46,10 +46,35 @@ class campaigns_model extends MY_Model {
 				$row->is_own_campaign = FALSE;
 			}
 
+			$row->is_new_campaign = FALSE;
+
 			return $row;
 		}
 
 		return false;
+	}
+
+	public function init() {
+
+		$row = new stdClass();
+
+		$row->idcampaign         = "";
+		$row->camp_name          = "";
+		$row->camp_description   = "";
+		$row->camp_owner         = "";
+		$row->camp_owner_picture = base_url('assets/img/no-profile-picture.jpg');
+		$row->camp_expire        = 0;
+		$row->camp_goal          = 0;
+		$row->camp_completed     = 0;
+		$row->camp_collected     = 0;
+		$row->iduser             = 1;
+		$row->username           = 0;
+		$row->facebook_id        = 0;
+		$row->imgurl             = base_url('assets/img/no-campaign-picture.png');
+		$row->is_own_campaign    = TRUE;
+		$row->is_new_campaign    = TRUE;
+
+		return $row;
 	}
 
 	public function getAll() {
@@ -86,19 +111,6 @@ class campaigns_model extends MY_Model {
 				'idcampaign' => $id,
 			)
 		)->row();
-	}
-
-	public function init() {
-
-		$row = array(
-			'username'     => '',
-			'firstname'    => '',
-			'lastname'     => '',
-			'email'        => '',
-			'action_title' => 'Novo',
-		);
-
-		return $row;
 	}
 
 	public function addnew($data) {
@@ -158,7 +170,4 @@ class campaigns_model extends MY_Model {
 		return $data;
 	}
 
-	public function delete($id) {
-		$this->db->delete('users', array('idusers' => $id));
-	}
 }

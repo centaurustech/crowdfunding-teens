@@ -362,6 +362,13 @@ a.link-edit{
 /* Campaign Details
 -------------------------------------------------- */
 
+.edit-all-campaign, .delete-campaign {
+  padding-bottom: 14px;
+  margin-right: 55px;
+  margin-left: 36px;
+}
+
+
 .form-edit{
   padding-bottom: 16px;
 }
@@ -373,7 +380,7 @@ a.link-edit{
 
 .campaign-details h1 {
   padding-left: 32px;
-  // font-size:  48px;
+  /*font-size:  48px;*/
   padding-bottom: 24px;
 }
 
@@ -429,6 +436,14 @@ a.link-edit{
     width: 100%;
   }
 
+  .select-campaign-image{
+    padding-top: 15px;
+  }
+
+  .file-selector{
+    padding-bottom: 15px;
+  }
+
   .campaign-owner{
     margin-top: 10px;
     padding-left: 10px;
@@ -437,6 +452,11 @@ a.link-edit{
   .inputDonate{
     width: 100%
   }
+
+  .currency{
+    border-radius: 5px !important;
+  }
+
 
   /* Share campaign area
    --------------------*/
@@ -575,6 +595,13 @@ a.link-edit{
   }
   #inputCampPriceAmount {
     font-size: 18px;
+  }
+  .camp-price-amount-block{
+    display: block !important;
+  }
+  .camp-price-amount-inline{
+    border-top-right-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
   }
 
   .btn-group-edit-photo {

@@ -8,7 +8,7 @@ $(document).ready(function() {
      */
 
     jQuery.fn.extend({
-            initEdit: function () {
+            initEdit: function (editAll) {
                 var formId = "#form-" + $(this).attr('id');
                 var currentField = "#current-" + $(this).attr('id').replace('edit-','');
                 var buttonSet = ".btn-" + $(this).attr('id');
@@ -16,6 +16,9 @@ $(document).ready(function() {
                 var inputField = "#input" + $(this).attr('id').replace('edit-','');
                 $("#chooser-profile-picture").addClass('hide');
                 $(".edit-area").addClass("hide");
+                $("#campaignContribArea").addClass("hide");
+
+
                 $(currentField).addClass("hide");
                 $(formId).removeClass("hide");
                 $(buttonSet).removeClass("hide");
@@ -24,9 +27,15 @@ $(document).ready(function() {
                     $(inputField).val($(currentField).text().trim());
                 }
 
-                $(inputField).select();
-                $(inputField).focus();
+                // Set focus to current control when editing only this field.
+                
+                editAll = typeof editAll !== 'undefined' ? editAll : false;
 
+                if(editAll === false){
+                    $(inputField).select();
+                    $(inputField).focus();
+                    $(".edit-all-campaign-area").addClass("hide");
+                }
             },
             saveEdit: function () {
                 var currentField = "#" + $(this).attr('id').replace('save-','current-');
@@ -38,34 +47,46 @@ $(document).ready(function() {
                 var controllerInput = $(inputField).data('controller');
                 var baseURL = document.URL.toLowerCase().substr(0,document.URL.indexOf( $('#controllername').val() ));
 
-                url = baseURL + controllerInput + '/save/';
+                url = baseURL + controllerInput + '/update_field/';
 
                 //Disabling button and show Loading
                 var loadingImg = baseURL + 'assets/img/img-loading.gif';
-                var savingMsg = '';
-                savingMsg = '<span id = "label-msg-saving"> ' +
-                                '<img src="'+loadingImg+'"> ' +
-                                    'Salvando, aguarde...'+
+                var savingMsg = '<span id = "label-msg-saving"> ' +
+                                    '<img src="'+loadingImg+'"> ' +
+                                        'Salvando, aguarde...'+
                                 '</span>';
+
+                // Get value with or witout currency format, according class element.
+                var fieldValue = $(inputField).hasClass('currency') ?
+                                    $(inputField).autoNumeric('get') :
+                                    $(inputField).val();
+
 
                 $(inputField).after(savingMsg);
 
                 $.ajax({
                     url: url,
                     type: 'post',
-                    data: { 
+                    data: {
                         record_id : $(".pk_field").val(),
                         fieldName: $(inputField).data("db-field"),
-                        value: $(inputField).val(),
+                        value: fieldValue,
                     },
                     success: function(data) {
                         var json = $.parseJSON(data);
                         var msgType = json.result ? "label-success" : "label-danger";
 
                         var label = '<span id = "label-msg-save" class="label ' + msgType + ' centered" style="display:none">' + json.msg + '</span>';
-                        
+
                         if(json.result){
-                            $(currentField).html(json.new_value);
+
+                            if($(inputField).hasClass('currency')){
+                                $(currentField+">span").autoNumeric('set',json.new_value);
+                            }
+                            else{
+                                $(currentField).html(json.new_value);
+                            }
+
                             $(currentField).after(label);
                             $(currentField).cancelEdit();
                         }
@@ -79,11 +100,7 @@ $(document).ready(function() {
                             // Destroy the message in the DOM
                             $(this).remove();
                             $("#label-msg-saving").remove();
-                            
                         });
-
-
-                        
 
                     }
                 });
@@ -99,6 +116,8 @@ $(document).ready(function() {
                 $(formId).blur();
                 $(formId).addClass("hide");
                 $(".edit-area").removeClass("hide");
+                $("#campaignContribArea").removeClass("hide");
+                $(".edit-all-campaign-area").removeClass("hide");
                 $(currentField).removeClass("hide");
                 $(buttonSet).addClass("hide");
                 $(".file-selector").removeClass('hide');
@@ -143,6 +162,52 @@ $(document).ready(function() {
                     selection.removeAllRanges();
                     selection.addRange(range);
                 }
+            },
+            
+            doAction:function(method){
+
+                var baseURL = document.URL.toLowerCase().substr(0,document.URL.indexOf( $('#controllername').val() ));
+                var msgWarning = '';
+
+
+                if(method.toLowerCase() =='edit' | method.toLowerCase() =='addnew'){
+                    execAction = '/saveall/';
+                    msgWarning = 'Salvar esta campanha de presentes?';
+                }
+                else{
+                    execAction = '/delete/';
+                    msgWarning = 'Tem certeza de deletar esta campanha de presentes?';
+                }
+
+                $("#form-campaigns").attr('action',baseURL+$('#controllername').val() + execAction);
+
+                console.log($("#form-campaigns"));
+
+                bootbox.confirm({
+                    title: 'Alerta!!!',
+                    message: msgWarning,
+                    buttons: {
+                        'cancel': {
+                            label: 'Não',
+                            className: 'btn-default'
+                        },
+                        'confirm': {
+                            label: 'Sim',
+                            className: 'btn-danger'
+                        }
+                    },
+                    callback: function(result) {
+                        if (result) {
+                            
+                            $("#form-campaigns").bootstrapValidator('destroy');
+                            $("#form-campaigns").submit();
+                        }
+                        else{
+
+                        }
+                    }
+                });
+
             }
 
     });
@@ -190,7 +255,6 @@ $(document).ready(function() {
 
             return false;
         });
-
     });
 
 
@@ -199,17 +263,14 @@ $(document).ready(function() {
     /* Show profile picture from client machine before uploading */
 
     $("#edit-CampOwnerPhoto").change(function(e) {
-
          $(this).previewImage(e, "inputCampOwnerPhoto");
          $(this).initEdit();
 
     });
 
     $("#edit-CampaignFullPicture").change(function(e) {
-
          $(this).previewImage(e, "inputCampaignFullPicture");
          $(this).initEdit();
-
     });
 
     $("#select-short-url").click(function(e) {
@@ -217,6 +278,51 @@ $(document).ready(function() {
         $(this).selectText("short-url-text");
     });
 
+    $("#btnEditAllCampaign").click(function(e) {
+        e.preventDefault();
+        $(".edit-all-campaign-idle").addClass('hide');
+        $(".edit-all-campaign-inprogress").removeClass('hide');
+        $(".buttonset-field-campaign").addClass('hide');
+        $("#inputCampPriceAmount").removeClass('camp-price-amount-inline');
+        $("#CampPriceAmountGroup").addClass('camp-price-amount-block');
+
+        //Shows all for editing
+        $(".link-edit").each(function(){
+            $(this).initEdit(true);
+        });
+    });
+
+    $("#cancel-edit-AllCampaign").click(function(e) {
+        e.preventDefault();
+        $(".edit-all-campaign-idle").removeClass('hide');
+        $(".edit-all-campaign-inprogress").addClass('hide');
+        $(".buttonset-field-campaign").removeClass('hide');
+        $("#inputCampPriceAmount").addClass('camp-price-amount-inline');
+        $("#CampPriceAmountGroup").removeClass('camp-price-amount-block');
+
+        //Cancel editing for all controls
+        $(".btn-cancel-edit").each(function(){
+            $(this).cancelEdit(true);
+        });
+    });
+
+    $("#btnDelAllCampaign").click(function(e) {
+        e.preventDefault();
+        $(this).doAction('delete');
+    });
+
+    $("#saveAllCampaign").click(function(e) {
+        e.preventDefault();
+        $(this).doAction('edit');
+    });
+
+    $("#saveNewCampaign").click(function(e) {
+        e.preventDefault();
+        $(this).doAction('addnew');
+    });
+
+
+    
 
 });
 

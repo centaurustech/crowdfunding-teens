@@ -19,9 +19,9 @@
 |	['mobile_prefix'] Prefix path to be applied to views loaded from mobile user agents.
  */
 
-$config['header']         = "/view_header";
+$config['header']         = "/shared/view_header";
 $config['header_vars']    = array();
-$config['footer']         = "/view_footer";
+$config['footer']         = "/shared/view_footer";
 $config['footer_vars']    = array();
 $config['mobile_prefix']  = "";
 $config['mobile_enabled'] = TRUE;

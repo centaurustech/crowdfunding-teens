@@ -65,6 +65,8 @@ jQuery(function ($) {
 	            if(data.element.attr('id') != 'inputContribute')
 	            	$(saveButton).removeClass('disabled');
 
+	            $(".btn-save-all").removeClass('disabled');
+
         	})
 	        .on('error.field.bv', function(e, data) {
 	            
@@ -77,6 +79,8 @@ jQuery(function ($) {
 
 	            if(data.element.attr('id') != 'inputContribute')
 	            	$(saveButton).addClass('disabled');
+
+	            $(".btn-save-all").addClass('disabled');
 
 	            // Put red background if container background is blue (Hardcoded)
 	            if(data.field == "currency"){

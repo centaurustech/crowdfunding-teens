@@ -31,27 +31,69 @@ class campaigns extends MY_Controller {
 		$this->masterpage->use_session_info();
 	}
 
-	public function index() {
+	/*	Private Methods	 */
+	private function _render($idcampaign = "") {
 
-		$this->masterpage->view('/campaigns/view_list_campaigns');
+		// Request data to model for editing or querying campaign.
 
-	}
+		$action = strtolower($this->router->method);
 
-	public function details($id_campaign = "") {
+		/*
+		Uncomment block for redirecting to listing campaign instead of showing 404 page.
+		if ($idcampaign == "") {
+		show_404();
+		return;
+		}
+		 */
 
-		$data['rs']              = $this->campaigns_model->get_campaign_info($id_campaign);
-		$data['controller_name'] = $this->router->class;
+		if ($action == 'details'|$action == 'edit') {
+			$rs = $this->campaigns_model->get_campaign_info($idcampaign);
+		}if ($action == 'addnew') {
+			$rs = $this->campaigns_model->init();
+		} else {
+			show_404();
+			return;
+		}
+
+		// // Prepare array data before sending to the view
+
+		$data = array(
+			'rs'              => $rs,
+			'controller_name' => $this->router->class,
+			'action_name'     => $action,
+		);
 
 		if ($data['rs']) {
 			$view_name = "details";
 		} else {
 			$view_name = "not_found";
 		}
+
 		$this->masterpage->view("campaigns/".$view_name, $data);
 
 	}
 
-	public function save() {
+	/*	Public Methods	 */
+
+	public function index() {
+
+		$this->masterpage->view('/campaigns/view_list_campaigns');
+
+	}
+
+	public function details($idcampaign = "") {
+
+		$this->_render($idcampaign);
+
+	}
+
+	public function edit($idcampaign = "") {
+
+		$this->_render($idcampaign);
+
+	}
+
+	public function update_field() {
 
 		if (!$this->input->post()) {
 			show_404();
@@ -76,21 +118,25 @@ class campaigns extends MY_Controller {
 				)
 			);
 		} else {
+			log_message(
+				'error',
+				'Error #'.$this->db->_error_number().': '.$this->db->_error_message()
+			);
 			echo json_encode(
 				array(
 					"result" => false,
-					"msg"    => "Erro ao atualizar campo.",
+					"msg"    => "Erro ao atualizar campo.".$this->db->_error_message(),
 				)
 			);
 		}
 	}
 
 	public function save_img() {
-		/*
+
 		if (!$this->input->post()) {
-		show_404();
-		return;
-		}*/
+			show_404();
+			return;
+		}
 
 		//Check for private user folder and set it for uploading.
 		$path = $this->users_model->create_user_folder();
@@ -111,6 +157,34 @@ class campaigns extends MY_Controller {
 		}
 
 		var_dump($file);// Meanwhile, we spit variable. Later, create a view for error.
+
+	}
+
+	public function addnew() {
+
+		$this->_render();
+	}
+
+	public function delete() {
+
+		if (!$this->input->post()) {
+			show_404();
+			return;
+		}
+
+		$result = $this->campaigns_model->delete(
+			$this->input->post('idcampaign')
+		);
+
+		$msg = $result?
+		"Campanha de presente apagada com sucesso.":
+		"Erro ao apagar esta campanha";
+
+		$data = array(
+			"msg" => $msg,
+		);
+
+		$this->masterpage->view("campaigns/status_deleted_updated", $data);
 
 	}
 

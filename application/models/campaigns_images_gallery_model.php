@@ -6,7 +6,7 @@ class campaigns_images_gallery_model extends MY_Model {
 
 	public function __construct() {
 		parent::__construct();
-		$this->table       = 'campaings_images_gallery';
+		$this->table       = 'campaigns_images_gallery';
 		$this->primary_key = 'idimagesgallery';
 	}
 
