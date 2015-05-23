@@ -69,7 +69,7 @@
           </div>
 
           <div class="col-sm-6">
-            <a class="btn btn-lg btn-header-options centered" href="#" role="button">Quero ganhar um presente</a>
+            <a class="btn btn-lg btn-header-options centered" href="<?php echo (base_url('campaigns/add-new'));?>" role="button">Quero ganhar um presente</a>
           </div>
         </div>
       </div>

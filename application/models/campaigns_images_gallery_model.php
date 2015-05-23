@@ -25,10 +25,43 @@ class campaigns_images_gallery_model extends MY_Model {
 		}
 	}
 
-	public function update_by_campaing_id($idcampaign, $imgurl) {
+	public function save($idcampaign, $imgurl) {
+		$query = $this->db
+		              ->select('*')
+		              ->from($this->table)
+			->where('idcampaign', $idcampaign)
+			->get();
+
+		if ($query->num_rows > 0) {
+			return $this->update($idcampaign, $imgurl);
+
+		} else {
+
+			return $this->insert($idcampaign, $imgurl);
+
+		}
+
+	}
+
+	public function insert($idcampaign, $imgurl) {
 
 		$data = array(
-			"imgurl" => $imgurl,
+			"imgurl"       => $imgurl,
+			"idcampaign"   => $idcampaign,
+			"creationdate" => date('Y-m-d H:i:s'),
+		);
+
+		$result = $this->db->insert($this->table, $data);
+
+		return $result;
+
+	}
+
+	public function update($idcampaign, $imgurl) {
+
+		$data = array(
+			"imgurl"      => $imgurl,
+			"editiondate" => date('Y-m-d H:i:s'),
 		);
 
 		$this->db->where('idcampaign', $idcampaign);

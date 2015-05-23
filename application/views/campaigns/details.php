@@ -19,175 +19,142 @@ fjs.parentNode.insertBefore(js, fjs);
 	<?php }?>
 	</h1>
 	<hr class="grey-line">
-	<form  id="form-campaigns" action="#" method="post" enctype="multipart/form-data"> <!-- Campaign data -->
-	<input type="hidden" name= "idcampaign" id="idcampaign" class="pk_field"value="<?php echo $rs->idcampaign;?>">
-	<input type="hidden" name= "controllername" id="controllername" value="<?php echo $controller_name;?>">
-	<div class="row"> <!-- Campaign Name -->
-	<div class="col-md-7">
-		<div class = "col-xs-10">
-			<h2 id="current-CampName"><?php echo $rs->camp_name;?></h2>
-		</div>
+	<form id="form-campaigns" name="form-campaigns" action="#" method="post">
+		<input type="hidden" name= "idcampaign" id="idcampaign" class="pk_field"value="<?php echo $rs->idcampaign;?>">
+		<input type="hidden" name= "controllername" id="controllername" value="<?php echo $controller_name;?>">
+		<input type="hidden" name= "hiddenCampPriceAmount" id="hiddenCampPriceAmount" value="">
+		<div class="row"> <!-- Campaign Name -->
+		<div class="col-md-7">
+			<div class = "col-xs-10">
+				<h2 id="current-CampName"><?php echo $rs->camp_name;?></h2>
+			</div>
 <?php if ($rs->is_own_campaign && !$rs->is_new_campaign) {?>
 	<div class = "col-xs-2 edit-campaign-name">
-						<a id="edit-CampName" class="link-edit edit-area" href="#">Alterar</a>
-					</div>
+							<a id="edit-CampName" class="link-edit-camp edit-area" href="#">Alterar</a>
+						</div>
 	<?php }?>
-		<div id="form-edit-CampName" class="col-md-12 form-edit <?php echo ($rs->is_new_campaign?"":"hide");?>">
-			<div class="form-group">
-				<label for="inputCampName" class="sr-only">Nome Presente</label>
-				<input type="text" id = "inputCampName" name = "inputCampName" data-controller="campaigns" data-db-field="camp_name"  class="form-control" placeholder="Insira o Nome do seu Presente..." value="">
+			<div id="form-edit-CampName" class="col-md-12 form-edit <?php echo ($rs->is_new_campaign?"":"hide");?>">
+				<div class="form-group">
+					<label for="inputCampName" class="">Nome Presente</label>
+					<input type="text" id = "inputCampName" name = "inputCampName" data-controller="campaigns" data-db-field="camp_name"  class="form-control" placeholder="Insira o Nome do seu Presente..." value="">
 <?php if (!$rs->is_new_campaign) {?>
 	<div class="btn-group pull-right buttonset-field-campaign" role="group">
-								<button id="save-CampName" class="btn btn-success btn-save" type="button">
-								<i class="fa fa-check"></i>
-								</button>
-								<button id="cancel-edit-CampName" class="btn btn-default btn-cancel-edit" type="button">
-								<i class="fa fa-times"></i>
-								</button>
-							</div>
+									<button id="save-CampName" class="btn btn-success btn-save" type="button">
+									<i class="fa fa-check"></i>
+									</button>
+									<button id="cancel-edit-CampName" class="btn btn-default btn-cancel-edit" type="button">
+									<i class="fa fa-times"></i>
+									</button>
+								</div>
 	<?php }?>
 </div><!-- /form-group -->
+				</div>
 			</div>
-		</div>
 <?php if ($rs->is_own_campaign) {?>
-					<div class = "col-md-5 <?php echo ($rs->is_new_campaign?"":"edit-all-campaign-area");?>">
+						<div class = "col-md-5 <?php echo ($rs->is_new_campaign?"":"edit-all-campaign-area");?>">
 	<?php if (!$rs->is_new_campaign) {?>
 		<div class = "row edit-all-campaign-idle">
-										<div class = "row edit-all-campaign">
-											<button id="btnEditAllCampaign" class="btn btn-primary btn-lg btn-block" type="button">
-											<i class="fa fa-edit"></i>
-											Alterar Campanha
-											</button>
-										</div>
-										<div class = "row delete-campaign">
-											<button id="btnDelAllCampaign" class="btn btn-danger btn-lg btn-block" type="submit">
-											<i class="fa fa-trash-o"></i>
-											Apagar Campanha
-											</button>
-										</div>
-									</div>
-		<?php }?>
-						<div class = "row <?php echo ($rs->is_new_campaign?"":"hide");?>">
-							<div class = "col-md-6">
-								<button id="<?php echo $rs->is_new_campaign?"saveNewCampaign":"saveAllCampaign";?>" class="btn btn-success btn-save-all" type="submit">
-								<i class="fa fa-check"></i>
-	<?php echo $rs->is_new_campaign?"Salvar nova campanha":"Confirmar alteração da campanha";?>
-	</button>
-							</div>
-							<div class = "col-md-4">
-								<button id="cancel-edit-AllCampaign" class="btn btn-default" type="button">
-								<i class="fa fa-times"></i>
-								Cancelar
-								</button>
-							</div>
-						</div>
-					</div>
-	<?php }?>
-		</div> <!-- /Campaign Name -->
-		<div class="row">	<!-- Basic Info Pane -->
-		<div class="col-md-7">
-			<img id="current-CampaignFullPicture" class="campaign-full-picture" src="<?php echo $rs->imgurl;?>">
-			<div id="form-edit-CampaignFullPicture" class="form-group edit-campaign hide">
-				<div>
-					<img id="inputCampaignFullPicture" class="campaign-full-picture" src="" data-controller="campaigns" data-db-field="imgurl">
-				</div>
-			</div>
-<?php if ($rs->is_own_campaign) {?>
-					<form id="fake" name="fake"></form>
-					<div class="row">
-						<form id="imgUploadFullPicture" name="imgUploadFullPicture" method = "post" action="<?php echo base_url('campaigns/save_img/');?>" enctype="multipart/form-data">
-							<p class="select-campaign-image">
-								<small class="col-md-offset-1 col-md-11">
-								Procurar Foto do Presente no seu computador
-								</small>
-								<small>
-								<div class="col-md-offset-1 col-md-8">
-									<input id="edit-CampaignFullPicture" name ="uploadCampaignPict" class="file-selector" type="file" />
-								</div>
-	<?php if (!$rs->is_new_campaign) {?>
-		<div class="col-md-3 btn-edit-CampaignFullPicture buttonset-field-campaign hide">
-												<div class="btn-group btn-group-edit-photo" role="group">
-													<button type = "submit" id="save-CampaignFullPicture" name ="btnUpload" class="btn btn-success" type="button">
-													<i class="fa fa-check"></i>
-													</button>
-													<button id="cancel-edit-CampaignFullPicture" class="btn btn-default btn-cancel-edit" type="button">
-													<i class="fa fa-times"></i>
-													</button>
-												</div>
+											<div class = "row edit-all-campaign">
+												<button id="btnEditAllCampaign" class="btn btn-primary btn-lg btn-block" type="button">
+												<i class="fa fa-edit"></i>
+												Alterar Campanha
+												</button>
 											</div>
+											<div class = "row delete-campaign">
+												<button id="btnDelAllCampaign" class="btn btn-danger btn-lg btn-block" type="submit">
+												<i class="fa fa-trash-o"></i>
+												Apagar Campanha
+												</button>
+											</div>
+										</div>
 		<?php }?>
-	</small>
-							</p>
-						</form>
-					</div>
+	</div>
 	<?php }?>
-		<div class="row bubble-description">
-			<div id="current-CampDescription"><?php echo $rs->camp_description;?></div>
+</div> <!-- /Campaign Name -->
+			<div class="row">	<!-- Basic Info Pane -->
+			<div class="col-md-7">
+<?php if (!$rs->is_new_campaign) {?>
+							<img id="current-CampaignFullPicture" class="campaign-full-picture" src="<?php echo $rs->imgurl;?>">
+							<div id="form-edit-CampaignFullPicture" class="form-group edit-campaign hide">
+								<div>
+									<img id="inputCampaignFullPicture" class="campaign-full-picture" src="" data-controller="campaigns" data-db-field="imgurl">
+								</div>
+							</div>
+	<?php if ($rs->is_own_campaign) {?>
+										<div class="row">
+										<form id="fake"></form>
+										<form id="imgUploadFullPicture" name="imgUploadFullPicture" method = "post" action="<?php echo base_url('campaigns/save-img/'.$rs->idcampaign);?>" enctype="multipart/form-data">
+											<p class="select-campaign-image">
+												<small class="col-md-offset-1 col-md-11 camp-image-edit-area">
+												Procurar Foto do Presente no seu computador
+												</small>
+												<small>
+												<div class="col-md-offset-1 col-md-8 camp-image-edit-area">
+													<input id="edit-CampaignFullPicture" name ="uploadCampaignPict" class="file-selector" type="file" />
+												</div>
+		<?php if (!$rs->is_new_campaign) {?>
+			<div class="col-md-3 btn-edit-CampaignFullPicture buttonset-field-campaign hide">
+																<div class="btn-group btn-group-edit-photo" role="group">
+																	<button id="save-CampaignFullPicture" name ="btnUpload" class="btn btn-success" type="submit">
+																	<i class="fa fa-check"></i>
+																	</button>
+																	<button id="cancel-edit-CampaignFullPicture" class="btn btn-default btn-cancel-edit" type="button">
+																	<i class="fa fa-times"></i>
+																	</button>
+																</div>
+															</div>
+			<?php }?>
+		</small>
+											</p>
+										</form>
+									</div>
+		<?php }// Own campaign for hiding editing photo?>
+						<?php }// New campaign for hiding whole photo?>
+			<div class="row bubble-description">
+				<div id="current-CampDescription"><?php echo $rs->camp_description;?></div>
 <?php if ($rs->is_own_campaign && !$rs->is_new_campaign) {?>
-	<span class="pull-right"><a id="edit-CampDescription" class="link-edit edit-area" href="#">Alterar</a></span>
+	<span class="pull-right"><a id="edit-CampDescription" class="link-edit-camp edit-area" href="#">Alterar</a></span>
 	<?php }?>
-			<div id="form-edit-CampDescription" class="form-group edit-campaign <?php echo $rs->is_new_campaign?"":"hide";?>">
-				<label for="inputCampDescription" class="sr-only">Descrição Presente</label>
-				<div class="text-area-box">
-					<textarea id = "inputCampDescription" name = "inputCampDescription" class="form-control" data-controller="campaigns" data-db-field="camp_description" placeholder="Escreva em poucas palavras porque você merece ganhar esse presente. Seja convincente!"></textarea>
-				</div>
+				<div id="form-edit-CampDescription" class="form-group edit-campaign <?php echo $rs->is_new_campaign?"":"hide";?>">
+					<label for="inputCampDescription" class="">Descrição Presente</label>
+					<div class="text-area-box">
+						<textarea id = "inputCampDescription" name = "inputCampDescription" class="form-control" data-controller="campaigns" data-db-field="camp_description" placeholder="Escreva em poucas palavras porque você merece ganhar esse presente. Seja convincente!"></textarea>
+					</div>
 <?php if (!$rs->is_new_campaign) {?>
 	<div class="btn-group pull-right buttonset-field-campaign" role="group">
-								<button id="save-CampDescription" class="btn btn-success btn-save" type="button">
-								<i class="fa fa-check"></i>
-								</button>
-								<button id="cancel-edit-CampDescription" class="btn btn-default btn-cancel-edit" type="button">
-								<i class="fa fa-times"></i>
-								</button>
-							</div>
+									<button id="save-CampDescription" class="btn btn-success btn-save" type="button">
+									<i class="fa fa-check"></i>
+									</button>
+									<button id="cancel-edit-CampDescription" class="btn btn-default btn-cancel-edit" type="button">
+									<i class="fa fa-times"></i>
+									</button>
+								</div>
 	<?php }?>
+				</div>
 			</div>
-		</div>
-		<div class="row campaign-owner">
-			<div class="col-xs-4">
-				<div class="row">
-					<img id="current-CampOwnerPhoto" class="img-circle profile-picture" src="<?php echo $rs->camp_owner_picture;?>">
-					<div id="form-edit-CampOwnerPhoto" class="form-group edit-campaign hide">
-						<div>
-							<img id="inputCampOwnerPhoto" class="img-circle profile-picture" src="">
-						</div>
-<?php if (!$rs->is_new_campaign) {?>
-	<div class="btn-group btn-group-edit-photo buttonset-field-campaign" role="group">
-										<button id="save-CampOwnerPhoto" class="btn btn-success" type="button">
-										<i class="fa fa-check"></i>
-										</button>
-										<button id="cancel-edit-CampOwnerPhoto" class="btn btn-default btn-cancel-edit" type="button">
-										<i class="fa fa-times"></i>
-										</button>
-									</div>
-	<?php }?>
-					</div>
-					<p id="current-CampOwnerName"><?php echo $rs->camp_owner;?></p>
-<?php if ($rs->is_own_campaign && !$rs->is_new_campaign) {?>
-	<p>
-									<a id="edit-CampOwnerName" class="link-edit edit-area" href="#">Alterar Nome</a>
-								</p>
-	<?php }?>
-<div id="form-edit-CampOwnerName" class="form-group edit-campaign hide">
-						<label for="inputCampOwnerName" class="sr-only">Nome Receptor</label>
-						<div class="text-area-box">
-							<input id = "inputCampOwnerName" name = "inputCampOwnerName" type="text" class="form-control" placeholder="Insira seu Nome..." value="" autocomplete="off">
-							</div><!-- /input-group -->
-							<div class="btn-group pull-right buttonset-field-campaign" role="group">
-								<button id="save-CampOwnerName" class="btn btn-success" type="button">
-								<i class="fa fa-check"></i>
-								</button>
-								<button id="cancel-edit-CampOwnerName" class="btn btn-default btn-cancel-edit" type="button">
-								<i class="fa fa-times"></i>
-								</button>
+			<div class="row campaign-owner">
+				<div class="col-xs-4">
+					<div class="row">
+						<img id="current-CampOwnerPhoto" class="img-circle profile-picture" src="<?php echo $rs->camp_owner_picture;?>">
+						<div id="form-edit-CampOwnerPhoto" class="form-group edit-campaign hide">
+							<div>
+								<img id="inputCampOwnerPhoto" class="img-circle profile-picture" src="">
 							</div>
+<?php if (false/*!$rs->is_new_campaign*/) {// TODO: Force to Bypass HTML rendering, meanwhile. ?>
+	<div class="btn-group btn-group-edit-photo buttonset-field-campaign" role="group">
+											<button id="save-CampOwnerPhoto" class="btn btn-success" type="button">
+											<i class="fa fa-check"></i>
+											</button>
+											<button id="cancel-edit-CampOwnerPhoto" class="btn btn-default btn-cancel-edit" type="button">
+											<i class="fa fa-times"></i>
+											</button>
+										</div>
+	<?php }?>
 						</div>
-<?php if ($rs->is_own_campaign) {?>
-	<p class="edit-area">
-										<small>
-										Alterar Foto de Perfil
-										</small>
-										<small><input id="edit-CampOwnerPhoto" class = "file-selector" type="file"></small>
+						<p id="current-CampOwnerName"><?php echo $rs->camp_owner;?></p>
+<?php if ($rs->is_own_campaign && !$rs->is_new_campaign) {?>
+									<p>
+										<a id="edit-CampOwnerName" class="link-edit-profile edit-area" href="<?php echo base_url('profile/edit/'.$rs->iduser);?>">Alterar Perfil</a>
 									</p>
 	<?php }?>
 </div>
@@ -239,7 +206,7 @@ fjs.parentNode.insertBefore(js, fjs);
 </div>
 		</div>
 		<div class="col-md-5">
-			<div class="row campaign-list-right"><!-- Campaign Price -->
+			<div class="row campaign-list-right<?php echo $rs->is_new_campaign?" campaign-list-right-new":"";?>"><!-- Campaign Price -->
 			<div class="thumbnail">
 				<div class = "campaign-values">
 					<div class="row">
@@ -248,7 +215,7 @@ fjs.parentNode.insertBefore(js, fjs);
 						</div>
 <?php if ($rs->is_own_campaign && !$rs->is_new_campaign) {?>
 	<div class = "col-xs-6 edit-price">
-										<a id="edit-CampPriceAmount" class="link-edit edit-area" href="#">Alterar</a>
+										<a id="edit-CampPriceAmount" class="link-edit-camp edit-area" href="#">Alterar</a>
 									</div>
 	<?php }?>
 </div>
@@ -261,7 +228,7 @@ fjs.parentNode.insertBefore(js, fjs);
 						<div id="form-edit-CampPriceAmount" class="form-group edit-campaign <?php echo $rs->is_new_campaign?"":"hide";?>">
 							<div id = "CampPriceAmountGroup" class="input-group <?php echo $rs->is_new_campaign?"camp-price-amount-block":"";?>">
 								<label for="inputCampPriceAmount" class="sr-only">Preço</label>
-								<input id = "inputCampPriceAmount" name = "inputCampPriceAmount" type="text" data-controller="campaigns" data-db-field="camp_goal" class="form-control <?php echo $rs->is_new_campaign?"":"camp-price-amount-inline";?>currency" placeholder="Insira um valor..." value="">
+								<input id = "inputCampPriceAmount" name = "inputCampPriceAmount" type="text" data-controller="campaigns" data-db-field="camp_goal" class="form-control <?php echo $rs->is_new_campaign?"":"camp-price-amount-inline ";?>currency" placeholder="Insira um valor..." value="">
 <?php if (!$rs->is_new_campaign) {?>
 	<span id="buttonsetCampPriceAmount" class="input-group-btn buttonset-field-campaign">
 												<button id="save-CampPriceAmount" class="btn btn-success btn-save" type="button">
@@ -291,10 +258,10 @@ fjs.parentNode.insertBefore(js, fjs);
 			</div>
 <?php if (!$rs->is_new_campaign) {?>
 	<div id = "campaignContribArea" class="row campaign-list-right">
-							<div class="thumbnail">
-								<div class = "campaign-values">
-									<p>Presentei com</p>
-									<form class="frmContribute" role="form">
+							<form id="frmContribute" name="frmContribute" action="">
+								<div class="thumbnail">
+									<div class = "campaign-values">
+										<p>Presentei com</p>
 										<div class="contribute-form-area">
 											<div class="form-group">
 												<div class="input-group text-area-box">
@@ -302,10 +269,10 @@ fjs.parentNode.insertBefore(js, fjs);
 													</div><!-- /input-group -->
 												</div>
 											</div>
-										</form>
-										<a class="btn btn-header-options btn-contribute-now" href="#">Presentear Agora!</a>
+											<button type="submit" class="btn btn-header-options btn-contribute-now" href="#">Presentear Agora!</button>
+										</div>
 									</div>
-								</div>
+								</form>
 							</div>
 							<div class="row comments-area"> <!-- Right Pane -->
 							<div class="row">
@@ -341,6 +308,28 @@ fjs.parentNode.insertBefore(js, fjs);
 								</p>
 							</div>
 						</div>
+	<?php }?>
+		</div>
+	</div>
+	<!-- Put Record action button at the end -->
+	<div class = "row <?php echo ($rs->is_new_campaign?"":"edit-all-campaign-inprogress hide");?>">
+		<div class = "col-md-4">
+			<button id="<?php echo $rs->is_new_campaign?"saveNewCampaign":"saveAllCampaign";?>" class="btn btn-success btn-save-all btn-block disabled" type="submit">
+			<i class="fa fa-check"></i>
+<?php echo $rs->is_new_campaign?"Salvar nova campanha":"Confirmar alteração";?>
+</button>
+		</div>
+		<div class = "col-md-3">
+<?php if (!$rs->is_new_campaign) {?>
+	<button id="cancel-edit-AllCampaign" class="btn btn-default btn-block" type="button">
+						<i class="fa fa-times"></i>
+						Cancelar
+						</button>
+	<?php } else {?>
+						<a href="<?php echo base_url('home');?>" class="btn btn-default btn-block">
+							<i class="fa fa-times"></i>
+							Cancelar
+						</a>
 	<?php }?>
 </div>
 	</div>

@@ -43,11 +43,17 @@ class users_model extends MY_Model {
 	}
 
 	public function searchUserByPeopleId($idpeople) {
-		return $this->db->get_where(
+		$query = $this->db->get_where(
 			$this->table, array(
 				'idpeople' => $idpeople,
 			)
-		)->row();
+		);
+
+		if ($query && $query->num_rows > 0) {
+			return $query->row();
+		}
+
+		return false;
 	}
 
 	public function searchUserByUserName($username) {
@@ -59,11 +65,17 @@ class users_model extends MY_Model {
 	}
 
 	public function searchUserByFacebookId($idfacebook) {
-		return $this->db->get_where(
+		$query = $this->db->get_where(
 			$this->table, array(
 				'facebook_id' => $idfacebook,
 			)
-		)->row();
+		);
+
+		if ($query && $query->num_rows > 0) {
+			return $query->row();
+		}
+
+		return false;
 	}
 
 	public function count_record() {
@@ -284,6 +296,7 @@ class users_model extends MY_Model {
 			$obj->username = $user_session['username'];
 			$obj->iduser   = $user_session['iduser'];
 			$obj->fullname = $user_session['fullname'];
+			$obj->fullname = $user_session['firstname'];
 			$obj->user_pic = $user_session['picture'];
 
 			return $obj;

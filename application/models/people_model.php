@@ -7,7 +7,7 @@ class people_model extends CI_Model {
 	public function people_model() {
 		parent::__construct();
 		$this->table = 'people';
-		$this->id = 'idpeople';
+		$this->id    = 'idpeople';
 	}
 
 	public function getAll() {
@@ -18,15 +18,15 @@ class people_model extends CI_Model {
 	public function getAllPag($byPage, $uriSegment) {
 		if ($byPage > 0) {
 			$limit = " LIMIT ";
-			$limit .= ($uriSegment != '') ? ($uriSegment . ', ') : ('');
+			$limit .= ($uriSegment != '')?($uriSegment.', '):('');
 			$limit .= $byPage;
 		} else {
 			$limit = '';
 		}
 
 		$sql_total = "SELECT * ";
-		$sql_total .= "FROM " . $this->table;
-		$sql_pagination = $sql_total . $limit;
+		$sql_total .= "FROM ".$this->table;
+		$sql_pagination = $sql_total.$limit;
 
 		$data['users'] = $this->db->query($sql_pagination)->result();
 		$data['total'] = $this->db->query($sql_total)->num_rows();
@@ -49,10 +49,10 @@ class people_model extends CI_Model {
 	public function init() {
 
 		$row = array(
-			'username' => '',
-			'firstname' => '',
-			'lastname' => '',
-			'email' => '',
+			'username'     => '',
+			'firstname'    => '',
+			'lastname'     => '',
+			'email'        => '',
 			'action_title' => 'Novo',
 		);
 
@@ -62,14 +62,14 @@ class people_model extends CI_Model {
 	private function _add_from_facebook($social_data) {
 
 		$data = array(
-			'fullname' => $social_data["name"],
-			'picture_url' => 'https://graph.facebook.com/' . $social_data["id"] . '/picture/',
-			'doctype_id' => NULL,
-			'docnum' => NULL,
-			'address' => NULL,
-			'phone' => NULL,
-			'zipcode' => NULL,
-			'email' => $social_data["email"],
+			'fullname'    => $social_data["name"],
+			'picture_url' => 'https://graph.facebook.com/'.$social_data["id"].'/picture/',
+			'doctype_id'  => NULL,
+			'docnum'      => NULL,
+			'address'     => NULL,
+			'phone'       => NULL,
+			'zipcode'     => NULL,
+			'email'       => $social_data["email"],
 		);
 
 		return $this->addnew($data);
@@ -79,7 +79,8 @@ class people_model extends CI_Model {
 
 		$row = $this->searchPeopleByEmail($social_data["email"]);
 		if (!$row) {
-			return $this->_add_from_facebook($social_data);
+			$new_id = $this->_add_from_facebook($social_data);
+			return $this->get($new_id);
 		}
 		return $row;
 	}
@@ -91,14 +92,14 @@ class people_model extends CI_Model {
 		if (!$row) {
 
 			$arr_filter = array(
-				'fullname' => (isset($postdata['inputFullName']) ? $postdata['inputFullName'] : ''),
+				'fullname'    => (isset($postdata['inputFullName'])?$postdata['inputFullName']:''),
 				'picture_url' => NULL,
-				'doctype_id' => (isset($postdata['inputDocType']) ? $postdata['inputDocType'] : NULL),
-				'docnum' => (isset($postdata['inputNumDoc']) ? $postdata['inputNumDoc'] : ''),
-				'address' => (isset($postdata['inputAddress']) ? $postdata['inputAddress'] : ''),
-				'phone' => (isset($postdata['inputPhone']) ? $postdata['inputPhone'] : ''),
-				'zipcode' => (isset($postdata['inputZipCode']) ? $postdata['inputZipCode'] : ''),
-				'email' => (isset($postdata['inputEmail']) ? $postdata['inputEmail'] : ''),
+				'doctype_id'  => (isset($postdata['inputDocType'])?$postdata['inputDocType']:NULL),
+				'docnum'      => (isset($postdata['inputNumDoc'])?$postdata['inputNumDoc']:''),
+				'address'     => (isset($postdata['inputAddress'])?$postdata['inputAddress']:''),
+				'phone'       => (isset($postdata['inputPhone'])?$postdata['inputPhone']:''),
+				'zipcode'     => (isset($postdata['inputZipCode'])?$postdata['inputZipCode']:''),
+				'email'       => (isset($postdata['inputEmail'])?$postdata['inputEmail']:''),
 			);
 
 			return $this->addnew($arr_filter);
@@ -111,18 +112,18 @@ class people_model extends CI_Model {
 
 	public function addnew($data) {
 		$arr_filter = array(
-			'fullname' => (isset($data['fullname']) ? $data['fullname'] : ''),
-			'picture_url' => (isset($data['picture_url']) ? $data['picture_url'] : ''),
-			'doctype_id' => (isset($data['doctype_id']) ? $data['doctype_id'] : NULL),
-			'docnum' => (isset($data['docnum']) ? $data['docnum'] : ''),
-			'address' => (isset($data['address']) ? $data['address'] : ''),
-			'phone' => (isset($data['phone']) ? $data['phone'] : ''),
-			'zipcode' => (isset($data['zipcode']) ? $data['zipcode'] : ''),
-			'email' => (isset($data['email']) ? $data['email'] : ''),
+			'fullname'     => (isset($data['fullname'])?$data['fullname']:''),
+			'picture_url'  => (isset($data['picture_url'])?$data['picture_url']:''),
+			'doctype_id'   => (isset($data['doctype_id'])?$data['doctype_id']:NULL),
+			'docnum'       => (isset($data['docnum'])?$data['docnum']:''),
+			'address'      => (isset($data['address'])?$data['address']:''),
+			'phone'        => (isset($data['phone'])?$data['phone']:''),
+			'zipcode'      => (isset($data['zipcode'])?$data['zipcode']:''),
+			'email'        => (isset($data['email'])?$data['email']:''),
 			'creationdate' => date('Y-m-d H:i:s'),
 		);
 
-		$query = $this->db->insert('people', $arr_filter);
+		$query          = $this->db->insert('people', $arr_filter);
 		$last_insert_id = $this->db->insert_id();
 
 		return $last_insert_id;
@@ -173,18 +174,23 @@ class people_model extends CI_Model {
 	}
 
 	public function searchPeopleByEmail($email) {
-		return $this->db->get_where(
+		$query = $this->db->get_where(
 			$this->table, array(
 				'email' => $email,
 			)
-		)->row();
+		);
+
+		if ($query && $query->num_rows > 0) {
+			return $query->row();
+		}
+		return false;
 	}
 
 	public function searchByName($nameUser) {
 		$sql = "SELECT * ";
-		$sql .= "FROM " . $this->table . " ";
-		$sql .= "WHERE fullname LIKE '%" . $nameUser . "%' ";
-		$sql .= "OR email LIKE '%" . $nameUser . "%' ";
+		$sql .= "FROM ".$this->table." ";
+		$sql .= "WHERE fullname LIKE '%".$nameUser."%' ";
+		$sql .= "OR email LIKE '%".$nameUser."%' ";
 
 		return $this->db->query($sql)->result();
 	}
@@ -192,17 +198,17 @@ class people_model extends CI_Model {
 	public function searchByNamePag($nameUser, $byPage, $uriSegment) {
 		if ($byPage > -1) {
 			$limit = " LIMIT ";
-			$limit .= ($uriSegment != '') ? ($uriSegment . ', ') : ('');
+			$limit .= ($uriSegment != '')?($uriSegment.', '):('');
 			$limit .= $byPage;
 		} else {
 			$limit = '';
 		}
 
 		$sql_total = "SELECT * ";
-		$sql_total .= "FROM " . $this->table . " ";
-		$sql_total .= "WHERE fullname LIKE '%" . $nameUser . "%' ";
-		$sql_total .= "OR email LIKE '%" . $nameUser . "%' ";
-		$sql_pagination = $sql_total . $limit;
+		$sql_total .= "FROM ".$this->table." ";
+		$sql_total .= "WHERE fullname LIKE '%".$nameUser."%' ";
+		$sql_total .= "OR email LIKE '%".$nameUser."%' ";
+		$sql_pagination = $sql_total.$limit;
 
 		$data['users'] = $this->db->query($sql_pagination)->result();
 		$data['total'] = $this->db->query($sql_total)->num_rows();

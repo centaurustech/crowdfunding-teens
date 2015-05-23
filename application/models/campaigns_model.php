@@ -46,7 +46,10 @@ class campaigns_model extends MY_Model {
 				$row->is_own_campaign = FALSE;
 			}
 
-			$row->is_new_campaign = FALSE;
+			//Set Default No Picture when imgurl is empty or null.
+			$row->imgurl = is_null($row->imgurl)?base_url("assets/img/no-campaign-picture.png"):$row->imgurl;// Edit campaign
+
+			$row->is_new_campaign = FALSE;// Edit campaign
 
 			return $row;
 		}
@@ -54,21 +57,21 @@ class campaigns_model extends MY_Model {
 		return false;
 	}
 
-	public function init() {
+	public function init($user = null) {
 
 		$row = new stdClass();
 
 		$row->idcampaign         = "";
 		$row->camp_name          = "";
 		$row->camp_description   = "";
-		$row->camp_owner         = "";
-		$row->camp_owner_picture = base_url('assets/img/no-profile-picture.jpg');
+		$row->camp_owner         = $user->fullname;
+		$row->camp_owner_picture = is_null($user->user_pic)?base_url('assets/img/no-profile-picture.jpg'):$user->user_pic;
 		$row->camp_expire        = 0;
 		$row->camp_goal          = 0;
 		$row->camp_completed     = 0;
 		$row->camp_collected     = 0;
-		$row->iduser             = 1;
-		$row->username           = 0;
+		$row->iduser             = $user->iduser;
+		$row->username           = $user->username;
 		$row->facebook_id        = 0;
 		$row->imgurl             = base_url('assets/img/no-campaign-picture.png');
 		$row->is_own_campaign    = TRUE;
@@ -77,97 +80,52 @@ class campaigns_model extends MY_Model {
 		return $row;
 	}
 
-	public function getAll() {
-		$query = $this->db->get($this->_table);
-		return $query->result();
-	}
+	public function save($idcampaign, $data) {
 
-	public function getAllPag($byPage, $uriSegment) {
-		if ($byPage > 0) {
-			$limit = " LIMIT ";
-			$limit .= ($uriSegment != '')?($uriSegment.', '):('');
-			$limit .= $byPage;
+		if ($idcampaign == "") {
+
+			// TODO: Create a user parameter.
+			$creationdate = date_create($data["creationdate"]);
+			date_add($creationdate, date_interval_create_from_date_string("90 days"));
+			$camp_expire = date_format($creationdate, "Y-m-d H:i:s");
+
+			$action = "insert";
+
+			$data["camp_completed"] = "0";
+			$data["camp_expire"]    = $camp_expire;
+			$stm                    = $this->insert($data);
 		} else {
-			$limit = '';
+
+			$action = "update";
+
+			$stm = $this->update($idcampaign, $data);
+
 		}
 
-		$sql_total = "SELECT * ";
-		$sql_total .= "FROM ".$this->_table;
-		$sql_pagination = $sql_total.$limit;
+		if ($stm != false) {
+			$result = true;
 
-		$data['users'] = $this->db->query($sql_pagination)->result();
-		$data['total'] = $this->db->query($sql_total)->num_rows();
+			if ($action == "update") {
+				return intval($idcampaign);
 
-		return $data;
+			} else {
+				return intval($stm);
+			}
+		}
+
+		return false;
 	}
 
-	public function count_record() {
-		return $this->db->count_all('users');
-	}
+	public function show_msg_not_auth() {
 
-	public function get($id) {
-		return $this->db->get_where(
-			$this->_table, array(
-				'idcampaign' => $id,
+		return json_encode(
+			array(
+				'result'     => false,
+				'idcampaign' => null,
+				'msg'        => 'Usuário não autenticado',
 			)
-		)->row();
-	}
-
-	public function addnew($data) {
-		$arr_filter = array(
-			'fullname'     => (isset($data['fullname'])?$data['fullname']:''),
-			'picture_url'  => (isset($data['picture_url'])?$data['picture_url']:''),
-			'doctype_id'   => (isset($data['doctype_id'])?$data['doctype_id']:NULL),
-			'docnum'       => (isset($data['docnum'])?$data['docnum']:''),
-			'address'      => (isset($data['address'])?$data['address']:''),
-			'phone'        => (isset($data['phone'])?$data['phone']:''),
-			'zipcode'      => (isset($data['zipcode'])?$data['zipcode']:''),
-			'email'        => (isset($data['email'])?$data['email']:''),
-			'creationdate' => date('Y-m-d H:i:s'),
 		);
 
-		$query          = $this->db->insert('campaigns', $arr_filter);
-		$last_insert_id = $this->db->insert_id();
-
-		return $last_insert_id;
-	}
-
-	public function searchcampaignsByEmail($email) {
-		return $this->db->get_where(
-			$this->_table, array(
-				'email' => $email,
-			)
-		)->row();
-	}
-
-	public function searchByName($nameUser) {
-		$sql = "SELECT * ";
-		$sql .= "FROM ".$this->_table." ";
-		$sql .= "WHERE fullname LIKE '%".$nameUser."%' ";
-		$sql .= "OR email LIKE '%".$nameUser."%' ";
-
-		return $this->db->query($sql)->result();
-	}
-
-	public function searchByNamePag($nameUser, $byPage, $uriSegment) {
-		if ($byPage > -1) {
-			$limit = " LIMIT ";
-			$limit .= ($uriSegment != '')?($uriSegment.', '):('');
-			$limit .= $byPage;
-		} else {
-			$limit = '';
-		}
-
-		$sql_total = "SELECT * ";
-		$sql_total .= "FROM ".$this->_table." ";
-		$sql_total .= "WHERE fullname LIKE '%".$nameUser."%' ";
-		$sql_total .= "OR email LIKE '%".$nameUser."%' ";
-		$sql_pagination = $sql_total.$limit;
-
-		$data['users'] = $this->db->query($sql_pagination)->result();
-		$data['total'] = $this->db->query($sql_total)->num_rows();
-
-		return $data;
 	}
 
 }

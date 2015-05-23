@@ -47,7 +47,7 @@ $(document).ready(function() {
                 var controllerInput = $(inputField).data('controller');
                 var baseURL = document.URL.toLowerCase().substr(0,document.URL.indexOf( $('#controllername').val() ));
 
-                url = baseURL + controllerInput + '/update_field/';
+                url = baseURL + controllerInput + '/update-field/';
 
                 //Disabling button and show Loading
                 var loadingImg = baseURL + 'assets/img/img-loading.gif';
@@ -171,7 +171,7 @@ $(document).ready(function() {
 
 
                 if(method.toLowerCase() =='edit' | method.toLowerCase() =='addnew'){
-                    execAction = '/saveall/';
+                    execAction = '/save/';
                     msgWarning = 'Salvar esta campanha de presentes?';
                 }
                 else{
@@ -198,9 +198,11 @@ $(document).ready(function() {
                     },
                     callback: function(result) {
                         if (result) {
-                            
+
                             $("#form-campaigns").bootstrapValidator('destroy');
-                            $("#form-campaigns").submit();
+                            $("#hiddenCampPriceAmount").val($("#inputCampPriceAmount").autoNumeric('get'));
+                            $("#form-campaigns").submit(); //Delete record
+
                         }
                         else{
 
@@ -212,15 +214,17 @@ $(document).ready(function() {
 
     });
 
-    $(document).on("click", ".link-edit", function(ev){
+    $(document).on("click", ".link-edit-camp", function(ev){
         ev.preventDefault();
         $(this).initEdit();
+        $(".camp-image-edit-area").addClass('hide');
     });
 
     $(document).on("click", ".btn-cancel-edit", function(ev){
         ev.preventDefault();
         $("#inputCampOwnerPhoto").attr('src', '');
         $(this).cancelEdit();
+        $(".camp-image-edit-area").removeClass('hide');
     });
 
     $(document).on("click", ".btn-save", function(ev){
@@ -228,15 +232,16 @@ $(document).ready(function() {
         $(this).saveEdit();
     });
 
+    /*
     $(document).on("click", ".btn-save-img", function(ev){
         ev.preventDefault();
 
         var formData2 = new FormData($("#imgUploadFullPicture")[0]);
 
         $("#imgUploadFullPicture").submit(function() {
-            
+
             var baseURL = document.URL.toLowerCase().substr(0,document.URL.indexOf( $('#controllername').val() ));
-            var urlSaveImg = baseURL + $('#controllername').val() + "/save_img";
+            var urlSaveImg = baseURL + $('#controllername').val() + "/save-img";
 
             var formData = new FormData($(this)[0]);
 
@@ -256,6 +261,7 @@ $(document).ready(function() {
             return false;
         });
     });
+    */
 
 
     
@@ -285,9 +291,10 @@ $(document).ready(function() {
         $(".buttonset-field-campaign").addClass('hide');
         $("#inputCampPriceAmount").removeClass('camp-price-amount-inline');
         $("#CampPriceAmountGroup").addClass('camp-price-amount-block');
+        $(".camp-image-edit-area").addClass('hide');
 
         //Shows all for editing
-        $(".link-edit").each(function(){
+        $(".link-edit-camp").each(function(){
             $(this).initEdit(true);
         });
     });
@@ -299,6 +306,7 @@ $(document).ready(function() {
         $(".buttonset-field-campaign").removeClass('hide');
         $("#inputCampPriceAmount").addClass('camp-price-amount-inline');
         $("#CampPriceAmountGroup").removeClass('camp-price-amount-block');
+        $(".camp-image-edit-area").removeClass('hide');
 
         //Cancel editing for all controls
         $(".btn-cancel-edit").each(function(){

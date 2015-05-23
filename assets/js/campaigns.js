@@ -65,7 +65,11 @@ jQuery(function ($) {
 	            if(data.element.attr('id') != 'inputContribute')
 	            	$(saveButton).removeClass('disabled');
 
-	            $(".btn-save-all").removeClass('disabled');
+
+	            if($('.has-error').length > 0)
+	            	$('#saveAllCampaign').addClass('disabled');
+	            else
+	            	$('#saveAllCampaign').removeClass('disabled');
 
         	})
 	        .on('error.field.bv', function(e, data) {
@@ -80,7 +84,10 @@ jQuery(function ($) {
 	            if(data.element.attr('id') != 'inputContribute')
 	            	$(saveButton).addClass('disabled');
 
-	            $(".btn-save-all").addClass('disabled');
+	            if($('.has-error').length > 0)
+	            	$('#saveAllCampaign').addClass('disabled');
+	            else
+	            	$('#saveAllCampaign').removeClass('disabled');
 
 	            // Put red background if container background is blue (Hardcoded)
 	            if(data.field == "currency"){
@@ -133,7 +140,7 @@ jQuery(function ($) {
 	    *****************************
 	    */
 
-		/* Currency format for campaign price and campaign contributions (END)
+		/* Currency format for campaign price and campaign contributions
 	    *****************************
 	    */
 	   $(".currency").autoNumeric();
@@ -147,6 +154,9 @@ jQuery(function ($) {
 			vMin : 0
 		});
 
+		/* Currency format for campaign price and campaign contributions (END)
+	    *****************************
+	    */
 
 	   /* Event for class Currency formatter */
 	   $(".currency").keyup(function(e) {

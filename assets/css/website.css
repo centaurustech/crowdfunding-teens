@@ -302,7 +302,7 @@ a.campaign-name {
   padding-right: 32px;
 }
 
-a.link-edit{
+a.link-edit-camp, a.link-edit-profile{
   color:#e90e79;
 }
 
@@ -366,6 +366,10 @@ a.link-edit{
   padding-bottom: 14px;
   margin-right: 55px;
   margin-left: 36px;
+}
+
+.edit-all-campaign-inprogress{
+  padding-top: 24px;
 }
 
 
@@ -1013,6 +1017,10 @@ footer .container{
     margin-left: -15px;
   }
 
+  .campaign-list-right-new{
+    margin-top: -65px;
+  }
+
 }
 
 @media (min-width:1200px){
@@ -1062,6 +1070,7 @@ footer .container{
   .comments-area {
     /*margin-top: -220px;*/
   }
+
 
   .campaign-contribution-amount{
     width: 190%;

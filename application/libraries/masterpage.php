@@ -76,7 +76,7 @@ class Masterpage {
 			$user_session = $CI->session->userdata('user');
 
 			$this->header_vars = array(
-				"current_user" => $user_session['fullname'],
+				"current_user" => $user_session['firstname'],
 				"user_pic"     => $user_session['picture'],
 			);
 

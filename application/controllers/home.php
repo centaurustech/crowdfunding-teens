@@ -36,6 +36,7 @@ class home extends MY_Controller {
 	public function logout() {
 		redirect(base_url('login/logout/'));
 	}
+
 }
 
 /* End of file home.php */

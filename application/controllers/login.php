@@ -158,10 +158,11 @@ class login extends MY_Controller {
 
 			if ($current_date < $hash_date && $hash == $userObj->hash_value) {
 
-				$data_user["fullname"] = $peopleObj->fullname;
-				$data_user["email"]    = $peopleObj->email;
-				$data_user["iduser"]   = $userObj->iduser;
-				$data_user["username"] = $userObj->username;
+				$data_user["fullname"]  = $peopleObj->fullname;
+				$data_user["firstname"] = substr($peopleObj->fullname, 0, strpos($peopleObj->fullname, " "));
+				$data_user["email"]     = $peopleObj->email;
+				$data_user["iduser"]    = $userObj->iduser;
+				$data_user["username"]  = $userObj->username;
 
 				$this->session->set_userdata('user', $data_user);
 
@@ -202,11 +203,12 @@ class login extends MY_Controller {
 				}
 				 */
 
-				$peopleObj             = $this->people_model->get($userObj->idpeople);
-				$data_user["username"] = $username;
-				$data_user["fullname"] = $peopleObj->fullname;
-				$data_user["picture"]  = is_null($peopleObj->picture_url)|empty($peopleObj->picture_url)?base_url("assets/img/no-profile-picture.jpg"):$peopleObj->picture_url;
-				$data_user["iduser"]   = $userObj->iduser;
+				$peopleObj              = $this->people_model->get($userObj->idpeople);
+				$data_user["username"]  = $username;
+				$data_user["fullname"]  = $peopleObj->fullname;
+				$data_user["firstname"] = substr($peopleObj->fullname, 0, strpos($peopleObj->fullname, " "));
+				$data_user["picture"]   = is_null($peopleObj->picture_url)|empty($peopleObj->picture_url)?base_url("assets/img/no-profile-picture.jpg"):$peopleObj->picture_url;
+				$data_user["iduser"]    = $userObj->iduser;
 
 				$this->session->set_userdata('user', $data_user);
 
@@ -260,10 +262,11 @@ class login extends MY_Controller {
 
 			$userObj = $this->users_model->sync_from_facebook($peopleObj->idpeople, $fb_usr);
 
-			$data_user["username"] = is_null($userObj->username)?"fb-".$userObj->facebook_id:$userObj->username;
-			$data_user["fullname"] = $peopleObj->fullname;
-			$data_user["picture"]  = $peopleObj->picture_url;
-			$data_user["iduser"]   = $userObj->iduser;
+			$data_user["username"]  = is_null($userObj->username)?"fb-".$userObj->facebook_id:$userObj->username;
+			$data_user["fullname"]  = $peopleObj->fullname;
+			$data_user["firstname"] = substr($peopleObj->fullname, 0, strpos($peopleObj->fullname, " "));
+			$data_user["picture"]   = $peopleObj->picture_url;
+			$data_user["iduser"]    = $userObj->iduser;
 
 			$this->session->set_userdata('user', $data_user);
 			redirect(base_url('home/'));

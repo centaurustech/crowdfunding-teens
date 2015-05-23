@@ -46,10 +46,19 @@ class campaigns extends MY_Controller {
 		}
 		 */
 
+		$usr_auth = $this->users_model->get_auth_user();
+
 		if ($action == 'details'|$action == 'edit') {
 			$rs = $this->campaigns_model->get_campaign_info($idcampaign);
-		}if ($action == 'addnew') {
-			$rs = $this->campaigns_model->init();
+
+		} else if ($action == 'add-new'|$action == 'add_new') {
+
+			if (!$usr_auth) {
+				redirect(base_url('login'));
+				return;
+			}
+
+			$rs = $this->campaigns_model->init($usr_auth);
 		} else {
 			show_404();
 			return;
@@ -131,9 +140,9 @@ class campaigns extends MY_Controller {
 		}
 	}
 
-	public function save_img() {
+	public function save_img($idcampaign = "") {
 
-		if (!$this->input->post()) {
+		if (!$this->input->post() || $idcampaign == "") {
 			show_404();
 			return;
 		}
@@ -149,20 +158,25 @@ class campaigns extends MY_Controller {
 			$upload_data = $file["upload_data"];
 			$imgurl      = str_replace(FCPATH, base_url(), $upload_data["full_path"]);
 
-			$campaign_id = "1";// Get idcampaign from HTML (later)
 			//Save the image url in DB.
-			$result = $this->camp_pictures->update_by_campaing_id($campaign_id, $imgurl);
+			$result = $this->camp_pictures->save($idcampaign, $imgurl);
 
-			redirect(base_url('campaigns/details/1'));
+			if ($result != false) {
+				redirect(base_url("campaigns/details/".$idcampaign));
+			}
+
 		}
 
 		var_dump($file);// Meanwhile, we spit variable. Later, create a view for error.
 
 	}
 
-	public function addnew() {
+	public function add_new() {
+
+		$usr_auth = $this->users_model->get_auth_user();
 
 		$this->_render();
+
 	}
 
 	public function delete() {
@@ -184,7 +198,48 @@ class campaigns extends MY_Controller {
 			"msg" => $msg,
 		);
 
-		$this->masterpage->view("campaigns/status_deleted_updated", $data);
+		$this->masterpage->view("campaigns/status_action", $data);
+
+	}
+
+	public function save() {
+
+		if (!$this->input->post()) {
+			show_404();
+			return;
+		}
+
+		$auth_usr = $this->users_model->get_auth_user();
+
+		if ($auth_usr) {
+
+			$data = array(
+				"camp_name"        => $this->input->post("inputCampName"),
+				"camp_description" => $this->input->post("inputCampDescription"),
+				"camp_goal"        => $this->input->post("hiddenCampPriceAmount"),
+				"iduser"           => $auth_usr->iduser,
+				"creationdate"     => date('Y-m-d H:i:s'),
+			);
+
+			$idcampaign = $this->input->post("idcampaign");
+
+			$id = $this->campaigns_model->save($idcampaign, $data);
+
+			if ($id) {
+				redirect(base_url('campaigns/details/'.$id));
+			} else {
+				$data = array(
+					"msg" => "Error ao salvar a campanha",
+				);
+
+				$this->masterpage->view("campaigns/status_action", $data);
+			}
+
+		} else {
+
+			redirect(base_url('login'));
+
+		}
 
 	}
 
