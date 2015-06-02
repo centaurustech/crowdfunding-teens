@@ -1,4 +1,6 @@
-<?php if (!defined('BASEPATH')) {
+<?php
+
+if (!defined('BASEPATH')) {
 	exit('No direct script access allowed');
 }
 
@@ -206,7 +208,7 @@ class login extends MY_Controller {
 				$peopleObj              = $this->people_model->get($userObj->idpeople);
 				$data_user["username"]  = $username;
 				$data_user["fullname"]  = $peopleObj->fullname;
-				$data_user["firstname"] = substr($peopleObj->fullname, 0, strpos($peopleObj->fullname, " "));
+				$data_user["firstname"] = strpos($peopleObj->fullname, ' ') !== false?substr($peopleObj->fullname, 0, strpos($peopleObj->fullname, " ")):$peopleObj->fullname;
 				$data_user["picture"]   = is_null($peopleObj->picture_url)|empty($peopleObj->picture_url)?base_url("assets/img/no-profile-picture.jpg"):$peopleObj->picture_url;
 				$data_user["iduser"]    = $userObj->iduser;
 

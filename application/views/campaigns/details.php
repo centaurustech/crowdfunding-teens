@@ -16,7 +16,8 @@ fjs.parentNode.insertBefore(js, fjs);
 } else {
 	echo $rs->camp_owner;?>
 	<span class="cyan-title">quer ganhar un...</span>
-	<?php }?>
+	<?php }
+?>
 	</h1>
 	<hr class="grey-line">
 	<form id="form-campaigns" name="form-campaigns" action="#" method="post">
@@ -24,7 +25,7 @@ fjs.parentNode.insertBefore(js, fjs);
 		<input type="hidden" name= "controllername" id="controllername" value="<?php echo $controller_name;?>">
 		<input type="hidden" name= "hiddenCampPriceAmount" id="hiddenCampPriceAmount" value="">
 		<div class="row"> <!-- Campaign Name -->
-		<div class="col-md-7">
+		<div class="row col-md-9">
 			<div class = "col-xs-10">
 				<h2 id="current-CampName"><?php echo $rs->camp_name;?></h2>
 			</div>
@@ -32,7 +33,8 @@ fjs.parentNode.insertBefore(js, fjs);
 	<div class = "col-xs-2 edit-campaign-name">
 							<a id="edit-CampName" class="link-edit-camp edit-area" href="#">Alterar</a>
 						</div>
-	<?php }?>
+	<?php }
+?>
 			<div id="form-edit-CampName" class="col-md-12 form-edit <?php echo ($rs->is_new_campaign?"":"hide");?>">
 				<div class="form-group">
 					<label for="inputCampName" class="">Nome Presente</label>
@@ -46,12 +48,14 @@ fjs.parentNode.insertBefore(js, fjs);
 									<i class="fa fa-times"></i>
 									</button>
 								</div>
-	<?php }?>
+	<?php }
+?>
 </div><!-- /form-group -->
 				</div>
 			</div>
-<?php if ($rs->is_own_campaign) {?>
-						<div class = "col-md-5 <?php echo ($rs->is_new_campaign?"":"edit-all-campaign-area");?>">
+<?php if ($rs->is_own_campaign) {
+	?>
+						<div class = "row col-md-3 <?php echo ($rs->is_new_campaign?"":"edit-all-campaign-area");?>">
 	<?php if (!$rs->is_new_campaign) {?>
 		<div class = "row edit-all-campaign-idle">
 											<div class = "row edit-all-campaign">
@@ -67,21 +71,27 @@ fjs.parentNode.insertBefore(js, fjs);
 												</button>
 											</div>
 										</div>
-		<?php }?>
+		<?php }
+	?>
 	</div>
-	<?php }?>
+	<?php }
+?>
 </div> <!-- /Campaign Name -->
 			<div class="row">	<!-- Basic Info Pane -->
-			<div class="col-md-7">
-<?php if (!$rs->is_new_campaign) {?>
-							<img id="current-CampaignFullPicture" class="campaign-full-picture" src="<?php echo $rs->imgurl;?>">
+			<div class="col-md-9">
+<?php if (!$rs->is_new_campaign) {
+	?>
+							<div id="boxCampaignFullPicture" class="campaign-full-picture-box">
+								<img id="current-CampaignFullPicture" class="campaign-full-picture centered" src="<?php echo $rs->imgurl;?>">
+							</div>
 							<div id="form-edit-CampaignFullPicture" class="form-group edit-campaign hide">
-								<div>
-									<img id="inputCampaignFullPicture" class="campaign-full-picture" src="" data-controller="campaigns" data-db-field="imgurl">
+								<div class="campaign-full-picture-box">
+									<img id="inputCampaignFullPicture" class="campaign-full-picture centered" src="" data-controller="campaigns" data-db-field="imgurl">
 								</div>
 							</div>
-	<?php if ($rs->is_own_campaign) {?>
-										<div class="row">
+	<?php if ($rs->is_own_campaign) {
+		?>
+										<div class="row browse-picture-area">
 										<form id="fake"></form>
 										<form id="imgUploadFullPicture" name="imgUploadFullPicture" method = "post" action="<?php echo base_url('campaigns/save-img/'.$rs->idcampaign);?>" enctype="multipart/form-data">
 											<p class="select-campaign-image">
@@ -103,7 +113,8 @@ fjs.parentNode.insertBefore(js, fjs);
 																	</button>
 																</div>
 															</div>
-			<?php }?>
+			<?php }
+		?>
 		</small>
 											</p>
 										</form>
@@ -111,10 +122,11 @@ fjs.parentNode.insertBefore(js, fjs);
 		<?php }// Own campaign for hiding editing photo?>
 						<?php }// New campaign for hiding whole photo?>
 			<div class="row bubble-description">
-				<div id="current-CampDescription"><?php echo $rs->camp_description;?></div>
+				<div id="current-CampDescription" class="col-sm-10"><?php echo $rs->camp_description;?></div>
 <?php if ($rs->is_own_campaign && !$rs->is_new_campaign) {?>
-	<span class="pull-right"><a id="edit-CampDescription" class="link-edit-camp edit-area" href="#">Alterar</a></span>
-	<?php }?>
+	<span class="col-sm-2 pull-right"><a id="edit-CampDescription" class="link-edit-camp edit-area" href="#">Alterar</a></span>
+	<?php }
+?>
 				<div id="form-edit-CampDescription" class="form-group edit-campaign <?php echo $rs->is_new_campaign?"":"hide";?>">
 					<label for="inputCampDescription" class="">Descrição Presente</label>
 					<div class="text-area-box">
@@ -129,7 +141,8 @@ fjs.parentNode.insertBefore(js, fjs);
 									<i class="fa fa-times"></i>
 									</button>
 								</div>
-	<?php }?>
+	<?php }
+?>
 				</div>
 			</div>
 			<div class="row campaign-owner">
@@ -149,14 +162,16 @@ fjs.parentNode.insertBefore(js, fjs);
 											<i class="fa fa-times"></i>
 											</button>
 										</div>
-	<?php }?>
+	<?php }
+?>
 						</div>
 						<p id="current-CampOwnerName"><?php echo $rs->camp_owner;?></p>
 <?php if ($rs->is_own_campaign && !$rs->is_new_campaign) {?>
 									<p>
 										<a id="edit-CampOwnerName" class="link-edit-profile edit-area" href="<?php echo base_url('profile/edit/'.$rs->iduser);?>">Alterar Perfil</a>
 									</p>
-	<?php }?>
+	<?php }
+?>
 </div>
 				</div>
 <?php if (!$rs->is_new_campaign) {?>
@@ -202,10 +217,11 @@ fjs.parentNode.insertBefore(js, fjs);
 									</div>
 								</div>
 							</div>
-	<?php }?>
-</div>
+	<?php }
+?>
+			</div>
 		</div>
-		<div class="col-md-5">
+		<div class="col-md-3">
 			<div class="row campaign-list-right<?php echo $rs->is_new_campaign?" campaign-list-right-new":"";?>"><!-- Campaign Price -->
 			<div class="thumbnail">
 				<div class = "campaign-values">
@@ -217,14 +233,16 @@ fjs.parentNode.insertBefore(js, fjs);
 	<div class = "col-xs-6 edit-price">
 										<a id="edit-CampPriceAmount" class="link-edit-camp edit-area" href="#">Alterar</a>
 									</div>
-	<?php }?>
+	<?php }
+?>
 </div>
 					<div class="form-edit">
 <?php if (!$rs->is_new_campaign) {?>
 									<div id="current-CampPriceAmount" class="price-amount">
 										<span class="currency" data-a-sign="R$ " data-aSep ="." data-aDec =","><?php echo $rs->camp_goal;?></span>
 									</div>
-	<?php }?>
+	<?php }
+?>
 						<div id="form-edit-CampPriceAmount" class="form-group edit-campaign <?php echo $rs->is_new_campaign?"":"hide";?>">
 							<div id = "CampPriceAmountGroup" class="input-group <?php echo $rs->is_new_campaign?"camp-price-amount-block":"";?>">
 								<label for="inputCampPriceAmount" class="sr-only">Preço</label>
@@ -238,7 +256,8 @@ fjs.parentNode.insertBefore(js, fjs);
 												<i class="fa fa-times"></i>
 												</button>
 											</span>
-	<?php }?>
+	<?php }
+?>
 								</div><!-- /input-group -->
 							</div>
 						</div>
@@ -256,7 +275,8 @@ fjs.parentNode.insertBefore(js, fjs);
 					</div>
 				</div>
 			</div>
-<?php if (!$rs->is_new_campaign) {?>
+<?php if (!$rs->is_new_campaign) {
+	?>
 	<div id = "campaignContribArea" class="row campaign-list-right">
 							<form id="frmContribute" name="frmContribute" action="">
 								<div class="thumbnail">
@@ -284,7 +304,8 @@ fjs.parentNode.insertBefore(js, fjs);
 												<button type="button" class="close next" aria-label="Seguinte">
 												<span aria-hidden="true">+</span>
 												</button>
-		<?}?>
+		<?}
+	?>
 	<p align="justify">
 										Parabéns anticipado, man!
 										Dei uma forcinha aí e espero que você alcance o PS4!!
@@ -308,13 +329,14 @@ fjs.parentNode.insertBefore(js, fjs);
 								</p>
 							</div>
 						</div>
-	<?php }?>
+	<?php }
+?>
 		</div>
 	</div>
 	<!-- Put Record action button at the end -->
 	<div class = "row <?php echo ($rs->is_new_campaign?"":"edit-all-campaign-inprogress hide");?>">
 		<div class = "col-md-4">
-			<button id="<?php echo $rs->is_new_campaign?"saveNewCampaign":"saveAllCampaign";?>" class="btn btn-success btn-save-all btn-block disabled" type="submit">
+			<button id="<?php echo $rs->is_new_campaign?"saveNewCampaign":"saveAllCampaign";?>" class="btn btn-success btn-save-all btn-block" type="submit">
 			<i class="fa fa-check"></i>
 <?php echo $rs->is_new_campaign?"Salvar nova campanha":"Confirmar alteração";?>
 </button>
@@ -330,12 +352,13 @@ fjs.parentNode.insertBefore(js, fjs);
 							<i class="fa fa-times"></i>
 							Cancelar
 						</a>
-	<?php }?>
+	<?php }
+?>
 </div>
 	</div>
 </form>
 <div class="row">	<!-- Alert Pane -->
-<div class="col-md-7 contribution-log"> <!-- Right Pane -->
+<div class="col-md-9 contribution-log"> <!-- Right Pane -->
 <hr class="grey-line">
 <?php if (!$rs->is_new_campaign) {?>
 	<div class="row alert alert-default" role="alert">
@@ -363,7 +386,8 @@ fjs.parentNode.insertBefore(js, fjs);
 	<div class="row alert alert-default" role="alert">
 				Você está <span class="hightlight-red">criando</span> uma nova campanha para ganhar o presente sonhado
 			</div>
-	<?php }?>
+	<?php }
+?>
 </div>	<!-- Left Pane -->
 </div> <!-- Right Pane -->
 </div>

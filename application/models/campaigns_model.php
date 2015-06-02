@@ -47,7 +47,8 @@ class campaigns_model extends MY_Model {
 			}
 
 			//Set Default No Picture when imgurl is empty or null.
-			$row->imgurl = is_null($row->imgurl)?base_url("assets/img/no-campaign-picture.png"):$row->imgurl;// Edit campaign
+			$row->imgurl             = is_null($row->imgurl)|empty($row->imgurl)?base_url("assets/img/no-campaign-picture.png"):$row->imgurl;// Edit campaign
+			$row->camp_owner_picture = is_null($row->camp_owner_picture)|empty($row->camp_owner_picture)?base_url('assets/img/no-profile-picture.jpg'):$row->camp_owner_picture;
 
 			$row->is_new_campaign = FALSE;// Edit campaign
 

@@ -119,9 +119,11 @@ $(document).ready(function() {
                 $("#campaignContribArea").removeClass("hide");
                 $(".edit-all-campaign-area").removeClass("hide");
                 $(currentField).removeClass("hide");
+                $("#boxCampaignFullPicture").removeClass('hide');
                 $(buttonSet).addClass("hide");
                 $(".file-selector").removeClass('hide');
                 $(".file-selector").val('');
+                $(".contribution-log").css('margin-top','-200px');
                 
                 if($(inputField).is('img')){
                     $(inputField).attr("src","");
@@ -140,6 +142,7 @@ $(document).ready(function() {
 
                 if (file) {
                     reader.readAsDataURL(file);
+                    $("#boxCampaignFullPicture").addClass('hide');
                 } else {
                     preview.src = "";
                 }
@@ -169,6 +172,11 @@ $(document).ready(function() {
                 var baseURL = document.URL.toLowerCase().substr(0,document.URL.indexOf( $('#controllername').val() ));
                 var msgWarning = '';
 
+
+                // Stop saving when error exists.
+                if($('.has-error').length > 0){
+                    return;
+                }
 
                 if(method.toLowerCase() =='edit' | method.toLowerCase() =='addnew'){
                     execAction = '/save/';
@@ -276,6 +284,7 @@ $(document).ready(function() {
 
     $("#edit-CampaignFullPicture").change(function(e) {
          $(this).previewImage(e, "inputCampaignFullPicture");
+         $(".contribution-log").css('margin-top','0px');
          $(this).initEdit();
     });
 
@@ -326,6 +335,8 @@ $(document).ready(function() {
 
     $("#saveNewCampaign").click(function(e) {
         e.preventDefault();
+        $("#form-campaigns").data('bootstrapValidator').validate();
+
         $(this).doAction('addnew');
     });
 

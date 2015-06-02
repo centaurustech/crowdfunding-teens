@@ -163,9 +163,17 @@ class campaigns extends MY_Controller {
 
 			if ($result != false) {
 				redirect(base_url("campaigns/details/".$idcampaign));
+				return;
 			}
 
 		}
+
+		$data = array(
+			"msg"        => $file["error"],
+			"source_url" => "campaigns/details/".$idcampaign,
+		);
+
+		$this->masterpage->view("campaigns/status_action", $data);
 
 		var_dump($file);// Meanwhile, we spit variable. Later, create a view for error.
 
@@ -195,7 +203,8 @@ class campaigns extends MY_Controller {
 		"Erro ao apagar esta campanha";
 
 		$data = array(
-			"msg" => $msg,
+			"msg"        => $msg,
+			"source_url" => "",
 		);
 
 		$this->masterpage->view("campaigns/status_action", $data);

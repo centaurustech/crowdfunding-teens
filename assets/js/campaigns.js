@@ -19,6 +19,7 @@ jQuery(function ($) {
 	            },
 	            fields: {
 	                inputCampName: {
+	                    trigger: 'keyup',
 	                    validators: {
 	                        notEmpty: {
 	                            message: 'Nome Presente não deve estar vazio'
@@ -26,6 +27,7 @@ jQuery(function ($) {
 	                    }
 	                },
 	                inputCampDescription: {
+	                    trigger: 'keyup',
 	                    validators: {
 	                        notEmpty: {
 	                            message: 'Justificativa não deve estar vazio'
@@ -37,6 +39,7 @@ jQuery(function ($) {
 	                    }
 	                },
 	                inputCampOwnerName: {
+	                    trigger: 'keyup',
 	                    validators: {
 	                        notEmpty: {
 	                            message: 'Nome não deve estar vazio'
@@ -44,6 +47,7 @@ jQuery(function ($) {
 	                    }
 	                },
 	                currency: {
+	                    trigger: 'keyup',
 	                    selector: ".currency",
 	                    validators: {
 	                        notEmpty: {
@@ -61,15 +65,20 @@ jQuery(function ($) {
 	            }
 	        })
 	        .on('success.field.bv', function(e, data) {
+	            
+	            if(data.element.attr('id') === undefined){
+	            	return;
+	            }
+
 	            var saveButton  = "#" + data.element.attr('id').replace("input", "save-");
 	            if(data.element.attr('id') != 'inputContribute')
 	            	$(saveButton).removeClass('disabled');
 
 
 	            if($('.has-error').length > 0)
-	            	$('#saveAllCampaign').addClass('disabled');
+	            	$('.btn-save-all').addClass('disabled');
 	            else
-	            	$('#saveAllCampaign').removeClass('disabled');
+	            	$('.btn-save-all').removeClass('disabled');
 
         	})
 	        .on('error.field.bv', function(e, data) {
@@ -79,15 +88,23 @@ jQuery(function ($) {
 	            var $icon   = $parent.find('.form-control-feedback[data-bv-icon-for="' + data.field + '"]');
 	            // var title   = $icon.data('bs.tooltip').getTitle();
 	            
+	            if(data.element.attr('id') === undefined){
+	            	return;
+	            }
+
 	            var saveButton  = "#" + data.element.attr('id').replace("input", "save-");
 
 	            if(data.element.attr('id') != 'inputContribute')
 	            	$(saveButton).addClass('disabled');
 
 	            if($('.has-error').length > 0)
-	            	$('#saveAllCampaign').addClass('disabled');
+	            	$('.btn-save-all').addClass('disabled');
 	            else
-	            	$('#saveAllCampaign').removeClass('disabled');
+	            	$('.btn-save-all').removeClass('disabled');
+
+	            // Move icon for addnew or Edit all fields. For individual field edit, keep as is.
+	            if(data.element.attr('id') == 'inputCampDescription')
+	            $icon.css('top','40px');
 
 	            // Put red background if container background is blue (Hardcoded)
 	            if(data.field == "currency"){
@@ -97,7 +114,7 @@ jQuery(function ($) {
 	            	$msg.css('background-color','#a94442');
 	            	$msg.css('color','#fff');
 					
-					if(data.element.attr('id') == 'inputCampPriceAmount')
+					if(data.element.attr('id') == 'inputCampPriceAmount' && $(".btn-save-all").is(':hidden'))
 	            		$icon.css('right','77px');
 
 	            }
@@ -135,8 +152,8 @@ jQuery(function ($) {
 	        // Then reset the form
 	        $('#form-campaign').data('bootstrapValidator').resetForm(true);
 	    });
-		
-		/* Form validation for campaign and campaign owner (END)
+
+	    /* Form validation for campaign and campaign owner (END)
 	    *****************************
 	    */
 

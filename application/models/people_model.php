@@ -2,7 +2,7 @@
 	exit('No direct script access allowed');
 }
 
-class people_model extends CI_Model {
+class people_model extends MY_Model {
 
 	public function people_model() {
 		parent::__construct();
@@ -87,8 +87,9 @@ class people_model extends CI_Model {
 
 	public function signup($postdata) {
 
-		//Check if record exists
+		//Check if email exists
 		$row = $this->searchPeopleByEmail($postdata['inputEmail']);
+
 		if (!$row) {
 
 			$arr_filter = array(

@@ -39,8 +39,9 @@ class signup extends MY_Controller {
 		if (!$this->users_model->searchUserByUserName($post_data['inputUser'])) {
 
 			$idpeople = $this->people_model->signup($post_data);
+
 			if (!$idpeople) {
-				$msg = "E-Mail já cadastrado. Tente com outro E-Mail";
+				$msg = 'E-Mail já cadastrado. Tente com outro E-Mail <a href="'.base_url('signup').'">Login</a>';
 			} else {
 				$iduser = $this->users_model->signup($post_data, $idpeople);
 				$msg    = 'Usuário cadastrado com sucesso. <a href="'.base_url('login').'">Login</a>';

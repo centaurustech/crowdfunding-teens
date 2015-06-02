@@ -128,10 +128,9 @@ a:focus.search-icon {
   width: 32px;
 }
 .profile-info>small{
-  color:white;
+  color:#5a5a5a;
   padding-left: 10px;
 }
-
 
 
 
@@ -266,11 +265,16 @@ a.campaign-name {
   color:#e90e79;
   padding-top:  28px;
   text-align: center;
+  font-size: 18px;
 }
 
 .price-title{
   padding-left: 24px;
   text-align: justify;
+}
+
+.price-title h4{
+  font-size: 22px;
 }
 
 .price-amount{
@@ -294,12 +298,14 @@ a.campaign-name {
   text-align: justify;
   padding-left: 12px;
   padding-top: 4px;
+  font-size: 16px;
 }
 
 .edit-price{
   text-align: right;
   padding-top: 6px;
   padding-right: 32px;
+  font-size: 18px;
 }
 
 a.link-edit-camp, a.link-edit-profile{
@@ -318,7 +324,7 @@ a.link-edit-camp, a.link-edit-profile{
 
 .campaign-list .campaign-values p, .campaign-list-right .campaign-values p{
   color: #fff;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: bold;
   height: 100%;
   padding-top: 15px;
@@ -362,10 +368,14 @@ a.link-edit-camp, a.link-edit-profile{
 /* Campaign Details
 -------------------------------------------------- */
 
+.edit-all-campaign-area{
+  margin-left: 30px;
+}
+
 .edit-all-campaign, .delete-campaign {
   padding-bottom: 14px;
-  margin-right: 55px;
-  margin-left: 36px;
+  margin-right: 15px;
+  margin-left: 15px;
 }
 
 .edit-all-campaign-inprogress{
@@ -384,16 +394,38 @@ a.link-edit-camp, a.link-edit-profile{
 
 .campaign-details h1 {
   padding-left: 32px;
-  /*font-size:  48px;*/
+  font-size:  48px !important;
   padding-bottom: 24px;
 }
 
 .campaign-details h2 {
   padding-left: 32px;
-  font-size:  36px;
+  font-size:  42px;
   padding-bottom: 12px;
   font-weight: bold;
   text-align: center;
+}
+
+
+.campaign-full-picture {
+  height: 100%;
+  width: 100%;
+}
+
+.campaign-full-picture-box {
+  height: 100%;
+  background-color: #e4e4e4;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  padding-top: 15px;
+
+}
+
+.browse-picture-area{
+  background-color: #e4e4e4;
+  margin-left: 0px;
+  margin-right: 0px;
+  border-bottom: 1px solid #f0f3f7;
 }
 
 .grey-line{
@@ -403,11 +435,11 @@ a.link-edit-camp, a.link-edit-profile{
 .bubble-description {
     position: relative;
     width: 100%;
-    height: 115px;
+    height: 145px;
     padding: 10px;
     background: #e4e4e4;
     color: #333231;
-    font-size: 16px;
+    font-size: 18px;
     -webkit-border-radius: 0px 0px 5px 5px;
     -moz-border-radius: 0px 0px 5px 5px;
     border-radius: 0px 0px 5px 5px;
@@ -435,17 +467,13 @@ a.link-edit-camp, a.link-edit-profile{
     margin-left:10%;
   }
 
-  .campaign-full-picture {
-    height: 100%;
-    width: 100%;
-  }
-
   .select-campaign-image{
     padding-top: 15px;
   }
 
   .file-selector{
     padding-bottom: 15px;
+    font-size: 14px;
   }
 
   .campaign-owner{
@@ -552,6 +580,7 @@ a.link-edit-camp, a.link-edit-profile{
   .alert-comments{
     margin-left: 14px;
     margin-right: 14px;
+    font-size: 18px;
   }
 
   .comments-area {
@@ -560,6 +589,7 @@ a.link-edit-camp, a.link-edit-profile{
 
   .next-campaign-comment{
     padding:  12px 24px 24px 24px;
+    font-size: 18px;
   }
 
   .hightlight-red {
@@ -590,6 +620,10 @@ a.link-edit-camp, a.link-edit-profile{
     height: 54px;
     border-radius: 5px;
     display: block;
+  }
+
+  #inputContribute{
+    font-size: 16px;
   }
 
 
@@ -634,8 +668,11 @@ a.link-edit-camp, a.link-edit-profile{
   }
 
   .btn-contribute-now {
-    margin-top: -5px;
-    margin-left: -16px;
+    margin-top: 0px;
+    margin-left: 3px;
+    width: 97% !important;
+    font-size: 24px !important;
+
   }
 
   
@@ -756,10 +793,6 @@ footer .container{
     border-right: 1px solid #dddddd;
   }
 
-  .btn-contribute-now {
-    width: 90%;
-  }
-
 }
 
 
@@ -773,6 +806,10 @@ footer .container{
     height: 90px;
   }
   
+  .profile-info>small{
+    color:white;
+  }
+
   .menuset {
     width: 60%;
     margin-left: 5em;
@@ -892,6 +929,16 @@ footer .container{
     width: 205%;
     margin-left:0px;
   }
+
+  .campaign-full-picture-box {
+    height: 410px;
+  }
+
+  .campaign-full-picture {
+    height: 100%;
+    width: auto;
+  }
+
 }
 
 @media (min-width: 992px) {
@@ -1005,6 +1052,10 @@ footer .container{
     /*margin-top: -220px;*/
   }
 
+  .campaign-full-picture-box {
+    height: 366px;
+  }
+
   .campaign-contribution-amount{
     width: 155%;
   }
@@ -1015,10 +1066,17 @@ footer .container{
   .contribution-log {
     margin-right: 15px;
     margin-left: -15px;
+    margin-top: -200px;
   }
 
   .campaign-list-right-new{
     margin-top: -65px;
+  }
+
+  .btn-contribute-now {
+    margin-top: 0px;
+    margin-left: 3px;
+    width: 93% !important;
   }
 
 }

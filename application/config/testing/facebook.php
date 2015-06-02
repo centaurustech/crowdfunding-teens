@@ -2,8 +2,8 @@
 	exit('No direct script access allowed');
 }
 
-$config['facebook']['api_id']       = '349895105208448';
-$config['facebook']['app_secret']   = 'f1d89eadd576b9eb9557e5a8d94390e2';
+$config['facebook']['api_id']       = '364638250400800';
+$config['facebook']['app_secret']   = '39f38ddad842169a73543ca04fd9115d';
 $config['facebook']['redirect_url'] = base_url('/login/facebook_redirect_url');
 
 $config['facebook']['permissions'] = array(
