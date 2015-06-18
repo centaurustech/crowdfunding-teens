@@ -30,6 +30,7 @@ class signup extends MY_Controller {
 	}
 
 	public function index() {
+		store_prev_url_cookies();
 		$this->load->view('signup/view_signup');
 	}
 

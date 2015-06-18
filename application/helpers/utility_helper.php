@@ -25,171 +25,112 @@ if (!function_exists('tiny_site_url()')) {
 
 }
 
-if (!function_exists('assets_url()')) {
-	function asset_url() {
-		return goto_url('/assets');
-	}
-}
+//Store previous URL in a cookie
+if (!function_exists('store_prev_url_cookies()')) {
 
-if (!function_exists('goto_url()')) {
-	function goto_url($url = '') {
-		return base_url($url).'/';
-	}
-}
+	function store_prev_url_cookies() {
 
-if (!function_exists('print_url_module()')) {
-	function print_url_module($url, $display_name) {
+		$CI = get_instance();
 
-		$html_url   = '';
-		$uri_string = strtolower(uri_string().'/');
+		$prev_url = $CI->input->cookie('crowdteens_prev_url', TRUE);
 
-		$controller_name = substr($uri_string, 0, stripos($uri_string, '/'));
-		$controller_url  = str_replace('dashboard/view/', '', $url);
-		$controller_url  = substr($uri_string, 0, stripos($controller_url, '/'));
+		if ($prev_url === false) {
 
-		if ($url == $uri_string || $controller_name == $controller_url) {
-			$html_url = '<span class="menu-selected">'.$display_name.'</span>';
-		} else {
-			$html_url = '<a href="'.goto_url($url).'">'.$display_name.'</a>';
+			$CI->load->library('user_agent');
+
+			$prev_url = $CI->agent->is_referral()?$CI->agent->referrer():'home';
+			$prev_url = str_replace("==", "", $prev_url);
+
+			$cookie = array(
+				'name'   => 'prev_url',
+				'value'  => base64_encode($prev_url),
+				'expire' => '86500',
+				'prefix' => 'crowdteens_',
+			);
+
+			$CI->input->set_cookie($cookie);
 		}
 
-		return $html_url;
-
+		return base64_encode($prev_url);
 	}
+
 }
 
-if (!function_exists('print_url_module_mobile()')) {
-	function print_url_module_mobile($url, $display_name) {
+//Read previous URL in a cookie
+if (!function_exists('read_prev_url_cookie()')) {
 
-		$html_url   = '';
-		$uri_string = strtolower(uri_string().'/');
+	function read_prev_url_cookies() {
 
-		$controller_name = substr($uri_string, 0, stripos($uri_string, '/'));
-		$controller_url  = str_replace('dashboard/view/', '', $url);
-		$controller_url  = substr($uri_string, 0, stripos($controller_url, '/'));
+		$CI = get_instance();
 
-		$html_url = '<a href="'.goto_url($url).'">'.$display_name.'</a>';
+		$hash_url = $CI->input->cookie('crowdteens_prev_url', TRUE);
 
-		return $html_url;
-
-	}
-}
-
-if (!function_exists('print_crud_button()')) {
-	function print_crud_button($id, $canedit = true) {
-
-		$html_permissions = '';
-		$current_url      = current_url();
-		$module           = strstr($current_url, 'dashboard/view/');
-		$controller       = str_replace('dashboard/view/', '', $module);
-		$edit             = $controller.'/edit/'.strval($id);
-		$delete           = $controller.'/delete/'.strval($id);
-
-		$html_permissions = $controller == 'users'?
-		'<li><a href="'.goto_url($controller.'/permissions/'.strval($id)).'">Acessos</a></li>':'';
-
-		$html_crud = $canedit?'
-		      <li><a href="'.goto_url($edit).'">Alterar</a></li>
-		      <li><a id="linkdelete" data-info="'.goto_url($delete).'" href="#" class = "delete-operation" data-backdrop="static" >Deletar</a></li>
-		 ':'';
-
-		if ($html_permissions == '' && $html_crud == '') {
-			return '';
-		} else {
-			return
-			'<div class="btn-group" role="group">
-			    <button type="button" class="btn btn-xs btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-			      <span class="caret"></span>
-			    </button>
-			    <ul class="dropdown-menu dropdown-menu-right" role="menu">
-			      '.$html_crud.'
-			      '.$html_permissions.'
-			    </ul>
-			 </div>
-			 ';
+		if ($hash_url === false) {
+			return base_url();
 		}
 
+		//Delete cookie
+		delete_cookie('crowdteens_prev_url');
+
+		return base64_decode($hash_url);
 	}
+
 }
 
-if (!function_exists('load_view()')) {
-	function load_view($controller, $view_name = '', $rs = null) {
+//Get Month name list for SELECT Tag HTML.
+if (!function_exists('list_month_name()')) {
 
-		$view_name = strtolower($view_name);
+	function list_month_name() {
 
-		if (uri_string() == 'dashboard/view/dashboard') {
-			redirect(goto_url($view_name));
-		} else {
+		$CI   = get_instance();
+		$html = "";
 
-			if ($view_name == '' || $view_name == 'view_dashboard_' || $view_name == 'dashboard') {
-				$view_name = 'view_dashboard';
-			}
-
-			$check_view_name = str_replace('view_dashboard_', '', $view_name);
-			$check_view_name = str_replace('view_crud_', '', $check_view_name);
-			$check_view_name = str_replace('users_access', 'users', $check_view_name);
-
-			$check_crud = str_replace($check_view_name, '', $view_name);
-
-			// Get a reference to the controller object
-			$CI = get_instance();
-
-			// You may need to load the model if it hasn't been pre-loaded
-			$CI->load->model('permissions_model');
-
-			// Call a function of the model
-			$current_user = $CI->session->userdata('user');
-
-			if ($current_user) {
-				$permission_session = $CI->permissions_model->getPermissionsByUser($current_user["idusers"], true);
-				$module_access      = $CI->permissions_model->checkModuleByUser($current_user["idusers"], $check_view_name.'/');
-			}
-
-			if (!$module_access && $view_name != 'view_dashboard' || ($check_crud == 'view_crud_' && $module_access[0]->user_role <= 1)) {
-				redirect('/dashboard/logout/');
-				return;
-			}
-
-			$uri_string = uri_string();
-			$uri_string .= '/';
-
-			if (count($permission_session) == 1 && $uri_string != $permission_session[0]->url) {
-				//exit('ok');
-				redirect(goto_url($permission_session[0]->url));
-			}
-
-			$controller->load->view('view_header', array('permission_session'  => $permission_session));
-			$controller->load->view('view_sidebar', array('permission_session' => $permission_session));
-
-			if ($rs != null) {
-				$data = $view_name == 'view_dashboard'?
-				array(
-					'rs' => $rs,
-				):
-				array(
-					'rs'      => $rs,
-					'canedit' => $module_access[0]->user_role > 1,
-				);
-
-				$controller->load->view($view_name, $data);
-			} else {
-				$controller->load->view($view_name);
-			}
-
-			/*
-			if(strpos($view_name, 'view_crud') !== false )
-			$controller->load->view('view_modal_permissions');
-			 */
-
-			if (strpos($view_name, 'view_dashboard') !== false) {
-				$controller->load->view('view_modal_delete');
-			}
-
-			$controller->load->view('view_footer');
-
+		for ($i = 1; $i <= 12; $i++) {
+			$html .= '<option value="'.sprintf("%02d", $i).'">'.
+			$CI->calendar->get_month_name(sprintf("%02d", $i)).
+			'</option>';
 		}
-
+		echo $html;
 	}
+
+}
+
+//Get Month name list for SELECT Tag HTML.
+if (!function_exists('list_future_years()')) {
+
+	function list_future_years() {
+
+		$CI       = get_instance();
+		$html     = "";
+		$cur_year = date("Y", $CI->calendar->local_time);
+
+		for ($i = $cur_year; $i <= $cur_year+10; $i++) {
+			$html .= '<option value="'.sprintf("%04d", $i).'">'.
+			sprintf("%04d", $i).
+			'</option>';
+		}
+		echo $html;
+	}
+
+}
+
+//Get Month name list for SELECT Tag HTML.
+if (!function_exists('list_countries()')) {
+
+	function list_countries() {
+
+		$CI        = get_instance();
+		$countries = $CI->geography_model->get_countries();
+		$html      = "";
+
+		foreach ($countries as $country) {
+			$html .= '<option value="'.$country->country_id.'">'.
+			$country->country_name.
+			'</option>';
+		}
+		echo $html;
+	}
+
 }
 
 if (!function_exists('load_modal_html()')) {

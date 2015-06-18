@@ -4,6 +4,7 @@
 
 html{
   height:  100%;
+  font-size: 18px;
 }
 
 body {
@@ -11,6 +12,36 @@ body {
   background-color: #f0f3f7;
   color: #292c35;
   height:  100%;
+}
+
+h1{
+  font-size: 42px;
+}
+
+h2{
+  font-size: 36px;
+}
+
+h3{
+  font-size: 32px;
+}
+
+h4{
+  font-size: 24px;
+}
+
+textarea{
+  resize: none;
+  border-radius: 5px;
+  display: block;
+}
+
+input, label, p{
+  font-size: 18px;
+}
+
+.copy-right{
+  font-size: 14px;
 }
 
 
@@ -195,6 +226,10 @@ a:focus.search-icon {
 -------------------------------------------------- */
 .home-header-buttons{
   margin-bottom: 50px;
+}
+
+.show-more-area{
+  padding-top: 50px;
 }
 
 
@@ -485,7 +520,7 @@ a.link-edit-camp, a.link-edit-profile{
     width: 100%
   }
 
-  .currency{
+  .currency-radius{
     border-radius: 5px !important;
   }
 
@@ -592,8 +627,12 @@ a.link-edit-camp, a.link-edit-profile{
     font-size: 18px;
   }
 
-  .hightlight-red {
+  .hightlight-dark-red {
     color:  #a94442 !important;
+  }
+
+  .hightlight-red {
+    color:  #e90e79 !important;
   }
 
   .alert-hightlight {
@@ -615,11 +654,8 @@ a.link-edit-camp, a.link-edit-profile{
   }
 
   #inputCampDescription { 
-    resize: none; 
     margin: 2px 2px 2px 2px;
     height: 54px;
-    border-radius: 5px;
-    display: block;
   }
 
   #inputContribute{
@@ -675,7 +711,203 @@ a.link-edit-camp, a.link-edit-profile{
 
   }
 
-  
+  #inputContribMsg{
+    width: 100%;
+    height: 120px;
+    white-space: normal;
+    word-wrap: break-word;
+    word-wrap: break-word !important;
+    white-space: normal!important;
+  }
+
+/* CHECKOUT PAGE
+------------------------- */
+
+  .checkout-flow{
+    width: 100%;
+    background-color: #fff;
+    padding-top: 170px;
+  }
+
+  .checkout-flow h1 {
+    padding-left: 32px;
+    font-size:  48px !important;
+    padding-bottom: 72px;
+  }
+
+  .checkout-flow-steps{
+    color: #1cbcb2;
+    font-size: 18px;
+    text-align: center;
+    border: 1px solid #cacacd;
+    padding-top: 8px;
+    list-style: none;
+  }
+
+  .checkout-flow-steps>li{
+    padding-left: 120px;
+    padding-right: 120px;
+    padding-bottom: 12px;
+  }
+
+  .checkout-current-step{
+    border-bottom: 5px solid;
+  }
+
+  .checkout-contribution-area{
+    padding-bottom: 350px;
+    background-color: #fff;
+  }
+
+  .checkout-contribution-form{
+    margin-left: 145px;
+    margin-right: 145px;
+    background-color: #f5f5f5;
+    padding-top: 24px;
+  }
+
+  .checkout-campaign-photo{
+    width: 100%;
+    height: 217px;
+  }
+
+  .checkout-contribution-summary{
+    background-color: #fff;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    margin-top: 12px;
+    font-size: 16px;
+  }
+
+  .checkout-contribution-form>.form-group>label{
+    color: #1cbcb2;
+  }
+
+  .confirm-contrib-area{
+    padding-top: 36px;
+    padding-bottom: 48px;
+  }
+
+  .contrib-value {
+    height: 130px;
+    border-bottom: 1px solid #cacacd;
+  }
+
+  .confirm-contrib-area>input{
+    font-size: 24px;
+  }
+
+  .checkout-contribution-summary-info{
+    font-size: 24px;
+  }
+
+  .btn-pay-area{
+    margin-top: -21px;
+  }
+
+  .preview-label{
+    display: block;
+    color: #1cbcb2;
+    font-size: 14px;
+  }
+
+  .checkout-right-currency-symbol{
+    background-color: #fff;
+    border-bottom-right-radius: 5px !important;
+    border-top-right-radius: 5px !important;
+  }
+
+  .checkout-options{
+    margin-left: 12px;
+  }
+
+/* PAYMENT METHOD
+------------------------- */
+  .contrib-value-info{
+    background-color: #fff;
+    margin: 0 15px 10px 15px;
+    font-size: 16px;
+  }
+
+  .contrib-total-payment{
+    border-top: 2px solid #cacacd;
+    margin-top: 8px;
+    padding-top: 5px;
+  }
+  .contrib-total-payment-text{
+    padding-left: 0;
+    padding-bottom: 14px;
+  }
+  .contrib-total-payment-value{
+    padding-right: 0;
+    text-align: right;
+    padding-bottom: 14px;
+  }
+
+  .contrib-credit-card-info{
+    margin-top: 24px;
+    padding: 12px 24px 24px 36px;
+    border-top: 20px solid #fff;
+  }
+
+  .contrib-btn-pay-area{
+    background-color: #fff;
+  }
+
+/* PAYMENT CONFIRMATION */
+  .bg-light-turquoise{
+    background-color: #f0f3f7 !important;
+  }
+
+  .confirmation-thanks{
+    width: 100%;
+    padding-top: 130px;
+    padding-bottom: 24px;
+  }
+
+  .checkout-confirmation-form{
+    margin-left: 24px;
+    margin-right: 24px;
+    background-color: #fff;
+    padding-top: 24px;
+    padding-bottom: 24px;
+    border: 1.5px solid #dedede;
+  }
+
+  .contrib-confirm-value-info{
+    margin: 0 56px 10px 15px;
+    font-size: 16px;
+  }
+
+  .share-contribution-area{
+    background-color: #fff;
+    margin-top: 24px;
+    margin-bottom: 100px;
+  }
+
+  .confirmation-separator{
+    width: 100%;
+    padding-top: 24px;
+    background-color: #f0f3f7;
+  }
+
+  .confirmation-bottom{
+    width: 100%;
+    padding-top: 130px;
+    padding-bottom: 48px;
+    background-color: #f0f3f7;
+  }
+
+  .FBConnectButton {
+    height: 30px;
+    float: left;
+    background-position-y: -251px;
+    background-position-x: -1px;
+    border-bottom: 1px solid #1a356e;
+}
+
+
 
 /* Footer Section
 ------------------------- */
@@ -685,6 +917,7 @@ footer{
   position: relative;
   margin-top: -150px; /* negative value of footer height */
   clear:both;
+  font-size: 14px;
 }
 
 footer .container{

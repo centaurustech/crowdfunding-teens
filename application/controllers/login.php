@@ -32,8 +32,10 @@ class login extends MY_Controller {
 	}
 
 	public function index() {
-		$this->load->view('login/view_login');
 
+		store_prev_url_cookies();
+
+		$this->load->view('login/view_login');
 	}
 
 	public function password_recovery() {
@@ -216,7 +218,9 @@ class login extends MY_Controller {
 
 				if ($userObj->changepassword == "0") {
 
-					redirect(base_url('home/'));
+					$url = read_prev_url_cookies();
+
+					redirect($url);
 				} else {
 					redirect(base_url('login/create_password/'));
 				}
@@ -237,13 +241,13 @@ class login extends MY_Controller {
 	}
 
 	public function facebook() {
+
 		$this->load->library('fb_connect');
 
-		$login_url = $this->fb_connect->login_url();
-
 		$param['redirect_uri'] = base_url("login/facebook");
-		redirect($this->fb_connect->login_url());
-		//var_dump($this->fb_connect->login_url());
+		$return_url            = $this->fb_connect->login_url();
+		redirect($return_url);
+
 	}
 
 	public function facebook_redirect_url() {
@@ -254,6 +258,7 @@ class login extends MY_Controller {
 		if (!$this->fb_connect->user_id) {
 			//Handle not logged in,
 		} else {
+
 			$fb_usr = $this->fb_connect->user;
 			//Handle user logged in,by updating session
 			//print_r($fb_usr) will help to see what is returned
@@ -271,7 +276,10 @@ class login extends MY_Controller {
 			$data_user["iduser"]    = $userObj->iduser;
 
 			$this->session->set_userdata('user', $data_user);
-			redirect(base_url('home/'));
+
+			$url = read_prev_url_cookies();
+
+			redirect($url);
 
 		}
 

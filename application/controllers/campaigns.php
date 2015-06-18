@@ -24,6 +24,7 @@ class campaigns extends MY_Controller {
 
 	public function __construct() {
 		parent::__construct();
+		$this->load->model('geography_model');
 		$this->load->model('people_model');
 		$this->load->model('campaigns_model');
 		$this->load->model('campaigns_images_gallery_model', 'camp_pictures');
@@ -83,10 +84,9 @@ class campaigns extends MY_Controller {
 	}
 
 	/*	Public Methods	 */
-
 	public function index() {
 
-		$this->masterpage->view('/campaigns/view_list_campaigns');
+		$this->masterpage->view('/campaigns/list');
 
 	}
 

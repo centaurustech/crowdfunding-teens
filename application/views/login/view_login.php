@@ -21,7 +21,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
     <!-- Custom styles for this template -->
-    <link href="<?php echo asset_url();?>css/login.css" rel="stylesheet">
+    <link href="<?php echo base_url('assets/css/login.css');?>" rel="stylesheet">
 
 	<!-- Bootstrap validator -->
 	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css"/>
@@ -32,7 +32,7 @@
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="<?php echo asset_url();?>js/ie-emulation-modes-warning.js"></script>
+    <script src="<?php echo base_url('assets/js/ie-emulation-modes-warning.js');?>"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -44,10 +44,10 @@
   <body>
 
     <div class="container">
-      <form id="frmLogin" class="form-login" role="form" action="<?php echo goto_url('login/auth');?>" method="post">
+      <form id="frmLogin" class="form-login" role="form" action="<?php echo base_url('login/auth');?>" method="post">
         <div class="form-login-heading">
         	Accesar sua conta com:<br>
-          <a href="<?php echo base_url('/login/facebook');?>" class="btn btn-block btn-facebook">
+          <a href="<?php echo base_url('/login/facebook/');?>" class="btn btn-block btn-facebook">
             <i class="fa fa-facebook"></i>
             <span class="facebook-text">Facebook</span>
           </a>
@@ -57,7 +57,7 @@
 <?php
 if (isset($error_login) && $error_login != '') {
 	?>
-																																				<div id="error"><p><b style=color:red><?php echo $error_login;?></b></p></div>
+																																													<div id="error"><p><b style=color:red><?php echo $error_login;?></b></p></div>
 	<?php
 }
 ?>
@@ -72,10 +72,10 @@ if (isset($error_login) && $error_login != '') {
         </div>
         <button class="btn btn-lg btn-block" type="submit">Log in</button>
         <p class="password-recovery">
-        	<a href="<?php echo goto_url('login/password_recovery');?>">Esquecí minha senha</a>
+        	<a href="<?php echo base_url('login/password_recovery');?>">Esquecí minha senha</a>
         </p>
         <p class="password-recovery">
-          <a href="<?php echo goto_url('signup');?>">Cadastrar Usuário</a>
+          <a href="<?php echo base_url('signup/');?>">Cadastrar Usuário</a>
         </p>
       </form>
 
@@ -83,6 +83,6 @@ if (isset($error_login) && $error_login != '') {
 
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="<?php echo asset_url();?>js/ie10-viewport-bug-workaround.js"></script>
+    <script src="<?php echo base_url('assets/js/ie10-viewport-bug-workaround.js');?>"></script>
   </body>
 </html>

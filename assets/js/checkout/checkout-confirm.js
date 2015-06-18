@@ -181,5 +181,30 @@ jQuery(function ($) {
 	   			$('#form-campaign').bootstrapValidator('revalidateField', 'currency');
 	   });
 
+	   
+	   $("#inputSignature").change(function(e) {
+	   		if($(this).val().length > 0){
+	   			$("#lblContribName").text($(this).val());
+	   		}
+	   		else{
+				$("#lblContribName").text("Anônimo");
+	   		}
+	   	
+	   });
+
+	   $("#inputContribAmount").change(function(e) {
+	   		
+	   		$(".contribAmount").autoNumeric('set', $(this).autoNumeric('get'));
+	   		$("#inputValContribute").val($(this).autoNumeric('get'));
+	   	
+	   });
+
+	   //Set value from hidden input when page is loaded.
+	   $("#inputContribAmount").autoNumeric('set', $("#inputValContribute").val());
+	   $(".contribAmount").autoNumeric('set', $("#inputValContribute").val());
+
+
+	   $("#lblContribName").text($("#inputSignature").val().trim() !== '' ? $("#inputSignature").val() : 'Anônimo');
+
 	});
 });

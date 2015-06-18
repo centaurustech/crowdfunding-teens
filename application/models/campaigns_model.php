@@ -9,7 +9,7 @@ class campaigns_model extends MY_Model {
 		$this->primary_key = 'idcampaign';
 	}
 
-	public function get_campaign_info($id) {
+	public function get_campaign_info($id, $highlighted = false, $limit_start = 0, $limit_count = 0) {
 
 		$result = $this->db
 		               ->select("
@@ -21,7 +21,7 @@ class campaigns_model extends MY_Model {
 	        				c.camp_expire,
 							c.camp_goal,
 	        				c.camp_completed,
-	        				c.camp_goal * c.camp_completed / 100 as camp_collected,
+	        				c.camp_collected,
 	        				u.iduser,
 	        				u.username,
 							u.facebook_id,
@@ -31,8 +31,18 @@ class campaigns_model extends MY_Model {
 		->join("users as u", "u.iduser = c.iduser")
 		->join("people as p", "u.idpeople = p.idpeople")
 		->join("campaigns_images_gallery as i", "i.idcampaign = c.idcampaign", 'left')
-		->where('c.idcampaign', $id)
-		->get();
+		->where('c.idcampaign', $id);
+
+		if ($highlighted) {
+			$result = $result->order_by("c.camp_completed desc");
+		}
+
+		if($limit_count > 0){
+			$result = $result->order_by("c.camp_completed desc");
+			                 ->limit($limit_start, $limit_count);
+		}
+
+		$result = $result->get();
 
 		$session = $this->users_model->get_auth_user();
 		$row     = $result->row();
@@ -44,6 +54,13 @@ class campaigns_model extends MY_Model {
 				$row->is_own_campaign = TRUE;
 			} else {
 				$row->is_own_campaign = FALSE;
+			}
+
+			// Extract first name of campaign's owner.
+			if ($session && ($row->iduser == $session->iduser)) {
+				$row->camp_owner_first_name = substr($row->camp_owner, 0, strpos($row->camp_owner, " "));
+			} else {
+				$row->camp_owner_first_name = $row->camp_owner;
 			}
 
 			//Set Default No Picture when imgurl is empty or null.
@@ -126,6 +143,38 @@ class campaigns_model extends MY_Model {
 				'msg'        => 'Usuário não autenticado',
 			)
 		);
+
+	}
+
+	public function contribute($idcampaign, $contrib_value) {
+
+		$result = $this->db
+		               ->select("
+		               		c.camp_goal,
+	        				c.camp_collected
+							", false)
+		->from("campaigns as c")
+		->where('c.idcampaign', $idcampaign)
+		->get();
+
+		if ($result && $result->num_rows > 0) {
+			$row = $result->row();
+
+			$new_contrib        = $row->camp_collected+$contrib_value;
+			$new_camp_completed = round($new_contrib/$row->camp_goal*100, 2);
+
+			$data = array(
+				"camp_collected" => $new_contrib,
+				"camp_completed" => $new_camp_completed,
+			);
+
+			$id_camp_result = $this->save($idcampaign, $data);
+
+			return ($id_camp_result == $idcampaign);
+
+		}
+
+		return false;
 
 	}
 

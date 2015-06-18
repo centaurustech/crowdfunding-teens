@@ -30,7 +30,7 @@ class users extends MY_Controller {
 	}
 
 	public function index() {
-		redirect(goto_url('dashboard/view/users/'));
+		redirect(base_url('dashboard/view/users/'));
 	}
 
 	/*public function searchAllUsers() {

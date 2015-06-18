@@ -61,6 +61,7 @@ $autoload['libraries'] = array(
 	'pagination',
 	'masterpage',
 	'upload',
+	'calendar',
 );
 
 /*
@@ -73,7 +74,7 @@ $autoload['libraries'] = array(
 |	//$autoload['helper'] = array();
  */
 
-$autoload['helper'] = array('form', 'url', 'utility');
+$autoload['helper'] = array('form', 'url', 'utility', 'cookie', 'date');
 
 /*
 | -------------------------------------------------------------------

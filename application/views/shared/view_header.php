@@ -17,11 +17,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="<?php echo base_url('assets/bootstrap-3.3.4-dist/css/bootstrap.min.css');?>">
+    <script src="<?php echo base_url('assets/bootstrap-3.3.4-dist/js/bootstrap.min.js');?>"></script>
 
     <!-- Awesomefonts -->
-    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href="<?php echo base_url('assets/font-awesome-4.3.0/css/font-awesome.min.css');?>" rel="stylesheet">
 
     <!-- Optional theme -->
     <!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css" -->
@@ -91,25 +91,26 @@
                 </li>
 
 <?php if (isset($current_user)) {?>
-				                <li class="menu-sign-up last-element-mobile">
-				                  <div class="profile-info">
-				                    <img class="img-rounded" src="<?php echo $user_pic;?>">
-				                    <small><?php echo $current_user;?>
-				                    </small>
-				                  </div>
-				                </li>
-				                <li class = "menu-login last-element">
-				                  <a href="<?php echo base_url('logout');?>">Logout</a>
-				                </li>
+										                <li class="menu-sign-up last-element-mobile">
+										                  <div class="profile-info">
+										                    <img class="img-rounded" src="<?php echo $user_pic;?>">
+										                    <small><?php echo $current_user;?>
+										                    </small>
+										                  </div>
+										                </li>
+										                <li class = "menu-login last-element">
+										                  <a href="<?php echo base_url('logout');?>">Logout</a>
+										                </li>
 	<?php } else {?>
 
-				                <li class="menu-sign-up last-element-mobile">
-				                  <a href="<?php echo base_url('signup');?>">Registre-se</a>
-				                </li>
-				                <li class = "menu-login last-element">
-				                  <a href="<?php echo base_url('login');?>">Login</a>
-				                </li>
-	<?php }?>
+										                <li class="menu-sign-up last-element-mobile">
+										                  <a href="<?php echo base_url('signup');?>">Registre-se</a>
+										                </li>
+										                <li class = "menu-login last-element">
+										                  <a href="<?php echo base_url('login');?>">Login</a>
+										                </li>
+	<?php }
+?>
 
               </ul>
             </div>

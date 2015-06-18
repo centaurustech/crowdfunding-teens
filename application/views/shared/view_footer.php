@@ -30,14 +30,14 @@
           </div>
 
           <hr class="footer-divider">
-            <p class="pull-right">
+            <p class="pull-right copy-right">
               Web Site Desenvolvido por <a href="http://www.betadevconsult.com.br">Beta Development Consultoria</a>
             </p>
 
-          <p>&copy;
+          <p class="copy-right">&copy;
             2015 Presente Top, Ltda.
           </p>
-          <p class="pull-right">
+          <p class="pull-right copy-right">
               <a href="#">Ir ao topo</a>
           </p>
         </section>
