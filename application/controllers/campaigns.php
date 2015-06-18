@@ -86,7 +86,14 @@ class campaigns extends MY_Controller {
 	/*	Public Methods	 */
 	public function index() {
 
-		$this->masterpage->view('/campaigns/list');
+		//Get first 8 campaign from database.
+		$rs_camp = $this->campaigns_model->list_campaigns(false, 0, 8);
+
+		$data = array(
+			"rs_camp" => $rs_camp,
+		);
+
+		$this->masterpage->view('/campaigns/list', $data);
 
 	}
 
@@ -248,6 +255,14 @@ class campaigns extends MY_Controller {
 
 			redirect(base_url('login'));
 
+		}
+
+	}
+	function get_campaign_ajax($offset = 0) {
+		if ($offset > 0) {
+
+		} else {
+			show_404();
 		}
 
 	}

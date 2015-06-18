@@ -26,9 +26,14 @@ class campaigns_model extends MY_Model {
 		->join("people as p", "u.idpeople = p.idpeople")
 		->join("campaigns_images_gallery as i", "i.idcampaign = c.idcampaign", 'left');
 
+		$order_field = "";
 		if ($highlighted) {
-			$query = $query->order_by("c.camp_completed desc");
+			$order_field = "c.camp_completed desc";
+		} else {
+			$order_field = "c.creationdate desc, c.idcampaign desc";
 		}
+
+		$query = $query->order_by($order_field);
 
 		if ($limit_count > 0) {
 			$query = $query->limit($limit_count, $limit_start);

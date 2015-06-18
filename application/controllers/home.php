@@ -30,6 +30,7 @@ class home extends MY_Controller {
 
 	public function index() {
 
+		//Get first 8 highlighted campaign from database.
 		$rs_camp_highlighted = $this->campaigns_model->list_campaigns(true, 0, 8);
 
 		$data = array(
