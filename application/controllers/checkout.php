@@ -113,9 +113,6 @@ class checkout extends MY_Controller {
 
 		$result_contrib = $this->campaigns_model->contribute($rs_contrib->idcampaign, $rs_contrib->contrib_amount);
 
-		var_dump($result_contrib);
-		exit();
-
 		redirect(base_url('checkout/payment-confirmation/'.$rs_contrib->idcontribution));
 
 	}

@@ -340,6 +340,25 @@ $(document).ready(function() {
         $(this).doAction('addnew');
     });
 
+    /*  Currency format for campaign price and campaign contributions
+        *****************************
+        */
+    $(".currency").autoNumeric();
+
+    $('.currency').autoNumeric('update', {
+        aSep: '.', 
+        wEmpty: '',
+        aSign: "R$ ",
+        aDec: ',',
+        mDec: 2,
+        vMin : 0
+    });
+
+    /*  Currency format for campaign price and campaign contributions (END)
+        *****************************
+    */
+
+
 
     
 

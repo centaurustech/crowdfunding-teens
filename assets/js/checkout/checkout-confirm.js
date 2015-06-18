@@ -157,25 +157,7 @@ jQuery(function ($) {
 	    *****************************
 	    */
 
-		/* Currency format for campaign price and campaign contributions
-	    *****************************
-	    */
-	   $(".currency").autoNumeric();
-
-	   $('.currency').autoNumeric('update', {
-	   		aSep: '.', 
-			wEmpty: '',
-			aSign: "R$ ",
-			aDec: ',',
-			mDec: 2,
-			vMin : 0
-		});
-
-		/* Currency format for campaign price and campaign contributions (END)
-	    *****************************
-	    */
-
-	   /* Event for class Currency formatter */
+		/* Event for class Currency formatter */
 	   $(".currency").keyup(function(e) {
 	   		if($(this).hasClass('currency'))
 	   			$('#form-campaign').bootstrapValidator('revalidateField', 'currency');

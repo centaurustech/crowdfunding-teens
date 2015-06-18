@@ -159,23 +159,9 @@ jQuery(function ($) {
 	    *****************************
 	    */
 
-		/* Currency format for campaign price and campaign contributions
-	    *****************************
-	    */
-	   $(".currency").autoNumeric();
+		$(".currencyText").autoNumeric();
 
-	   $('.currency').autoNumeric('update', {
-	   		aSep: '.', 
-			wEmpty: '',
-			aSign: "R$ ",
-			aDec: ',',
-			mDec: 2,
-			vMin : 0
-		});
-
-	   $(".currencyText").autoNumeric();
-
-	   $('.currencyText').autoNumeric('update', {
+		$('.currencyText').autoNumeric('update', {
 	   		aSep: '.', 
 			wEmpty: '',
 			aSign: "R$ ",

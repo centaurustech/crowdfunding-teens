@@ -9,10 +9,52 @@ class campaigns_model extends MY_Model {
 		$this->primary_key = 'idcampaign';
 	}
 
-	public function get_campaign_info($id, $highlighted = false, $limit_start = 0, $limit_count = 0) {
+	public function list_campaigns($highlighted = false, $limit_start = 0, $limit_count = 0) {
 
-		$result = $this->db
-		               ->select("
+		$query = $this->db
+		              ->select("
+		               		c.idcampaign,
+		               		c.camp_name,
+		               		c.camp_description,
+	        				p.fullname camp_owner,
+	        				c.camp_goal,
+	        				c.camp_completed,
+	        				i.imgurl
+							", false)
+		->from("campaigns as c")
+		->join("users as u", "u.iduser = c.iduser")
+		->join("people as p", "u.idpeople = p.idpeople")
+		->join("campaigns_images_gallery as i", "i.idcampaign = c.idcampaign", 'left');
+
+		if ($highlighted) {
+			$query = $query->order_by("c.camp_completed desc");
+		}
+
+		if ($limit_count > 0) {
+			$query = $query->limit($limit_count, $limit_start);
+		}
+
+		$query = $query->get();
+
+		if ($query && $query->num_rows > 0) {
+
+			foreach ($query->result() as $row) {
+
+				//Set Default No Picture when imgurl is empty or null.
+				$row->imgurl = is_null($row->imgurl)|empty($row->imgurl)?base_url("assets/img/no-campaign-picture.png"):$row->imgurl;
+			}
+
+			return $query->result();
+		}
+
+		return false;
+
+	}
+
+	public function get_campaign_info($id) {
+
+		$query = $this->db
+		              ->select("
 		               		c.idcampaign,
 		               		c.camp_name,
 		               		c.camp_description,
@@ -31,23 +73,13 @@ class campaigns_model extends MY_Model {
 		->join("users as u", "u.iduser = c.iduser")
 		->join("people as p", "u.idpeople = p.idpeople")
 		->join("campaigns_images_gallery as i", "i.idcampaign = c.idcampaign", 'left')
-		->where('c.idcampaign', $id);
+		->where('c.idcampaign', $id)
+		->get();
 
-		if ($highlighted) {
-			$result = $result->order_by("c.camp_completed desc");
-		}
+		if ($query && $query->num_rows > 0) {
 
-		if($limit_count > 0){
-			$result = $result->order_by("c.camp_completed desc");
-			                 ->limit($limit_start, $limit_count);
-		}
-
-		$result = $result->get();
-
-		$session = $this->users_model->get_auth_user();
-		$row     = $result->row();
-
-		if ($result && $result->num_rows > 0) {
+			$session = $this->users_model->get_auth_user();
+			$row     = $query->row();
 
 			// Edit campaign enabled if user logged is the campaign owner.
 			if ($session && ($row->iduser == $session->iduser)) {

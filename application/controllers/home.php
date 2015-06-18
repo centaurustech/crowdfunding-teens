@@ -25,11 +25,18 @@ class home extends MY_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->masterpage->use_session_info();
+		$this->load->model('campaigns_model');
 	}
 
 	public function index() {
 
-		$this->masterpage->view('/home/view_home');
+		$rs_camp_highlighted = $this->campaigns_model->list_campaigns(true, 0, 8);
+
+		$data = array(
+			"rs_camp_highlighted" => $rs_camp_highlighted,
+		);
+
+		$this->masterpage->view('/home/view_home', $data);
 
 	}
 
