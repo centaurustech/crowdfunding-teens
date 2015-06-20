@@ -9,6 +9,16 @@ class campaigns_model extends MY_Model {
 		$this->primary_key = 'idcampaign';
 	}
 
+	private function _has_contribution($idcampaign) {
+
+		$query = $this->db
+		              ->from("contributions")
+		              ->where("idcampaign", $idcampaign)
+		              ->count_all_results();
+
+		return ($query > 0);
+	}
+
 	public function list_campaigns($highlighted = false, $limit_start = 0, $limit_count = 0) {
 
 		$query = $this->db
@@ -171,7 +181,31 @@ class campaigns_model extends MY_Model {
 		return false;
 	}
 
-	public function show_msg_not_auth() {
+	public function delete($id) {
+
+		//Check if campaign has contribution before deleting it.
+
+		$has_contrib = $this->_has_contribution($id);
+		$obj         = new stdClass();
+
+		if (!$has_contrib) {
+
+			$obj->result = parent::delete($id);
+
+			$obj->msg = $obj->result?
+			"Campanha de presente apagada com sucesso.":
+			"Erro ao apagar esta campanha";
+
+		} else {
+			$obj->result = false;
+			$obj->msg    = "A campaha não pode ser apagada porque possui contibuições associadas.";
+		}
+
+		return $obj;
+
+	}
+
+	public function how_msg_not_auth() {
 
 		return json_encode(
 			array(

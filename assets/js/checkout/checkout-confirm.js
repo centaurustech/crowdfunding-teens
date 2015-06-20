@@ -165,8 +165,9 @@ jQuery(function ($) {
 
 	   
 	   $("#inputSignature").change(function(e) {
-	   		if($(this).val().length > 0){
-	   			$("#lblContribName").text($(this).val());
+	   		if(!$("#chkHideContribName").is(":checked") && $("#inputSignature").val().length > 0){
+	   			$("#lblContribName").text($("#inputSignature").val());
+
 	   		}
 	   		else{
 				$("#lblContribName").text("Anônimo");
@@ -179,6 +180,25 @@ jQuery(function ($) {
 	   		$(".contribAmount").autoNumeric('set', $(this).autoNumeric('get'));
 	   		$("#inputValContribute").val($(this).autoNumeric('get'));
 	   	
+	   });
+
+	   $("#chkHideContribName").change(function(e) {
+	   		if(!$("#chkHideContribName").is(":checked") && $("#inputSignature").val().length > 0){
+	   			$("#lblContribName").text($("#inputSignature").val());
+	   		}
+	   		else{
+				$("#lblContribName").text("Anônimo");
+	   		}
+	   });
+
+	   $("#chkHideContribValue").change(function(e) {
+	   		if($(this).is(":checked")){
+	   			$("#lblShowAmount").hide();
+	   		}
+	   		else{
+
+	   			$("#lblShowAmount").show();
+	   		}
 	   });
 
 	   //Set value from hidden input when page is loaded.

@@ -27,6 +27,7 @@ class campaigns extends MY_Controller {
 		$this->load->model('geography_model');
 		$this->load->model('people_model');
 		$this->load->model('campaigns_model');
+		$this->load->model('contributions_model');
 		$this->load->model('campaigns_images_gallery_model', 'camp_pictures');
 
 		$this->masterpage->use_session_info();
@@ -47,10 +48,14 @@ class campaigns extends MY_Controller {
 		}
 		 */
 
-		$usr_auth = $this->users_model->get_auth_user();
+		$usr_auth   = $this->users_model->get_auth_user();
+		$rs_contrib = false;
+		$rs_notes   = false;
 
 		if ($action == 'details'|$action == 'edit') {
-			$rs = $this->campaigns_model->get_campaign_info($idcampaign);
+			$rs         = $this->campaigns_model->get_campaign_info($idcampaign);
+			$rs_contrib = $this->contributions_model->get_by_campaign($idcampaign);
+			$rs_notes   = $this->contributions_model->get_last_notes($idcampaign);
 
 		} else if ($action == 'add-new'|$action == 'add_new') {
 
@@ -69,6 +74,8 @@ class campaigns extends MY_Controller {
 
 		$data = array(
 			'rs'              => $rs,
+			'rs_contrib'      => $rs_contrib,
+			'rs_notes'        => $rs_notes,
 			'controller_name' => $this->router->class,
 			'action_name'     => $action,
 		);
@@ -201,16 +208,12 @@ class campaigns extends MY_Controller {
 			return;
 		}
 
-		$result = $this->campaigns_model->delete(
+		$deleted = $this->campaigns_model->delete(
 			$this->input->post('idcampaign')
 		);
 
-		$msg = $result?
-		"Campanha de presente apagada com sucesso.":
-		"Erro ao apagar esta campanha";
-
 		$data = array(
-			"msg"        => $msg,
+			"msg"        => $deleted->msg,
 			"source_url" => "",
 		);
 

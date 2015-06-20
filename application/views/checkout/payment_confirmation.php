@@ -26,30 +26,30 @@ fjs.parentNode.insertBefore(js, fjs);
 ?> do <?php echo $rs_campaign->camp_owner;
 ?></p>
 			<div class="row contrib-payment-info">
-				<div class="col-md-7">
+				<div class="col-xs-7">
 					Mêtodo de Pagamento:
 				</div>
-				<div class="col-md-5 text-right">
+				<div class="col-xs-5 text-right">
 					Cartão de Crédito
 				</div>
-				<div class="col-md-7">
+				<div class="col-xs-7">
 					Valor Presenteado:
 				</div>
-				<div class="col-md-5 text-right">
+				<div class="col-xs-5 text-right">
 					<span class="currency"><?php echo $rs_contrib->amount;?></span>
 				</div>
-				<div class="col-md-7">
+				<div class="col-xs-7">
 					Taxa de conveniência:
 				</div>
-				<div class="col-md-5 text-right">
+				<div class="col-xs-5 text-right">
 					<span class="currency"><?php echo $rs_contrib->service_fee;?></span>
 				</div>
 			</div>
 			<div class="contrib-total-payment">
-				<div class="col-md-7 contrib-total-payment-text">
+				<div class="col-xs-7 contrib-total-payment-text">
 					Presente Total:
 				</div>
-				<div class="col-md-5 contrib-total-payment-value">
+				<div class="col-xs-5 contrib-total-payment-value">
 					<span class="currency"><?php echo $rs_contrib->total_payment;?></span>
 				</div>
 			</div>
@@ -65,12 +65,11 @@ fjs.parentNode.insertBefore(js, fjs);
 ?> conseguir o <?php echo $rs_campaign->camp_name;
 ?>
 </div>
-<div class="row">
-	<div class="col-md-2">
+<div class="row contrib-share-box">
+	<div class="col-sm-2 contrib-share-element contrib-share-facebook">
 		<div class="fb-share-button" data-href="<?php tiny_site_url();?>" data-layout="button"></div>
 	</div>
-	<div class="col-md-2">
-
+	<div class="col-sm-2 contrib-share-element contrib-share-twitter">
 		<a
 			class="twitter-share-button"
 			href="https://twitter.com/share"
@@ -85,9 +84,8 @@ fjs.parentNode.insertBefore(js, fjs);
 		<script>
 		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
 		</script>
-
 	</div>
-	<div class="col-md-2">
+	<div class="col-sm-2 contrib-share-element contrib-share-google-plus">
 		<!-- Place this tag in your head or just before your close body tag. -->
 		<script src="https://apis.google.com/js/platform.js" async defer>
 		{lang: 'pt-BR'}
@@ -96,15 +94,24 @@ fjs.parentNode.insertBefore(js, fjs);
 		<div class="g-plus" data-action="share" data-annotation="none" data-height="40" data-href="<?php tiny_site_url();?>">
 		</div>
 	</div>
-	<div class="col-md-2">
+	<div class="col-sm-2 contrib-share-element">
+		<a href="#" title="Enviar aviso de contribuição por E-Mail">
+			<span class="fa-stack fa-lg">
+			  <i class="fa fa-circle fa-stack-2x" style="color:#5a5a5a;"></i>
+			  <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+			</span>
+		</a>
+	</div>
+	<div class="col-sm-2 contrib-share-element contrib-share-short-link">
 		<div  id = "short-url-text" class="row bubble-short-link"><?php tiny_site_url();?></div>
-		<div class="row short-link-badge">
-			<a id = "select-short-url" href="#" class="label label-default" title="Click para selecionar Link Curto. Após seleçao, usar Ctrl + C para copiar o link no portapapel.">
-				<i class="fa fa-link"></i> Link Curto
-			</a>
-		</div>
-
+		<a id = "select-short-url" href="#" style="color:#5a5a5a;" title="Click para selecionar Link Curto. Após seleçao, usar Ctrl + C para copiar o link no portapapel.">
+			<span class="fa-stack fa-lg">
+			  <i class="fa fa-circle fa-stack-2x"></i>
+			  <i class="fa fa-link fa-stack-1x fa-inverse"></i>
+			</span>
+		</a>
 	</div>
 
+</div>
 </div>
 <div class= "clearfix confirmation-bottom"></div>

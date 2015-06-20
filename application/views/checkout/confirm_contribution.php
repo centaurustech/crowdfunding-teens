@@ -46,7 +46,7 @@
           <div class="col-sm-offset-2 col-sm-2 btn-pay-area">
             <button type="submit" class="btn btn-header-options">Pagar</button>
           </div>
-          <div class="col-sm-2">
+          <div class="col-sm-2 link-back-campaign">
             <a href="<?php echo base_url('campaigns/details/'.$idCampaignContrib);?>">Voltar</a>
           </div>
         </div>
@@ -71,7 +71,7 @@
           </div>
 
           <div class="row alert alert-default" role="alert">
-            Um presente de <span id = "lblContribAmount" class="hightlight-dark-red currency contribAmount" data-a-sign="R$ " data-aSep ="." data-aDec =","><?php echo $inputValContribute;?>"</span> foi adicionado por <span id="lblContribName">Anônimo</span>
+            Um presente <span id="lblShowAmount">de <span id = "lblContribAmount" class="hightlight-dark-red currency contribAmount" data-a-sign="R$ " data-aSep ="." data-aDec =","><?php echo $inputValContribute;?>"</span></span> foi adicionado por <span id="lblContribName">Anônimo</span>
           </div>
         </div>
 

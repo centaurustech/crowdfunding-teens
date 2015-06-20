@@ -32,8 +32,8 @@ class contributions_model extends MY_Model {
 			"payment_date"       => date('Y-m-d H:i:s'),
 			"nickname"           => $this->input->post("inputSignature"),
 			"notes"              => $this->input->post("inputContribMsg"),
-			"hide_contrib_name"  => $this->input->post("chkHideContribName"),
-			"hide_contrib_value" => $this->input->post("chkHideContribValue"),
+			"hide_contrib_name"  => $this->input->post("chkHideContribName") == "1",
+			"hide_contrib_value" => $this->input->post("chkHideContribValue") == "1",
 		);
 
 		$stm = $this->insert($data);
@@ -57,6 +57,53 @@ class contributions_model extends MY_Model {
 
 		return true;
 
+	}
+
+	public function get_by_campaign($idcampaign) {
+		$query = $this->order_by('payment_date', 'desc')
+		              ->get_many_by("idcampaign", $idcampaign);
+
+		if ($query) {
+			foreach ($query as $row) {
+				if ($row->hide_contrib_name) {
+					$row->nickname = "Anônimo";
+				}
+				if ($row->hide_contrib_value) {
+					$row->amount        = 0;
+					$row->service_fee   = 0;
+					$row->total_payment = 0;
+				}
+			}
+
+			return $query;
+		}
+
+		return false;
+	}
+
+	public function get_last_notes($idcampaign, $recent_date = "") {
+
+		$query = $this->db->select("
+					c.idcontribution,
+					c.notes,
+					c.nickname,
+					c.payment_date", false)
+		->from("contributions c")
+		->where("c.idcampaign", $idcampaign)
+		->limit(2)
+		->order_by('c.payment_date desc');
+
+		if ($recent_date != "") {
+			$query = $query->where("c.payment_date < ", $recent_date);
+		}
+
+		$query = $query->get();
+
+		if ($query && $query->num_rows > 0) {
+			return $query->result();
+		}
+
+		return false;
 	}
 
 }

@@ -381,7 +381,7 @@ a.link-edit-camp, a.link-edit-profile{
   vertical-align: middle;
   width: 263px;
   padding-bottom: 24px;
-
+  width: 700px;
 }
 
 .img-gift {
@@ -741,17 +741,10 @@ a.link-edit-camp, a.link-edit-profile{
   }
 
   .checkout-flow-steps{
-    color: #1cbcb2;
-    font-size: 18px;
-    text-align: center;
-    border: 1px solid #cacacd;
-    padding-top: 8px;
-    list-style: none;
+    display: none;
   }
 
   .checkout-flow-steps>li{
-    padding-left: 120px;
-    padding-right: 120px;
     padding-bottom: 12px;
   }
 
@@ -765,8 +758,8 @@ a.link-edit-camp, a.link-edit-profile{
   }
 
   .checkout-contribution-form{
-    margin-left: 145px;
-    margin-right: 145px;
+    margin-left: 20px;
+    margin-right: 20px;
     background-color: #f5f5f5;
     padding-top: 24px;
   }
@@ -792,10 +785,11 @@ a.link-edit-camp, a.link-edit-profile{
   .confirm-contrib-area{
     padding-top: 36px;
     padding-bottom: 48px;
+    width:  50%;
   }
 
   .contrib-value {
-    height: 130px;
+    height: 175px;
     border-bottom: 1px solid #cacacd;
   }
 
@@ -805,10 +799,6 @@ a.link-edit-camp, a.link-edit-profile{
 
   .checkout-contribution-summary-info{
     font-size: 24px;
-  }
-
-  .btn-pay-area{
-    margin-top: -21px;
   }
 
   .preview-label{
@@ -826,9 +816,17 @@ a.link-edit-camp, a.link-edit-profile{
   .checkout-options{
     margin-left: 12px;
   }
+  .link-back-campaign{
+    text-align: center;;
+  }
 
 /* PAYMENT METHOD
 ------------------------- */
+  .contrib-paymant-summary{
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
   .contrib-value-info{
     background-color: #fff;
     margin: 0 15px 10px 15px;
@@ -910,7 +908,31 @@ a.link-edit-camp, a.link-edit-profile{
     background-position-y: -251px;
     background-position-x: -1px;
     border-bottom: 1px solid #1a356e;
-}
+  }
+
+  .contrib-share-box {
+    padding-top: 24px;
+    padding-left: 10%;
+    padding-bottom: 28px;
+  }
+
+  .contrib-share-element {
+    padding-top: 30px;
+    padding-bottom: 12px;
+    margin-right: 12px;
+  }
+
+  .contrib-share-short-link{
+      padding-top: 0px !important;
+  }
+
+  .contrib-share-facebook{
+      padding-top: 38px;
+  }
+
+  .contrib-share-twitter, .contrib-share-google-plus{
+      padding-top: 35px;
+  }
 
 
 
@@ -1031,8 +1053,31 @@ footer .container{
     border-right: 1px solid #dddddd;
   }
 
-}
+  /* CHECKOUT */
+  .confirm-contrib-area{
+    margin-left: 14px;
+    margin-right: 14px;
+    width:  95%;
+  }
 
+  .btn-pay-area {
+    margin-bottom: 24px;
+  }
+
+  .btn-pay-area > .btn-header-options{
+    font-size: 20px;
+  }
+
+  .payment-fields-offset {
+    padding-bottom: 18px;
+  }
+
+  .contrib-share-box {
+    padding-left: 40%;
+  }
+
+
+}
 
 @media (min-width: 768px) {
   
@@ -1176,6 +1221,36 @@ footer .container{
     height: 100%;
     width: auto;
   }
+  /*CHECKOUT */
+  .checkout-flow-steps{
+    display: block;
+    color: #1cbcb2;
+    font-size: 18px;
+    text-align: center;
+    border: 1px solid #cacacd;
+    padding-top: 8px;
+    list-style: none;
+  }
+
+  .checkout-flow-steps>li{
+    padding-left: 65px;
+    padding-right: 65px;
+  }
+
+  .confirm-contrib-area{
+    margin-left: 0;
+    margin-right: 0;
+    width:  50%;
+  }
+
+  .contrib-value {
+    height: 130px;
+  }
+
+  .btn-pay-area{
+    margin-top: -21px;
+  }
+
 
 }
 
@@ -1306,6 +1381,9 @@ footer .container{
     margin-left: -15px;
     margin-top: -200px;
   }
+  .contribution-log-add-edit{
+    margin-top: 0px;
+  }
 
   .campaign-list-right-new{
     margin-top: -65px;
@@ -1315,6 +1393,16 @@ footer .container{
     margin-top: 0px;
     margin-left: 3px;
     width: 93% !important;
+  }
+
+  /*CHECKOUT */
+  .checkout-flow-steps>li{
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+  .checkout-contribution-form{
+    margin-left: 100px;
+    margin-right: 100px;
   }
 
 }
@@ -1370,6 +1458,16 @@ footer .container{
 
   .campaign-contribution-amount{
     width: 190%;
+  }
+
+  /*CHECKOUT */
+  .checkout-flow-steps>li{
+    padding-left: 120px;
+    padding-right: 120px;
+  }
+  .checkout-contribution-form{
+    margin-left: 145px;
+    margin-right: 145px;
   }
 
 }

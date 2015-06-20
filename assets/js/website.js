@@ -31,6 +31,8 @@ $(document).ready(function() {
                 
                 editAll = typeof editAll !== 'undefined' ? editAll : false;
 
+                $(".contribution-log").addClass('contribution-log-add-edit');
+
                 if(editAll === false){
                     $(inputField).select();
                     $(inputField).focus();
@@ -123,7 +125,7 @@ $(document).ready(function() {
                 $(buttonSet).addClass("hide");
                 $(".file-selector").removeClass('hide');
                 $(".file-selector").val('');
-                $(".contribution-log").css('margin-top','-200px');
+                $(".contribution-log").removeClass('contribution-log-add-edit');
                 
                 if($(inputField).is('img')){
                     $(inputField).attr("src","");
@@ -284,7 +286,7 @@ $(document).ready(function() {
 
     $("#edit-CampaignFullPicture").change(function(e) {
          $(this).previewImage(e, "inputCampaignFullPicture");
-         $(".contribution-log").css('margin-top','0px');
+         $(".contribution-log").addClass('contribution-log-add-edit');
          $(this).initEdit();
     });
 
