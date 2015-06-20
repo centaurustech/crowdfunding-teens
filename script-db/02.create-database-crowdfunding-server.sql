@@ -2,7 +2,63 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
+-- CREATE SCHEMA IF NOT EXISTS `betadev_crowdfunding_teens` DEFAULT CHARACTER SET utf8 ;
 USE `betadev_crowdfunding_teens` ;
+
+-- -----------------------------------------------------
+-- Table `betadev_crowdfunding_teens`.`country`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `betadev_crowdfunding_teens`.`country` ;
+
+CREATE TABLE IF NOT EXISTS `betadev_crowdfunding_teens`.`country` (
+  `country_id` CHAR(3) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL DEFAULT '',
+  `country_name` CHAR(52) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL DEFAULT '',
+  `country_continent` ENUM('Asia','Europe','North America','Africa','Oceania','Antarctica','South America') CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL DEFAULT 'Asia',
+  `country_region` CHAR(26) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL DEFAULT '',
+  `surface_area` FLOAT(10,2) NOT NULL DEFAULT '0.00',
+  `indep_year` SMALLINT(6) NULL DEFAULT NULL,
+  `population` INT(11) NOT NULL DEFAULT '0',
+  `life_expectancy` FLOAT(3,1) NULL DEFAULT NULL,
+  `gnp` FLOAT(10,2) NULL DEFAULT NULL,
+  `gnp_old` FLOAT(10,2) NULL DEFAULT NULL,
+  `local_name` CHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL DEFAULT '',
+  `government_form` CHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL DEFAULT '',
+  `head_of_state` CHAR(60) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NULL DEFAULT NULL,
+  `capital` INT(11) NULL DEFAULT NULL,
+  `country_short_id` CHAR(2) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL DEFAULT '',
+  PRIMARY KEY (`country_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
+
+-- -----------------------------------------------------
+-- Table `betadev_crowdfunding_teens`.`city`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `betadev_crowdfunding_teens`.`city` ;
+
+CREATE TABLE IF NOT EXISTS `betadev_crowdfunding_teens`.`city` (
+  `city_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `city_name` CHAR(35) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL DEFAULT '',
+  `country_id` CHAR(3) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL DEFAULT '',
+  `state_id` INT(11) NULL DEFAULT NULL,
+  `district` CHAR(20) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL DEFAULT '',
+  `population` INT(11) NOT NULL DEFAULT '0',
+  `country_country_id` CHAR(3) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
+  PRIMARY KEY (`city_id`),
+  INDEX `country_id` (`country_id` ASC),
+  INDEX `state_id` (`state_id` ASC),
+  INDEX `fk_city_country1_idx` (`country_country_id` ASC),
+  CONSTRAINT `fk_city_country1`
+    FOREIGN KEY (`country_country_id`)
+    REFERENCES `betadev_crowdfunding_teens`.`country` (`country_id`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT)
+ENGINE = InnoDB
+AUTO_INCREMENT = 4080
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
 
 -- -----------------------------------------------------
 -- Table `betadev_crowdfunding_teens`.`document_type`
@@ -53,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `betadev_crowdfunding_teens`.`users` (
   `iduser` INT(11) NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(10) NULL DEFAULT NULL,
   `userpassword` VARCHAR(32) NULL DEFAULT NULL,
-  `changepassword` INT(1) NULL DEFAULT NULL,
+  `changepassword` INT(1) NULL DEFAULT 0,
   `hash_value` VARCHAR(64) NULL DEFAULT NULL,
   `hash_date` DATETIME NULL DEFAULT NULL,
   `idpeople` INT(11) NULL DEFAULT NULL,
@@ -81,12 +137,13 @@ CREATE TABLE IF NOT EXISTS `betadev_crowdfunding_teens`.`campaigns` (
   `idcampaign` INT(11) NOT NULL AUTO_INCREMENT,
   `camp_name` VARCHAR(45) NULL DEFAULT NULL,
   `camp_description` VARCHAR(255) NULL DEFAULT NULL,
-  `camp_expire` DATE NULL,
+  `camp_expire` DATE NULL DEFAULT NULL,
   `camp_goal` DECIMAL(12,2) NULL DEFAULT NULL,
   `iduser` INT(11) NULL DEFAULT NULL,
-  `camp_completed` INT(3) NULL,
-  `creationdate` DATETIME NULL,
-  `editiondate` DATETIME NULL,
+  `camp_completed` INT(3) NULL DEFAULT '0',
+  `camp_collected` DECIMAL(12,2) NULL DEFAULT '0.00',
+  `creationdate` DATETIME NULL DEFAULT NULL,
+  `editiondate` DATETIME NULL DEFAULT NULL,
   PRIMARY KEY (`idcampaign`),
   INDEX `fk_campaigns_users_idx` (`iduser` ASC),
   CONSTRAINT `fk_campaigns_users`
@@ -95,7 +152,9 @@ CREATE TABLE IF NOT EXISTS `betadev_crowdfunding_teens`.`campaigns` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+AUTO_INCREMENT = 4
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
 
 
 -- -----------------------------------------------------
@@ -167,10 +226,15 @@ CREATE TABLE IF NOT EXISTS `betadev_crowdfunding_teens`.`contributions` (
   `iduser` INT(11) NULL DEFAULT NULL,
   `amount` DECIMAL(12,2) NULL DEFAULT NULL,
   `service_fee` DECIMAL(12,2) NULL,
+  `total_payment` DECIMAL(12,2) NULL,
   `payment_date` DATETIME NULL,
   `payment_method_id` INT(11) NULL,
   `payment_trans` VARCHAR(100) NULL,
-  `payment_status` INT(3) NULL,
+  `payment_status` INT(3) NULL DEFAULT NULL,
+  `nickname` VARCHAR(100) NOT NULL DEFAULT 'Anônimo',
+  `notes` TEXT NULL,
+  `hide_contrib_name` BIT(1) NULL DEFAULT b'0',
+  `hide_contrib_value` BIT(1) NULL DEFAULT b'0',
   PRIMARY KEY (`idcontribution`),
   INDEX `fk_colaborators_campaign_idx` (`idcampaign` ASC),
   INDEX `fk_colaborators_users_idx` (`iduser` ASC),
@@ -254,7 +318,7 @@ CREATE TABLE IF NOT EXISTS `betadev_crowdfunding_teens`.`settings` (
   `variable` VARCHAR(20) NOT NULL,
   `description` VARCHAR(100) NULL DEFAULT NULL,
   `value` VARCHAR(50) NOT NULL,
-  `idusercreator` INT(11) NOT NULL,
+  `idusercreator` INT(11) NULL DEFAULT NULL,
   `creationdate` DATETIME NULL DEFAULT NULL,
   `editiondate` DATETIME NULL DEFAULT NULL,
   PRIMARY KEY (`idsetting`),
@@ -266,6 +330,46 @@ CREATE TABLE IF NOT EXISTS `betadev_crowdfunding_teens`.`settings` (
     ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `betadev_crowdfunding_teens`.`state`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `betadev_crowdfunding_teens`.`state` ;
+
+CREATE TABLE IF NOT EXISTS `betadev_crowdfunding_teens`.`state` (
+  `state_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `state_name` CHAR(35) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL DEFAULT '',
+  `country_id` CHAR(3) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL DEFAULT '',
+  `population` INT(11) NOT NULL DEFAULT '0',
+  `country_country_id` CHAR(3) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
+  PRIMARY KEY (`state_id`),
+  INDEX `fk_state_country1_idx` (`country_country_id` ASC),
+  CONSTRAINT `fk_state_country1`
+    FOREIGN KEY (`country_country_id`)
+    REFERENCES `betadev_crowdfunding_teens`.`country` (`country_id`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT)
+ENGINE = InnoDB
+AUTO_INCREMENT = 4111
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
+
+-- -----------------------------------------------------
+-- Table `betadev_crowdfunding_teens`.`paises`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `betadev_crowdfunding_teens`.`paises` ;
+
+CREATE TABLE IF NOT EXISTS `betadev_crowdfunding_teens`.`paises` (
+  `iso` CHAR(2) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
+  `iso3` CHAR(3) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
+  `numcode` SMALLINT(6) NULL DEFAULT NULL,
+  `nome` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL,
+  PRIMARY KEY (`iso`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
 
 
 -- -----------------------------------------------------

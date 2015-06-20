@@ -65,17 +65,25 @@ class contributions_model extends MY_Model {
 
 		if ($query) {
 			foreach ($query as $row) {
-				if ($row->hide_contrib_name) {
-					$row->nickname = "Anônimo";
+				if ($row->hide_contrib_name == "1") {
+					$row->nickname          = "Anônimo";
+					$row->hide_contrib_name = true;
+				} else {
+					$row->hide_contrib_name = false;
 				}
-				if ($row->hide_contrib_value) {
-					$row->amount        = 0;
-					$row->service_fee   = 0;
-					$row->total_payment = 0;
+				if ($row->hide_contrib_value == "1") {
+					$row->amount             = 0;
+					$row->service_fee        = 0;
+					$row->total_payment      = 0;
+					$row->hide_contrib_value = true;
+				} else {
+					$row->hide_contrib_value = false;
+
 				}
 			}
 
 			return $query;
+
 		}
 
 		return false;
