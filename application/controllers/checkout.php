@@ -37,13 +37,18 @@ class checkout extends MY_Controller {
 		$idcampaign = $this->input->post("idCampaignContrib");
 		$rs         = $this->campaigns_model->get_campaign_info($idcampaign);
 
-		$this->masterpage->header      = "/shared/view_header_checkout";
-		$this->masterpage->header_vars = array(
+		$this->masterpage->header = "/shared/view_header_checkout";
+
+		$this->masterpage->header_vars += array(
 			"confirm_checkout" => "",
 			"payment_method"   => "",
 			"payment_result"   => "",
 			"rs"               => $rs,
 		);
+
+		if ($rs === false) {
+			redirect(base_url());
+		}
 
 		return $rs;
 
@@ -64,6 +69,7 @@ class checkout extends MY_Controller {
 	public function contribute() {
 
 		$this->_prepare_checkout();
+
 		$this->_set_checkout_step("confirm_checkout");
 
 		$data = array(
@@ -73,6 +79,7 @@ class checkout extends MY_Controller {
 
 		//$this->masterpage->footer = "";	//TODO: create an empty footer view and insert it in masterpage.
 		$this->masterpage->view("checkout/confirm_contribution", $data);
+
 	}
 
 	public function payment_method() {

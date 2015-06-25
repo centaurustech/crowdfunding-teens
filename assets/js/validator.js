@@ -117,7 +117,7 @@ jQuery(function ($) {
 		                        //message: 'The email address is not valid'
 		                    }
 		                }
-            		}
+            		},
 	                inputUser: {
 	                    validators: {
 	                        notEmpty: {

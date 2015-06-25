@@ -48,52 +48,14 @@
         <nav class="navbar navbar-default navbar-static-top">
           <div class="container">
             <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              </button>
+
               <a class="navbar-brand" href="<?php echo base_url();?>" title="Crowdfunding Site">
                 <img class="featurette-image img-responsive center-block" src="<?php echo base_url('assets/img/logo.png');?>" alt="Presente Top">
               </a>
             </div>
-            <div id="navbar" class="navbar-collapse collapse menuset">
-              <ul class="nav navbar-nav navbar-right">
-<?php if (isset($current_user)) {?>
-	                <li class="menu-sign-up last-element-mobile">
-	                  <div class="profile-info">
-	                    <img class="img-rounded" src="<?php echo $user_pic;?>">
-	                    <small><?php echo $current_user;?>
-	                    </small>
-	                  </div>
-	                </li>
-	                <li class = "menu-login last-element">
-	                  <a href="<?php echo base_url('logout');?>">Logout</a>
-	                </li>
-	<?php } else {?>
-	                <li class="menu-sign-up last-element-mobile">
-	                  <a href="<?php echo base_url('signup');?>">Registre-se</a>
-	                </li>
-	                <li class = "menu-login last-element">
-	                  <a href="<?php echo base_url('login');?>">Login</a>
-	                </li>
-	<?php }
-?>
-              </ul>
-            </div>
+
           </div>
         </nav>
       </div>
-    </div>
-    <div class="container checkout-flow">
-      <h1 class="text-center"><b><?php echo $rs->camp_name;
-?></b> do <?php echo $rs->camp_owner;
-?></h1>
-      <ul class="nav navbar-nav checkout-flow-steps centered">
-        <li class="<?php echo $confirm_checkout;?>">1. Presentear</li>
-        <li class="<?php echo $payment_method;?>">2. Pagar</li>
-        <li class="<?php echo $payment_result;?>">3. Compartilhar</li>
-      </ul>
     </div>
     <!-- HEADER END -->

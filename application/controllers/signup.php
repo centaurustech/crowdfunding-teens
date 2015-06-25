@@ -20,18 +20,36 @@ class signup extends MY_Controller {
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
 
-	public function signup() {
+	public function __construct() {
 		parent::__construct();
 		$this->load->model('people_model');
 		$this->load->model('permissions_model');
 		$this->load->config('email');
 		$this->load->config('facebook');
 		$this->load->library("email");
+
+		$this->_prepare_signup();
+	}
+
+	private function _check_auth() {
+		// Return previous URL, when authenticated.
+		if ($this->session->userdata('user')) {
+			$url = read_prev_url_cookies();
+			redirect($url);
+		}
+	}
+
+	private function _prepare_signup() {
+
+		$this->masterpage->header = "/shared/view_header_login";
+		$this->masterpage->footer = "";
+
+		$this->_check_auth();
 	}
 
 	public function index() {
 		store_prev_url_cookies();
-		$this->load->view('signup/view_signup');
+		$this->masterpage->view('signup/view_signup');
 	}
 
 	public function create_user() {

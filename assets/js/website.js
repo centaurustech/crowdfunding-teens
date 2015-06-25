@@ -361,6 +361,18 @@ $(document).ready(function() {
     */
 
 
+    /*  Search area on Header
+        *****************************
+    */
+    $("#inputSearch").keyup(function(event) {
+        $("#btnHeaderSearch").attr('href', $("#btnHeaderSearch").data('search-url')+ '/' + $("#inputSearch").val());
+        $("#frmHeaderSearch").attr('action', $("#btnHeaderSearch").attr('href'));
+    });
+
+    $("#inputSearch").change(function(event) {
+        $("#btnHeaderSearch").attr('href', $("#btnHeaderSearch").data('search-url')+ '/' + $("#inputSearch").val());
+        $("#frmHeaderSearch").attr('action', $("#btnHeaderSearch").attr('href'));
+    });
 
     
 

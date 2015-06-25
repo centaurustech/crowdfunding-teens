@@ -22,24 +22,48 @@ class login extends MY_Controller {
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
 
-	public function login() {
+	public function __construct() {
 		parent::__construct();
 		$this->load->model('people_model');
 		$this->load->model('permissions_model');
 		$this->load->config('email');
 		$this->load->config('facebook');
 		$this->load->library("email");
+
+		//$this->masterpage->use_session_info();
+		$this->_prepare_login();
+
+	}
+
+	private function _check_auth() {
+		// Return previous URL, when authenticated.
+		if ($this->session->userdata('user')) {
+			$url = read_prev_url_cookies();
+			redirect($url);
+		}
+	}
+
+	private function _prepare_login() {
+
+		$this->masterpage->header = "/shared/view_header_login";
+		$this->masterpage->footer = "";
+
 	}
 
 	public function index() {
 
 		store_prev_url_cookies();
 
-		$this->load->view('login/view_login');
+		$this->_check_auth();
+
+		$this->masterpage->view('login/view_login');
 	}
 
 	public function password_recovery() {
-		$this->load->view('login/view_password_recovery');
+
+		$this->_check_auth();
+
+		$this->masterpage->view('login/view_password_recovery');
 	}
 
 	public function changepassword() {
@@ -62,9 +86,10 @@ class login extends MY_Controller {
 	}
 
 	public function create_password() {
-		if (isset($_POST["inputEmail"]) && $_POST["inputEmail"] != "") {
 
-			$email_user = $_POST["inputEmail"];
+		if ($this->input->post("inputEmail")) {
+
+			$email_user = $this->input->post("inputEmail");
 
 			$people_data = $this->people_model->searchPeopleByEmail($email_user);
 
@@ -83,27 +108,27 @@ class login extends MY_Controller {
 
 				$result = $this->users_model->update($data);
 
-				if ($result) {
+				if ($result !== false) {
 					/*$email_from = $this->config->item('sender_email');
 					$name_from = $this->config->item('sender_name');*/
-					$name_from = "Crowdfunding";
+					$name_from = "Atendimento - Presente Top";
 					$email_to  = $email_user;
-					$subject   = "Alteração de senha";
+					$subject   = "Procedimento para Alteração de senha";
 
 					$link_hash = base_url('/login/recoverpassword');
 					$link_hash .= "/".$randomHash;
 
-					$message = '<h1 style="font-size:14px; color:#000000; font-family:Verdana, Arial, Helvetica, sans-serif;">%saludo%</h1>';
-					$message .= '<p style="font-size:12;">%cuerpo%</p>';
+					$message = '<h1 style="font-size:14px; color:#000000; font-family:Verdana, Arial, Helvetica, sans-serif;">%greeting%</h1>';
+					$message .= '<p style="font-size:12;">%body%</p>';
 					$message .= '<p><a href="%url%">%url%</a></p>';
 					$message .= '<p style="font-size:12;">Atenciosamente,</p>';
-					$message .= '<p style="font-size:12;">Crowdfunding</p>';
+					$message .= '<p style="font-size:12;">Equipe Presente Top</p>';
 
-					$saludo = "Prezado";
-					$cuerpo = "Segue abaixo o link para criar uma nova senha e assim ter acesso na sua conta:";
+					$greeting = "Prezado";
+					$body     = "Segue abaixo o link para criar uma nova senha e assim ter acesso na sua conta:";
 
-					$message = str_replace('%saludo%', $saludo.' '.$people_data->fullname.',', $message);
-					$message = str_replace('%cuerpo%', $cuerpo, $message);
+					$message = str_replace('%greeting%', $greeting.' '.$people_data->fullname.',', $message);
+					$message = str_replace('%body%', $body, $message);
 					$message = str_replace('%url%', $link_hash, $message);
 
 					$config_email['protocol']  = $this->config->item("protocol");
@@ -121,27 +146,38 @@ class login extends MY_Controller {
 
 					$result = $this->email->send();
 
-					if ($result) {
-						$message = '1O processo para recuperar sua senha foi enviado para o e-mail cadastrado.';
+					//echo $this->email->print_debugger();
+					//exit();
+
+					if ($result !== false) {
+						$success = true;
+						$message = 'O procedimento para recuperar sua senha foi enviado para o e-mail informado.';
 					} else {
-						$message = '0Houve um erro no sistema. Tente novamente mais tarde.';
+						$success = false;
+						$message = 'Erro ao enviar o e-mail. Tente novamente mais tarde.';
 					}
 
-					echo json_encode($message);
 				} else {
-					$message = '0Houve um erro no sistema. Tente novamente mais tarde.';
-					echo json_encode($message);
+					$message = 'Erro ao efetuar processo de envio de senha. Tente novamente mais tarde.';
+					$success = false;
 				}
 
 			} else {
-				/*$data_error['error_email'] = "O endere&#231;o de e-mail especificado n&#227;o existe no sistema.";
-				$this->load->view('view_password_recovery',$data_error);*/
-				$message = "0Este E-Mail  não existe no cadastro.";
-				echo json_encode($message);
+
+				$message = "Este E-Mail  não existe no cadastro.";
+				$success = false;
+
 			}
 
+			$data = array(
+				"alert_type" => $success?"success":"danger",
+				"msg"        => $message,
+			);
+
+			$this->masterpage->view('login/view_password_recovery', $data);
+
 		} else {
-			$this->load->view('login/view_create_password');
+			$this->masterpage->view('login/view_create_password');
 		}
 
 	}
@@ -170,14 +206,14 @@ class login extends MY_Controller {
 
 				$this->session->set_userdata('user', $data_user);
 
-				redirect(base_url('login/create_password'));
+				redirect(base_url('login/create-password'));
 			} else {
 				$data["error_recovery"] = "O link para inicializar sua senha expirou. Por tanto, inserir seu E-Mail para solicitar a inicialização de senha.";
-				$this->load->view('login/view_password_recovery', $data);
+				$this->masterpage->view('login/view_password_recovery', $data);
 			}
 		} else {
 			$data["error_recovery"] = "O link para inicializar sua senha não é válido. Por tanto, efetuar novamente o procedimento de Esquecí minha senha.";
-			$this->load->view('login/view_password_recovery', $data);
+			$this->masterpage->view('login/view_password_recovery', $data);
 
 		}
 	}
@@ -226,11 +262,11 @@ class login extends MY_Controller {
 				}
 			} else {
 				$data['error_login'] = "O usu&#225;rio ou senha est&#227;o incorretos";
-				$this->load->view('login/view_login', $data);
+				$this->masterpage->view('login/view_login', $data);
 			}
 		} else {
 			$data["error_login"] = "O usu&#225;rio ou senha est&#227;o incorretos";
-			$this->load->view('login/view_login', $data);
+			$this->masterpage->view('login/view_login', $data);
 		}
 	}
 

@@ -90,18 +90,45 @@ class campaigns extends MY_Controller {
 
 	}
 
+	private function _show_view($rs_camp, $criteria = "") {
+
+		$list_title = $criteria == ""?
+		"Listado de Presentes":
+		"Campanhas de ".$criteria;
+
+		$data = array(
+			"rs_camp"       => $rs_camp,
+			"list_title"    => $list_title,
+			"criteria_text" => $criteria,
+		);
+
+		$this->masterpage->view('/campaigns/list', $data);
+	}
+
 	/*	Public Methods	 */
 	public function index() {
 
 		//Get first 8 campaign from database.
 		$rs_camp = $this->campaigns_model->list_campaigns(false, 0, 8);
 
-		$data = array(
-			"rs_camp" => $rs_camp,
-		);
+		$this->_show_view($rs_camp);
 
-		$this->masterpage->view('/campaigns/list', $data);
+	}
 
+	public function search($criteria = "") {
+
+		$criteria = trim(rawurldecode($criteria));
+
+		if ($criteria != "") {
+			if (!is_numeric($criteria)) {
+				$rs_camp = $this->campaigns_model->list_campaigns(false, 0, 8, $criteria);
+				$this->_show_view($rs_camp, $criteria);
+			} else {
+				redirect(base_url("campaigns/details/".$criteria));
+			}
+		} else {
+			redirect(base_url("campaigns/"));
+		}
 	}
 
 	public function details($idcampaign = "") {

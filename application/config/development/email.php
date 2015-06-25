@@ -7,7 +7,7 @@
 | Protocolo de envio de correo
 |--------------------------------------------------------------------------
  */
-$config['protocol'] = 'smtp';
+$config['protocol'] = 'sendmail';
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +21,7 @@ $config['smtp_host'] = 'mail.betadevconsult.com.br';
 | Usuario SMTP
 |--------------------------------------------------------------------------
  */
-$config['smtp_user'] = 'no-reply@betadevconsult.com.br';// remplazarlo por un cuenta real de Gmail - usuario SMTP
+$config['smtp_user'] = 'no-reply@betadevconsult.com.br';
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +35,7 @@ $config['smtp_pass'] = 's04PQFb2+0mw';
 | Puerto SMTP
 |--------------------------------------------------------------------------
  */
-$config['smtp_port'] = '587';// 465 o el '587' --  Puerto SMTP
+$config['smtp_port'] = '465';// 465 o el '587' --  Puerto SMTP
 
 /*
 |--------------------------------------------------------------------------

@@ -75,13 +75,13 @@
                 <li><a href="<?php echo base_url('lets-go');?>">Comece</a></li>
                 <li class = "search-campaign last-element">
                   <div class ="search-form">
-                    <form class="" role="search">
+                    <form id="frmHeaderSearch" class="" method="post" action="<?php echo base_url('campaigns/search/')?>" role="search">
                       <div class="form-group search-form-area">
                         <div class="input-group">
                           <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">
+                            <a href = "<?php echo base_url('campaigns/search/')?>" data-search-url="<?php echo base_url('campaigns/search/')?>" id = "btnHeaderSearch" class="btn btn-default" type="button">
                               <i class="fa fa-search"></i>
-                            </button>
+                            </a>
                           </span>
                           <input type="text" class="form-control" id="inputSearch" name = "inputSearch" placeholder="Busque alguém pelo nome ou código">
                         </div><!-- /input-group -->
@@ -91,24 +91,24 @@
                 </li>
 
 <?php if (isset($current_user)) {?>
-										                <li class="menu-sign-up last-element-mobile">
-										                  <div class="profile-info">
-										                    <img class="img-rounded" src="<?php echo $user_pic;?>">
-										                    <small><?php echo $current_user;?>
-										                    </small>
-										                  </div>
-										                </li>
-										                <li class = "menu-login last-element">
-										                  <a href="<?php echo base_url('logout');?>">Logout</a>
-										                </li>
+																												                <li class="menu-sign-up last-element-mobile">
+																												                  <div class="profile-info">
+																												                    <img class="img-rounded" src="<?php echo $user_pic;?>">
+																												                    <small><?php echo $current_user;?>
+																												                    </small>
+																												                  </div>
+																												                </li>
+																												                <li class = "menu-login last-element">
+																												                  <a href="<?php echo base_url('logout');?>">Logout</a>
+																												                </li>
 	<?php } else {?>
 
-										                <li class="menu-sign-up last-element-mobile">
-										                  <a href="<?php echo base_url('signup');?>">Registre-se</a>
-										                </li>
-										                <li class = "menu-login last-element">
-										                  <a href="<?php echo base_url('login');?>">Login</a>
-										                </li>
+																												                <li class="menu-sign-up last-element-mobile">
+																												                  <a href="<?php echo base_url('signup');?>">Registre-se</a>
+																												                </li>
+																												                <li class = "menu-login last-element">
+																												                  <a href="<?php echo base_url('login');?>">Login</a>
+																												                </li>
 	<?php }
 ?>
 

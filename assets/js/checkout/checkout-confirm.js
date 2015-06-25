@@ -5,6 +5,23 @@
 jQuery(function ($) {
 	$(document).ready(function() {
 
+	    // Common Functions for checkout
+	    jQuery.fn.extend({
+	    	syncSignature:function(){
+		    	if(!$("#chkHideContribName").is(":checked") && $(this).val().length > 0){
+		   			$("#lblContribName").text($(this).val());
+
+		   		}
+		   		else{
+					$("#lblContribName").text("Anônimo");
+		   		}
+	    	},
+	    	syncAmount:function(){
+		    	$(".contribAmount").autoNumeric('set', $(this).autoNumeric('get'));
+	   			$("#inputValContribute").val($(this).autoNumeric('get'));
+	    	}
+	    });
+
 	    /* Form validation for campaign and campaign owner
 	    *****************************
 	    */
@@ -165,20 +182,24 @@ jQuery(function ($) {
 
 	   
 	   $("#inputSignature").change(function(e) {
-	   		if(!$("#chkHideContribName").is(":checked") && $("#inputSignature").val().length > 0){
-	   			$("#lblContribName").text($("#inputSignature").val());
+	   		$(this).syncSignature();
+	   	
+	   });
 
-	   		}
-	   		else{
-				$("#lblContribName").text("Anônimo");
-	   		}
+	   $("#inputSignature").keyup(function(e) {
+	   		$(this).syncSignature();
 	   	
 	   });
 
 	   $("#inputContribAmount").change(function(e) {
 	   		
-	   		$(".contribAmount").autoNumeric('set', $(this).autoNumeric('get'));
-	   		$("#inputValContribute").val($(this).autoNumeric('get'));
+	   		$(this).syncAmount();
+	   	
+	   });
+
+	   $("#inputContribAmount").keyup(function(e) {
+	   		
+	   		$(this).syncAmount();
 	   	
 	   });
 

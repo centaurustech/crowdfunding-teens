@@ -19,7 +19,7 @@ class campaigns_model extends MY_Model {
 		return ($query > 0);
 	}
 
-	public function list_campaigns($highlighted = false, $limit_start = 0, $limit_count = 0) {
+	public function list_campaigns($highlighted = false, $limit_start = 0, $limit_count = 0, $camp_owner = "") {
 
 		$query = $this->db
 		              ->select("
@@ -35,6 +35,10 @@ class campaigns_model extends MY_Model {
 		->join("users as u", "u.iduser = c.iduser")
 		->join("people as p", "u.idpeople = p.idpeople")
 		->join("campaigns_images_gallery as i", "i.idcampaign = c.idcampaign", 'left');
+
+		if ($camp_owner != "") {
+			$query = $query->like('p.fullname', $camp_owner);
+		}
 
 		$order_field = "";
 		if ($highlighted) {
