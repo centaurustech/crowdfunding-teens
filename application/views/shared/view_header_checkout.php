@@ -55,29 +55,29 @@
               <span class="icon-bar"></span>
               </button>
               <a class="navbar-brand" href="<?php echo base_url();?>" title="Crowdfunding Site">
-                <img class="featurette-image img-responsive center-block" src="<?php echo base_url('assets/img/logo.png');?>" alt="Presente Top">
+                <img class="featurette-image img-logo-responsive center-block" src="<?php echo base_url('assets/img/logo.png');?>" alt="Presente Top">
               </a>
             </div>
             <div id="navbar" class="navbar-collapse collapse menuset">
               <ul class="nav navbar-nav navbar-right">
 <?php if (isset($current_user)) {?>
-	                <li class="menu-sign-up last-element-mobile">
-	                  <div class="profile-info">
-	                    <img class="img-rounded" src="<?php echo $user_pic;?>">
-	                    <small><?php echo $current_user;?>
-	                    </small>
-	                  </div>
-	                </li>
-	                <li class = "menu-login last-element">
-	                  <a href="<?php echo base_url('logout');?>">Logout</a>
-	                </li>
+		                <li class="menu-sign-up last-element-mobile">
+		                  <div class="profile-info">
+		                    <img class="img-rounded" src="<?php echo $user_pic;?>">
+		                    <small><?php echo $current_user;?>
+		                    </small>
+		                  </div>
+		                </li>
+		                <li class = "menu-login last-element">
+		                  <a href="<?php echo base_url('logout');?>">Logout</a>
+		                </li>
 	<?php } else {?>
-	                <li class="menu-sign-up last-element-mobile">
-	                  <a href="<?php echo base_url('signup');?>">Registre-se</a>
-	                </li>
-	                <li class = "menu-login last-element">
-	                  <a href="<?php echo base_url('login');?>">Login</a>
-	                </li>
+		                <li class="menu-sign-up last-element-mobile">
+		                  <a href="<?php echo base_url('signup');?>">Registre-se</a>
+		                </li>
+		                <li class = "menu-login last-element">
+		                  <a href="<?php echo base_url('login');?>">Login</a>
+		                </li>
 	<?php }
 ?>
               </ul>

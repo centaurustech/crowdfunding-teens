@@ -6,12 +6,12 @@ class people_model extends MY_Model {
 
 	public function people_model() {
 		parent::__construct();
-		$this->table = 'people';
-		$this->id    = 'idpeople';
+		$this->_table      = 'people';
+		$this->primary_key = 'idpeople';
 	}
 
 	public function getAll() {
-		$query = $this->db->get($this->table);
+		$query = $this->db->get($this->_table);
 		return $query->result();
 	}
 
@@ -25,7 +25,7 @@ class people_model extends MY_Model {
 		}
 
 		$sql_total = "SELECT * ";
-		$sql_total .= "FROM ".$this->table;
+		$sql_total .= "FROM ".$this->_table;
 		$sql_pagination = $sql_total.$limit;
 
 		$data['users'] = $this->db->query($sql_pagination)->result();
@@ -40,7 +40,7 @@ class people_model extends MY_Model {
 
 	public function get($id) {
 		return $this->db->get_where(
-			$this->table, array(
+			$this->_table, array(
 				'idpeople' => $id,
 			)
 		)->row();
@@ -72,7 +72,7 @@ class people_model extends MY_Model {
 			'email'       => $social_data["email"],
 		);
 
-		return $this->addnew($data);
+		return $this->insert($data);
 	}
 
 	public function sync_from_facebook($social_data) {
@@ -93,41 +93,25 @@ class people_model extends MY_Model {
 		if (!$row) {
 
 			$arr_filter = array(
-				'fullname'    => (isset($postdata['inputFullName'])?$postdata['inputFullName']:''),
-				'picture_url' => NULL,
-				'doctype_id'  => (isset($postdata['inputDocType'])?$postdata['inputDocType']:NULL),
-				'docnum'      => (isset($postdata['inputNumDoc'])?$postdata['inputNumDoc']:''),
-				'address'     => (isset($postdata['inputAddress'])?$postdata['inputAddress']:''),
-				'phone'       => (isset($postdata['inputPhone'])?$postdata['inputPhone']:''),
-				'zipcode'     => (isset($postdata['inputZipCode'])?$postdata['inputZipCode']:''),
-				'email'       => (isset($postdata['inputEmail'])?$postdata['inputEmail']:''),
+				'fullname'     => (isset($postdata['inputFullName'])?$postdata['inputFullName']:''),
+				'picture_url'  => NULL,
+				'doctype_id'   => (isset($postdata['inputDocType'])?$postdata['inputDocType']:NULL),
+				'docnum'       => (isset($postdata['inputNumDoc'])?$postdata['inputNumDoc']:''),
+				'gender'       => (isset($postdata['inputGender'])?$postdata['inputGender']:''),
+				'dateofbirth'  => (isset($postdata['inputDateOfBirth'])?mdate("%Y-%m-%d", strtotime($postdata["inputDateOfBirth"])):''),
+				'address'      => (isset($postdata['inputAddress'])?$postdata['inputAddress']:''),
+				'phone'        => (isset($postdata['inputPhone'])?$postdata['inputPhone']:''),
+				'zipcode'      => (isset($postdata['inputZipCode'])?$postdata['inputZipCode']:''),
+				'email'        => (isset($postdata['inputEmail'])?$postdata['inputEmail']:''),
+				'creationdate' => date('Y-m-d H:i:s'),
 			);
 
-			return $this->addnew($arr_filter);
+			return $this->insert($arr_filter);
 
 		}
 
 		return false;
 
-	}
-
-	public function addnew($data) {
-		$arr_filter = array(
-			'fullname'     => (isset($data['fullname'])?$data['fullname']:''),
-			'picture_url'  => (isset($data['picture_url'])?$data['picture_url']:''),
-			'doctype_id'   => (isset($data['doctype_id'])?$data['doctype_id']:NULL),
-			'docnum'       => (isset($data['docnum'])?$data['docnum']:''),
-			'address'      => (isset($data['address'])?$data['address']:''),
-			'phone'        => (isset($data['phone'])?$data['phone']:''),
-			'zipcode'      => (isset($data['zipcode'])?$data['zipcode']:''),
-			'email'        => (isset($data['email'])?$data['email']:''),
-			'creationdate' => date('Y-m-d H:i:s'),
-		);
-
-		$query          = $this->db->insert('people', $arr_filter);
-		$last_insert_id = $this->db->insert_id();
-
-		return $last_insert_id;
 	}
 
 	public function update($data) {
@@ -176,7 +160,7 @@ class people_model extends MY_Model {
 
 	public function searchPeopleByEmail($email) {
 		$query = $this->db->get_where(
-			$this->table, array(
+			$this->_table, array(
 				'email' => $email,
 			)
 		);
@@ -189,7 +173,7 @@ class people_model extends MY_Model {
 
 	public function searchByName($nameUser) {
 		$sql = "SELECT * ";
-		$sql .= "FROM ".$this->table." ";
+		$sql .= "FROM ".$this->_table." ";
 		$sql .= "WHERE fullname LIKE '%".$nameUser."%' ";
 		$sql .= "OR email LIKE '%".$nameUser."%' ";
 
@@ -206,7 +190,7 @@ class people_model extends MY_Model {
 		}
 
 		$sql_total = "SELECT * ";
-		$sql_total .= "FROM ".$this->table." ";
+		$sql_total .= "FROM ".$this->_table." ";
 		$sql_total .= "WHERE fullname LIKE '%".$nameUser."%' ";
 		$sql_total .= "OR email LIKE '%".$nameUser."%' ";
 		$sql_pagination = $sql_total.$limit;

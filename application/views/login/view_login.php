@@ -5,7 +5,7 @@
   <form id="frmLogin" class="form-login" role="form" action="<?php echo base_url('login/auth');?>" method="post">
 <?php if (isset($error_login) && $error_login != '') {?>
 	<div class="alert alert-danger alert-dismissible" role="alert">
-					      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	<?php echo $error_login;?>
 	</div>
 	<?php }
@@ -22,8 +22,8 @@
     </div>
     <p>Ou com seu nome de usuário e senha:</p>
     <div class="form-group">
-      <label for="inputUser" class="sr-only">Usuário</label>
-      <input type="text" id="inputUser" name="inputUser" class="form-control" placeholder="Usuário" autocomplete="off" autofocus="on" autofocus>
+      <label for="inputUser" class="sr-only">Apelido / Login</label>
+      <input type="text" id="inputUser" name="inputUser" class="form-control control-margin-bottom" placeholder="Apelido / Login" autocomplete="off" autofocus="on" autofocus>
 
       <label for="inputPassword" class="sr-only">Senha</label>
       <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Senha">

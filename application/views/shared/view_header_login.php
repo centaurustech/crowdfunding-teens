@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
-    <title>Crowdfunding para presente | Testing </title>
+    <title>Crowdfunding para presente | Testing</title>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the header of the document so we can load jquery libs -->
@@ -50,7 +50,7 @@
             <div class="navbar-header">
 
               <a class="navbar-brand" href="<?php echo base_url();?>" title="Crowdfunding Site">
-                <img class="featurette-image img-responsive center-block" src="<?php echo base_url('assets/img/logo.png');?>" alt="Presente Top">
+                <img class="featurette-image img-logo-responsive center-block" src="<?php echo base_url('assets/img/logo.png');?>" alt="Presente Top">
               </a>
             </div>
 

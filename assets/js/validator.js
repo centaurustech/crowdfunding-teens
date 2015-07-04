@@ -53,6 +53,7 @@ jQuery(function ($) {
 	        })
 	        .on('error.field.bv', function(e, data) {
 	            // Get the tooltip
+	            
 	            var $parent = data.element.parents('.form-group'),
 	                $icon   = $parent.find('.form-control-feedback[data-bv-icon-for="' + data.field + '"]'),
 	                title   = $icon.data('bs.tooltip').getTitle();
@@ -64,6 +65,7 @@ jQuery(function ($) {
 	                title: title,
 	                container: 'body'
 	            });
+				
 	        });
 	
 	    // Reset the Tooltip container form
@@ -84,9 +86,14 @@ jQuery(function ($) {
 
 
 	    /* Sign Up Form */
+	    $('#inputDateOfBirth').on('dp.change dp.show', function(e) {
+	        // Revalidate the date field
+	        $('#frmSignUp').bootstrapValidator('revalidateField', 'inputDateOfBirth');
+	    });
+
 	    $('#frmSignUp')
 	        .bootstrapValidator({
-	            container: 'tooltip',
+	            //container: 'tooltip',
 	            feedbackIcons: {
 	                //valid: 'glyphicon glyphicon-ok',
 	                valid: 'glyphicon',
@@ -106,6 +113,24 @@ jQuery(function ($) {
 	                        notEmpty: {
 	                            message: 'Nome Completo não deve estar vazio'
 	                        }
+	                    }
+	                },
+	                inputGender: {
+	                    validators: {
+	                        notEmpty: {
+	                            message: 'Deve selecionar um gênero'
+	                        }
+	                    }
+	                },
+	                inputDateOfBirth:{
+	                	validators: {
+	                        notEmpty: {
+	                            message: 'Data de Nascimento não dever ter valor vazío'
+	                        },
+		                    date: {
+		                        format: 'DD/MM/YYYY',
+		                        message: 'Formato de data não é válido. Deve colocar valor no formato dd/mm/yyyy'
+		                    }
 	                    }
 	                },
 	                inputEmail: {
@@ -148,21 +173,28 @@ jQuery(function ($) {
 	                    }
 	                }
 	            }
-	        })
+	        });
+	        /*
 	        .on('error.field.bv', function(e, data) {
 	            // Get the tooltip
+
+	            
 	            var $parent = data.element.parents('.form-group'),
-	                $icon   = $parent.find('.form-control-feedback[data-bv-icon-for="' + data.field + '"]'),
-	                title   = $icon.data('bs.tooltip').getTitle();
-	
+                $icon   = $parent.find('.form-control-feedback[data-bv-icon-for="' + data.field + '"]'),
+                title   = $icon.data('bs.tooltip').getTitle();
+
 	            // Destroy the old tooltip and create a new one positioned to the right
+	            
 	            $icon.tooltip('destroy').tooltip({
 	                html: true,
 	                placement: 'right',
 	                title: title,
 	                container: 'body'
 	            });
+	        	
+	        	
 	        });
+	        */
 	
 	    // Reset the Tooltip container form
 	    $('#resetSignUpButton').on('click', function(e) {

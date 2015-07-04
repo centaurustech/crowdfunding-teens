@@ -45,7 +45,7 @@ class login extends MY_Controller {
 
 	private function _prepare_login() {
 
-		$this->masterpage->header = "/shared/view_header_login";
+		//$this->masterpage->header = "/shared/view_header_login";
 		$this->masterpage->footer = "";
 
 	}

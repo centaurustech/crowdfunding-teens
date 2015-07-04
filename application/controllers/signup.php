@@ -41,7 +41,7 @@ class signup extends MY_Controller {
 
 	private function _prepare_signup() {
 
-		$this->masterpage->header = "/shared/view_header_login";
+		//$this->masterpage->header = "/shared/view_header_login";
 		$this->masterpage->footer = "";
 
 		$this->_check_auth();
@@ -55,23 +55,69 @@ class signup extends MY_Controller {
 	public function create_user() {
 		$post_data = $this->input->post();
 
+		//Ensure method is calling from signup page
+		if (!$post_data) {
+			show_404();
+			return;
+		}
+
 		if (!$this->users_model->searchUserByUserName($post_data['inputUser'])) {
 
 			$idpeople = $this->people_model->signup($post_data);
 
 			if (!$idpeople) {
-				$msg = 'E-Mail já cadastrado. Tente com outro E-Mail <a href="'.base_url('signup').'">Login</a>';
+				redirect(base_url("signup/warning-existing-email"));
 			} else {
 				$iduser = $this->users_model->signup($post_data, $idpeople);
-				$msg    = 'Usuário cadastrado com sucesso. <a href="'.base_url('login').'">Login</a>';
+				redirect(base_url("signup/welcome"));
 			}
 		} else {
-			$msg = 'Nome de Usuário (Login) já cadastrado.';
+			redirect(base_url("signup/warning-existing-username"));
 		}
 
-		echo ($msg);
+		$data = array(
+			'msg' => $msg,
+		);
 
+		//echo ($msg);
 	}
+
+	public function welcome() {
+		$this->masterpage->view("signup/view_welcome_user");
+	}
+
+	public function warning_existing_email() {
+
+		$message = array(
+			"line1" => "Este E-Mail pertence a um usuário cadastrado nosso sistema.",
+			"line2" => "Por gentileza efetuar o cadastro com outro E-Mail.",
+		);
+
+		$data = array(
+			"message"      => $message,
+			"previous_url" => base_url("signup"),
+			"msg_img"      => "warning.png",
+		);
+
+		$this->masterpage->view("shared/view_message", $data);
+	}
+
+	public function warning_existing_username() {
+
+		$message = array(
+			"line1" => "O Nome de Usuário (Login) não está disponível.",
+			"line2" => "Utilize outro nome de usuário para efetuar o cadastro.",
+		);
+
+		$data = array(
+			"message"      => $message,
+			"previous_url" => base_url("signup"),
+			"msg_img"      => "warning.png",
+		);
+
+		$this->masterpage->view("shared/view_message", $data);
+	}
+
 }
 
 /* End of file signup.php */

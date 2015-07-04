@@ -44,6 +44,9 @@ input, label, p{
   font-size: 14px;
 }
 
+.warning-msg{
+  padding-top: 36px;
+}
 
 /* CUSTOMIZE THE NAVBAR
 -------------------------------------------------- */
@@ -66,8 +69,9 @@ input, label, p{
   padding-left: 0;
 }
 
-.img-responsive {
-  height: 70px;
+.img-logo-responsive {
+  height: 70px !important;
+  width: 100%;
 }
 
 /* Define menú area
@@ -1088,8 +1092,8 @@ footer .container{
     margin-top: -20px;
   }
 
-  .img-responsive {
-    height: 90px;
+  .img-logo-responsive {
+    height: 90px !important;
   }
   
   .profile-info>small{
@@ -1263,8 +1267,8 @@ footer .container{
     margin-top: -20px;
   }
 
-  .img-responsive {
-    height: 90px;
+  .img-logo-responsive {
+    height: 90px !important;
   }
 
   .menuset {
@@ -1416,8 +1420,8 @@ footer .container{
     margin-top: -20px;
   }
 
-  .img-responsive {
-    height: 90px;
+  .img-logo-responsive {
+    height: 90px !important;
   }
 
   .menuset {

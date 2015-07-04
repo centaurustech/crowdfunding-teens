@@ -6,8 +6,8 @@ class users_model extends MY_Model {
 
 	public function users_model() {
 		parent::__construct();
-		$this->table = 'users';
-		$this->id    = 'iduser';
+		$this->_table      = 'users';
+		$this->primary_key = 'iduser';
 	}
 
 	public function getAll() {
@@ -35,59 +35,25 @@ class users_model extends MY_Model {
 	}
 
 	public function searchUserByHash($hash) {
-		return $this->db->get_where(
-			$this->table, array(
-				'hash_value' => $hash,
-			)
-		)->row();
-	}
-
-	public function searchUserByPeopleId($idpeople) {
 		$query = $this->db->get_where(
-			$this->table, array(
-				'idpeople' => $idpeople,
+			$this->_table, array(
+				'hash_value' => $hash,
 			)
 		);
 
 		if ($query && $query->num_rows > 0) {
 			return $query->row();
 		}
-
 		return false;
 	}
 
 	public function searchUserByUserName($username) {
-		return $this->db->get_where(
-			$this->table, array(
-				'username' => $username,
-			)
-		)->row();
-	}
-
-	public function searchUserByFacebookId($idfacebook) {
-		$query = $this->db->get_where(
-			$this->table, array(
-				'facebook_id' => $idfacebook,
-			)
-		);
-
-		if ($query && $query->num_rows > 0) {
-			return $query->row();
-		}
-
-		return false;
+		$row = $this->get_by("username", $username);
+		return count($row) > 0?$row:false;
 	}
 
 	public function count_record() {
 		return $this->db->count_all('users');
-	}
-
-	public function get($id) {
-		return $this->db->get_where(
-			$this->table, array(
-				'iduser' => $id,
-			)
-		)->row();
 	}
 
 	public function init() {
@@ -105,10 +71,11 @@ class users_model extends MY_Model {
 
 	public function sync_from_facebook($idpeople, $social_data) {
 
-		$userObj = $this->searchUserByFacebookId($social_data["id"]);
+		$userObj = $this->get_by("facebook_id", $social_data["id"]);
 
 		if (!$userObj) {
-			$userObj = $this->searchUserByPeopleId($idpeople);
+
+			$userObj = $this->get_by("idpeople", $idpeople);
 
 			if (!$userObj) {
 
@@ -143,38 +110,25 @@ class users_model extends MY_Model {
 
 		//Check if record exists
 		$row = $this->searchUserByUserName($postdata['inputUser']);
+
 		if (!$row) {
 
 			$arr_filter = array(
 				'username'       => (isset($postdata['inputUser'])?$postdata['inputUser']:NULL),
-				'userpassword'   => (isset($postdata['inputPassword'])?$postdata['inputPassword']:NULL),
+				'userpassword'   => (isset($postdata['inputPassword'])?md5($postdata['inputPassword']):NULL),
 				'changepassword' => 0,
 				'idpeople'       => $idpeople,
+				'facebook_id'    => (isset($postdata['facebook_id'])?$postdata['facebook_id']:NULL),
+				'is_admin'       => (isset($postdata['is_admin'])?$postdata['is_admin']:0),
+				'creationdate'   => date('Y-m-d H:i:s'),
 			);
 
-			return $this->addnew($arr_filter);
+			return $this->insert($arr_filter);
 
 		}
 
 		return false;
 
-	}
-
-	public function addnew($data) {
-		$arr_filter = array(
-			'username'       => (isset($data['username'])?$data['username']:NULL),
-			'userpassword'   => (isset($data['userpassword'])?md5($data['userpassword']):NULL),
-			'changepassword' => (isset($data['changepassword'])?$data['changepassword']:0),
-			'idpeople'       => (isset($data['idpeople'])?$data['idpeople']:NULL),
-			'facebook_id'    => (isset($data['facebook_id'])?$data['facebook_id']:NULL),
-			'is_admin'       => (isset($data['is_admin'])?$data['is_admin']:0),
-			'creationdate'   => date('Y-m-d H:i:s'),
-		);
-
-		$query          = $this->db->insert('users', $arr_filter);
-		$last_insert_id = $this->db->insert_id();
-
-		return $last_insert_id;
 	}
 
 	public function update($data) {
@@ -221,7 +175,7 @@ class users_model extends MY_Model {
 
 	public function searchUserByLoginPass($login, $password) {
 		$return = $this->db->get_where(
-			$this->table, array(
+			$this->_table, array(
 				'username'     => $login,
 				'userpassword' => $password,
 			)
@@ -232,7 +186,7 @@ class users_model extends MY_Model {
 
 	public function searchUserByEmail($email) {
 		return $this->db->get_where(
-			$this->table, array(
+			$this->_table, array(
 				'email' => $email,
 			)
 		)->row();
