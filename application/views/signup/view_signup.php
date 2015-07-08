@@ -1,6 +1,6 @@
 <!-- Custom styles for this template -->
 <link href="<?php echo base_url('assets/css/login.css');?>" rel="stylesheet">
-<script src="<?php echo base_url('assets/js/validator.js');?>"></script>
+<script src="<?php echo base_url('assets/js/profile-user/sign-up.js');?>"></script>
 <div class="container login-area">
   <form id="frmSignUp" class="form-login" role="form" action="<?php echo base_url('signup/create_user');?>" method="post">
     <div class="form-login-head">

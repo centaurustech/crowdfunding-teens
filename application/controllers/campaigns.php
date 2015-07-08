@@ -29,6 +29,7 @@ class campaigns extends MY_Controller {
 		$this->load->model('campaigns_model');
 		$this->load->model('contributions_model');
 		$this->load->model('campaigns_images_gallery_model', 'camp_pictures');
+		$this->load->model('file_uploader_model', 'file_uploader');
 
 		$this->masterpage->use_session_info();
 	}
@@ -192,12 +193,12 @@ class campaigns extends MY_Controller {
 		$path = $this->users_model->create_user_folder();
 
 		//Upload the image.
-		$file = $this->camp_pictures->upload($path, "uploadCampaignPict");
+		$file = $this->file_uploader->upload($path, "uploadCampaignPict");
 
 		// Image successfully uploaded
-		if (isset($file["upload_data"])) {
-			$upload_data = $file["upload_data"];
-			$imgurl      = str_replace(FCPATH, base_url(), $upload_data["full_path"]);
+		$imgurl = $this->file_uploader->get_uploaded_path();
+
+		if (!is_null($imgurl)) {
 
 			//Save the image url in DB.
 			$result = $this->camp_pictures->save($idcampaign, $imgurl);

@@ -5,9 +5,9 @@
 if (!function_exists('make_tiny()')) {
 
 	function make_tiny($url) {
-		$ch      = curl_init();
+		$ch = curl_init();
 		$timeout = 5;
-		curl_setopt($ch, CURLOPT_URL, 'http://tinyurl.com/api-create.php?url='.$url);
+		curl_setopt($ch, CURLOPT_URL, 'http://tinyurl.com/api-create.php?url=' . $url);
 		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 		$data = curl_exec($ch);
@@ -25,6 +25,51 @@ if (!function_exists('tiny_site_url()')) {
 
 }
 
+//Get Default Profile Picture
+if (!function_exists('get_no_profile_picture()')) {
+
+	function get_no_profile_picture($gender) {
+
+		$no_profile_pic = "assets/img/no-profile-picture-";
+
+		switch ($gender) {
+			case 'M':
+				$no_profile_pic .= "male.jpg";
+				break;
+			case 'F':
+				$no_profile_pic .= "female.jpg";
+				break;
+			default:
+				$no_profile_pic .= "neutral.jpg";
+				break;
+		}
+
+		return base_url($no_profile_pic);
+
+	}
+
+}
+
+//Store Session Info
+if (!function_exists('set_session_user()')) {
+
+	function set_session_user($username, $peopleObj, $userObj) {
+
+		$CI = get_instance();
+
+		$data_user["username"] = $username;
+		$data_user["fullname"] = $peopleObj->fullname;
+		$data_user["firstname"] = $peopleObj->firstname;
+		$data_user["picture"] = $peopleObj->picture_url;
+		$data_user["iduser"] = $userObj->iduser;
+		$data_user["idpeople"] = $peopleObj->idpeople;
+
+		$CI->session->set_userdata('user', $data_user);
+
+	}
+
+}
+
 //Store previous URL in a cookie
 if (!function_exists('store_prev_url_cookies()')) {
 
@@ -38,12 +83,12 @@ if (!function_exists('store_prev_url_cookies()')) {
 
 			$CI->load->library('user_agent');
 
-			$prev_url = $CI->agent->is_referral()?$CI->agent->referrer():'home';
+			$prev_url = $CI->agent->is_referral() ? $CI->agent->referrer() : 'home';
 			$prev_url = str_replace("==", "", $prev_url);
 
 			$cookie = array(
-				'name'   => 'prev_url',
-				'value'  => base64_encode($prev_url),
+				'name' => 'prev_url',
+				'value' => base64_encode($prev_url),
 				'expire' => '86500',
 				'prefix' => 'crowdteens_',
 			);
@@ -82,12 +127,12 @@ if (!function_exists('list_month_name()')) {
 
 	function list_month_name() {
 
-		$CI   = get_instance();
+		$CI = get_instance();
 		$html = "";
 
 		for ($i = 1; $i <= 12; $i++) {
-			$html .= '<option value="'.sprintf("%02d", $i).'">'.
-			$CI->calendar->get_month_name(sprintf("%02d", $i)).
+			$html .= '<option value="' . sprintf("%02d", $i) . '">' .
+			$CI->calendar->get_month_name(sprintf("%02d", $i)) .
 			'</option>';
 		}
 		echo $html;
@@ -100,13 +145,13 @@ if (!function_exists('list_future_years()')) {
 
 	function list_future_years() {
 
-		$CI       = get_instance();
-		$html     = "";
+		$CI = get_instance();
+		$html = "";
 		$cur_year = date("Y", $CI->calendar->local_time);
 
-		for ($i = $cur_year; $i <= $cur_year+10; $i++) {
-			$html .= '<option value="'.sprintf("%04d", $i).'">'.
-			sprintf("%04d", $i).
+		for ($i = $cur_year; $i <= $cur_year + 10; $i++) {
+			$html .= '<option value="' . sprintf("%04d", $i) . '">' .
+			sprintf("%04d", $i) .
 			'</option>';
 		}
 		echo $html;
@@ -119,13 +164,13 @@ if (!function_exists('list_countries()')) {
 
 	function list_countries() {
 
-		$CI        = get_instance();
+		$CI = get_instance();
 		$countries = $CI->geography_model->get_countries();
-		$html      = "";
+		$html = "";
 
 		foreach ($countries as $country) {
-			$html .= '<option value="'.$country->country_id.'">'.
-			$country->country_name.
+			$html .= '<option value="' . $country->country_id . '">' .
+			$country->country_name .
 			'</option>';
 		}
 		echo $html;

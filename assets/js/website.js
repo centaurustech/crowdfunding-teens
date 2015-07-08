@@ -374,6 +374,21 @@ $(document).ready(function() {
         $("#frmHeaderSearch").attr('action', $("#btnHeaderSearch").attr('href'));
     });
 
+    /*  Generic upload file
+        *****************************
+    */
+    $('.upload').click(function(){
+        $('input[type=file]').click();
+        return false;
+    });
+
+    
+    $(".fileUploader").change(function(e) {
+        //var currentID = $(this).attr('id');
+        $(this).previewImage(e, "imgProfilePicture");
+    });
+    
+
     
 
 });

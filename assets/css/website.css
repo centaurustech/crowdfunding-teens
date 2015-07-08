@@ -942,6 +942,28 @@ a.link-edit-camp, a.link-edit-profile{
   }
 
 
+/* Edit Profile
+------------------------- */
+  .edit-profile-picture{
+    min-width: 360px;
+    min-height: 360px;
+  }
+
+  .edit-profile-title{
+    text-transform: uppercase;
+  }
+
+  .white-background{
+    background-color: #fff;
+  }
+
+  .rounded-box{
+    border-radius: 4px;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    padding-bottom: 36px;
+  }
+
 
 /* Footer Section
 ------------------------- */

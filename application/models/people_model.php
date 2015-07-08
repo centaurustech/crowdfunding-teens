@@ -6,8 +6,24 @@ class people_model extends MY_Model {
 
 	public function people_model() {
 		parent::__construct();
-		$this->_table      = 'people';
+		$this->_table = 'people';
 		$this->primary_key = 'idpeople';
+	}
+
+	private function _add_from_facebook($social_data) {
+
+		$data = array(
+			'fullname' => $social_data["name"],
+			'picture_url' => 'https://graph.facebook.com/' . $social_data["id"] . '/picture/',
+			'doctype_id' => NULL,
+			'docnum' => NULL,
+			'address' => NULL,
+			'phone' => NULL,
+			'zipcode' => NULL,
+			'email' => $social_data["email"],
+		);
+
+		return $this->insert($data);
 	}
 
 	public function getAll() {
@@ -18,15 +34,15 @@ class people_model extends MY_Model {
 	public function getAllPag($byPage, $uriSegment) {
 		if ($byPage > 0) {
 			$limit = " LIMIT ";
-			$limit .= ($uriSegment != '')?($uriSegment.', '):('');
+			$limit .= ($uriSegment != '') ? ($uriSegment . ', ') : ('');
 			$limit .= $byPage;
 		} else {
 			$limit = '';
 		}
 
 		$sql_total = "SELECT * ";
-		$sql_total .= "FROM ".$this->_table;
-		$sql_pagination = $sql_total.$limit;
+		$sql_total .= "FROM " . $this->_table;
+		$sql_pagination = $sql_total . $limit;
 
 		$data['users'] = $this->db->query($sql_pagination)->result();
 		$data['total'] = $this->db->query($sql_total)->num_rows();
@@ -38,41 +54,17 @@ class people_model extends MY_Model {
 		return $this->db->count_all('users');
 	}
 
-	public function get($id) {
-		return $this->db->get_where(
-			$this->_table, array(
-				'idpeople' => $id,
-			)
-		)->row();
-	}
-
 	public function init() {
 
 		$row = array(
-			'username'     => '',
-			'firstname'    => '',
-			'lastname'     => '',
-			'email'        => '',
+			'username' => '',
+			'firstname' => '',
+			'lastname' => '',
+			'email' => '',
 			'action_title' => 'Novo',
 		);
 
 		return $row;
-	}
-
-	private function _add_from_facebook($social_data) {
-
-		$data = array(
-			'fullname'    => $social_data["name"],
-			'picture_url' => 'https://graph.facebook.com/'.$social_data["id"].'/picture/',
-			'doctype_id'  => NULL,
-			'docnum'      => NULL,
-			'address'     => NULL,
-			'phone'       => NULL,
-			'zipcode'     => NULL,
-			'email'       => $social_data["email"],
-		);
-
-		return $this->insert($data);
 	}
 
 	public function sync_from_facebook($social_data) {
@@ -85,6 +77,42 @@ class people_model extends MY_Model {
 		return $row;
 	}
 
+	public function get_auth() {
+		$usr_auth = $this->session->userdata('user');
+
+		if ($usr_auth) {
+			return $this->get($usr_auth["idpeople"]);
+		}
+
+		return false;
+	}
+
+	public function get($idpeople) {
+
+		$rs_people = parent::get($idpeople);
+
+		if ($rs_people !== false) {
+
+			if (is_null($rs_people->picture_url) | empty($rs_people->picture_url)) {
+
+				$rs_people->picture_url = get_no_profile_picture($rs_people->gender);
+			}
+
+			$rs_people->firstname = strpos($rs_people->fullname, ' ') !== false ? substr($rs_people->fullname, 0, strpos($rs_people->fullname, " ")) : $rs_people->fullname;
+
+			if (!(is_null($rs_people->dateofbirth) | empty($rs_people->dateofbirth))) {
+
+				$rs_people->dateofbirth = mdate("%d/%m/%Y", strtotime($rs_people->dateofbirth));
+			}
+
+			return $rs_people;
+
+		}
+
+		return false;
+
+	}
+
 	public function signup($postdata) {
 
 		//Check if email exists
@@ -93,16 +121,16 @@ class people_model extends MY_Model {
 		if (!$row) {
 
 			$arr_filter = array(
-				'fullname'     => (isset($postdata['inputFullName'])?$postdata['inputFullName']:''),
-				'picture_url'  => NULL,
-				'doctype_id'   => (isset($postdata['inputDocType'])?$postdata['inputDocType']:NULL),
-				'docnum'       => (isset($postdata['inputNumDoc'])?$postdata['inputNumDoc']:''),
-				'gender'       => (isset($postdata['inputGender'])?$postdata['inputGender']:''),
-				'dateofbirth'  => (isset($postdata['inputDateOfBirth'])?mdate("%Y-%m-%d", strtotime($postdata["inputDateOfBirth"])):''),
-				'address'      => (isset($postdata['inputAddress'])?$postdata['inputAddress']:''),
-				'phone'        => (isset($postdata['inputPhone'])?$postdata['inputPhone']:''),
-				'zipcode'      => (isset($postdata['inputZipCode'])?$postdata['inputZipCode']:''),
-				'email'        => (isset($postdata['inputEmail'])?$postdata['inputEmail']:''),
+				'fullname' => (isset($postdata['inputFullName']) ? $postdata['inputFullName'] : ''),
+				'picture_url' => NULL,
+				'doctype_id' => (isset($postdata['inputDocType']) ? $postdata['inputDocType'] : NULL),
+				'docnum' => (isset($postdata['inputNumDoc']) ? $postdata['inputNumDoc'] : ''),
+				'gender' => (isset($postdata['inputGender']) ? $postdata['inputGender'] : ''),
+				'dateofbirth' => (isset($postdata['inputDateOfBirth']) ? mdate("%Y-%m-%d", strtotime($postdata["inputDateOfBirth"])) : ''),
+				'address' => (isset($postdata['inputAddress']) ? $postdata['inputAddress'] : ''),
+				'phone' => (isset($postdata['inputPhone']) ? $postdata['inputPhone'] : ''),
+				'zipcode' => (isset($postdata['inputZipCode']) ? $postdata['inputZipCode'] : ''),
+				'email' => (isset($postdata['inputEmail']) ? $postdata['inputEmail'] : ''),
 				'creationdate' => date('Y-m-d H:i:s'),
 			);
 
@@ -114,48 +142,24 @@ class people_model extends MY_Model {
 
 	}
 
-	public function update($data) {
+	public function update($postdata, $file) {
 
-		if (isset($data['username']) && $data['username'] != '') {
-			$arr_filter['username'] = $data['username'];
-		}
+		$data = new stdClass();
+		$id = $postdata['inputIdPeople'];
 
-		if (isset($data['firstname']) && $data['firstname'] != '') {
-			$arr_filter['firstname'] = $data['firstname'];
-		}
+		$data->fullname = (isset($postdata['inputFullName']) ? $postdata['inputFullName'] : '');
+		$data->picture_url = $postdata['inputPictureURL'];
+		$data->doctype_id = (isset($postdata['inputDocType']) ? $postdata['inputDocType'] : NULL);
+		$data->docnum = (isset($postdata['inputNumDoc']) ? $postdata['inputNumDoc'] : '');
+		$data->gender = (isset($postdata['inputGender']) ? $postdata['inputGender'] : '');
+		$data->dateofbirth = (isset($postdata['inputDateOfBirth']) ? mdate("%Y-%m-%d", strtotime($postdata["inputDateOfBirth"])) : '');
+		$data->address = (isset($postdata['inputAddress']) ? $postdata['inputAddress'] : '');
+		$data->phone = (isset($postdata['inputPhone']) ? $postdata['inputPhone'] : '');
+		$data->zipcode = (isset($postdata['inputZipCode']) ? $postdata['inputZipCode'] : '');
+		$data->email = (isset($postdata['inputEmail']) ? $postdata['inputEmail'] : '');
+		$data->editiondate = date('Y-m-d H:i:s');
 
-		if (isset($data['lastname']) && $data['lastname'] != '') {
-			$arr_filter['lastname'] = $data['lastname'];
-		}
-
-		if (isset($data['email']) && $data['email'] != '') {
-			$arr_filter['email'] = $data['email'];
-		}
-
-		if (isset($data['userpassword']) && $data['userpassword'] != '') {
-			$arr_filter['userpassword'] = $data['userpassword'];
-		}
-
-		if (isset($data['changepassword']) && $data['changepassword'] != '') {
-			$arr_filter['changepassword'] = $data['changepassword'];
-		} else {
-			$arr_filter['changepassword'] = 0;
-		}
-
-		if (isset($data['hash_value']) && $data['hash_value'] != '') {
-			$arr_filter['hash_value'] = $data['hash_value'];
-		} else {
-			$arr_filter['hash_value'] = null;
-		}
-
-		if (isset($data['hash_date']) && $data['hash_date'] != '') {
-			$arr_filter['hash_date'] = $data['hash_date'];
-		} else {
-			$arr_filter['hash_date'] = null;
-		}
-
-		$this->db->where('idusers', $data['idusers']);
-		return $this->db->update('users', $arr_filter);
+		return parent::update($id, $data);
 	}
 
 	public function searchPeopleByEmail($email) {
@@ -173,9 +177,9 @@ class people_model extends MY_Model {
 
 	public function searchByName($nameUser) {
 		$sql = "SELECT * ";
-		$sql .= "FROM ".$this->_table." ";
-		$sql .= "WHERE fullname LIKE '%".$nameUser."%' ";
-		$sql .= "OR email LIKE '%".$nameUser."%' ";
+		$sql .= "FROM " . $this->_table . " ";
+		$sql .= "WHERE fullname LIKE '%" . $nameUser . "%' ";
+		$sql .= "OR email LIKE '%" . $nameUser . "%' ";
 
 		return $this->db->query($sql)->result();
 	}
@@ -183,17 +187,17 @@ class people_model extends MY_Model {
 	public function searchByNamePag($nameUser, $byPage, $uriSegment) {
 		if ($byPage > -1) {
 			$limit = " LIMIT ";
-			$limit .= ($uriSegment != '')?($uriSegment.', '):('');
+			$limit .= ($uriSegment != '') ? ($uriSegment . ', ') : ('');
 			$limit .= $byPage;
 		} else {
 			$limit = '';
 		}
 
 		$sql_total = "SELECT * ";
-		$sql_total .= "FROM ".$this->_table." ";
-		$sql_total .= "WHERE fullname LIKE '%".$nameUser."%' ";
-		$sql_total .= "OR email LIKE '%".$nameUser."%' ";
-		$sql_pagination = $sql_total.$limit;
+		$sql_total .= "FROM " . $this->_table . " ";
+		$sql_total .= "WHERE fullname LIKE '%" . $nameUser . "%' ";
+		$sql_total .= "OR email LIKE '%" . $nameUser . "%' ";
+		$sql_pagination = $sql_total . $limit;
 
 		$data['users'] = $this->db->query($sql_pagination)->result();
 		$data['total'] = $this->db->query($sql_total)->num_rows();
