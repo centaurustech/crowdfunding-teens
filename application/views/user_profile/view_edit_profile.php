@@ -15,19 +15,19 @@
         <h2>Dados Básicos</h2>
       </div>
 
-      <?php if (isset($msg)) {?>
-      <div class="col-md-10">
-        <div class="alert alert-<?php echo $label_type;?> alert-dismissible" role="alert">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <?php echo $msg;?>
-        </div>
-      </div>
-      <?php }
+<?php if (isset($msg)) {?>
+	      <div class="col-md-10">
+	        <div class="alert alert-<?php echo $label_type;?>alert-dismissible" role="alert">
+	          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	<?php echo $msg;?>
+	</div>
+	      </div>
+	<?php }
 ?>
 
 
       <div class="col-md-4">
-        <img src="<?php echo $people->picture_url;?>" id = "imgProfilePicture" class="img-responsive edit-profile-picture">
+        <img src="<?php echo $people->full_picture_url;?>" id = "imgProfilePicture" class="img-responsive edit-profile-picture">
         <input type="file" class="fileUploader hide" id="fileProfilePhoto" name="fileProfilePhoto" value="">
         <button class="btn btn-primary btn-block upload" type="button">Upload Foto</button>
       </div>
@@ -50,9 +50,9 @@
               <label for="inputGender" class="control-label">Gênero</label>
               <select class = "form-control" name="inputGender">
                 <option value="">|== Selecione seu gênero ==|</option>
-                <option value="M" <?php echo $people->gender == "M" ? "selected" : "";?>>Masculino</option>
-                <option value="F" <?php echo $people->gender == "F" ? "selected" : "";?>>Feminino</option>
-                <option value="U" <?php echo $people->gender == "U" ? "selected" : "";?>>Prefero não informar</option>
+                <option value="M" <?php echo $people->gender == "M"?"selected":"";?>>Masculino</option>
+                <option value="F" <?php echo $people->gender == "F"?"selected":"";?>>Feminino</option>
+                <option value="U" <?php echo $people->gender == "U"?"selected":"";?>>Prefero não informar</option>
               </select>
             </div>
           </div>
@@ -98,7 +98,7 @@
               <option value="">|== Selecione Tipo Documento ==|</option>
 <?php foreach ($doc_type_list as $doc_type) {
 	?>
-																	              <option value="<?php echo $doc_type->doctype_id;?>" <?php echo $people->doctype_id == $doc_type->doctype_id ? "selected" : "";
+																		              <option value="<?php echo $doc_type->doctype_id;?>" <?php echo $people->doctype_id == $doc_type->doctype_id?"selected":"";
 	?>>
 	<?php echo $doc_type->doctype_name;?>
 	</option>

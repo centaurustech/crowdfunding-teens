@@ -2,6 +2,9 @@
 	exit('No direct script access allowed');
 }
 
+set_include_path(APPPATH.'libraries/'.PATH_SEPARATOR.get_include_path());
+//session_start();
+
 class Googleplus {
 
 	public function __construct() {
@@ -9,8 +12,9 @@ class Googleplus {
 		$CI = &get_instance();
 		$CI->config->load('googleplus');
 
-		require APPPATH.'libreries/google-plus/src/Google_Client.php';
-		require APPPATH.'libreries/google-plus/src/contrib/Google_PlusService.php';
+		require APPPATH.'libraries/Google/Client.php';
+
+		require APPPATH.'libraries/Google/Service/Plus.php';
 
 		$cache_path                                    = $CI->config->item('cache_path');
 		$GLOBALS['apiConfig']['ioFileCache_directory'] = ($cache_path == '')?APPPATH.'cache/':$cache_path;
@@ -21,8 +25,12 @@ class Googleplus {
 		$this->client->setClientSecret($CI->config->item('client_secret', 'googleplus'));
 		$this->client->setRedirectUri($CI->config->item('redirect_uri', 'googleplus'));
 		$this->client->setDeveloperKey($CI->config->item('api_key', 'googleplus'));
+		$this->client->setScopes($CI->config->item('scopes', 'googleplus'));
+		$this->client->setRequestVisibleActions($CI->config->item('actions', 'googleplus'));
 
-		$this->plus = new Google_PlusService($this->client);
+		$this->plus          = new Google_Service_Plus($this->client);
+		$this->plusItemScope = new Google_Service_Plus_ItemScope();
+		$this->moment        = new Google_Service_Plus_Moment();
 
 	}
 
@@ -30,6 +38,9 @@ class Googleplus {
 
 		if (isset($this->plus->$name)) {
 			return $this->plus->$name;
+		}
+		if (isset($this->client->$name)) {
+			return $this->client->$name;
 		}
 		return false;
 
@@ -40,8 +51,8 @@ class Googleplus {
 		if (method_exists($this->plus, $name)) {
 			return call_user_func(array($this->plus, $name), $arguments);
 		}
-		return false;
 
+		return false;
 	}
 
 }

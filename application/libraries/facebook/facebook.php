@@ -86,4 +86,40 @@ class Facebook {
 		}
 		return false;
 	}
+
+	/**
+	 * Returns profile picture the current user's info as an array.
+	 */
+	public function get_profile_picture($width = 0, $height = 0) {
+		if ($this->session) {
+			/**
+			 * Retrieve User’s Profile Information
+			 */
+			// Graph API to request user data
+			$uri = '/me/picture/?redirect=false';
+
+			//Put large picture when width or height have values.
+			if ($width > 0|$height > 0) {
+				$uri .= "&type=large";
+			}
+
+			//Put width field.
+			if ($width > 0) {
+				$uri .= "&width=".strval($width);
+			}
+
+			//Put height field.
+			if ($height > 0) {
+				$uri .= "&height=".strval($height);
+			}
+
+			$request = (new FacebookRequest($this->session, 'GET', $uri))->execute();
+
+			// Get response as an array
+			$profile_picture = $request->getGraphObject()->asArray();
+
+			return $profile_picture;
+		}
+		return false;
+	}
 }

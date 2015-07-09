@@ -6,24 +6,63 @@ class people_model extends MY_Model {
 
 	public function people_model() {
 		parent::__construct();
-		$this->_table = 'people';
+		$this->_table      = 'people';
 		$this->primary_key = 'idpeople';
 	}
 
 	private function _add_from_facebook($social_data) {
 
 		$data = array(
-			'fullname' => $social_data["name"],
-			'picture_url' => 'https://graph.facebook.com/' . $social_data["id"] . '/picture/',
-			'doctype_id' => NULL,
-			'docnum' => NULL,
-			'address' => NULL,
-			'phone' => NULL,
-			'zipcode' => NULL,
-			'email' => $social_data["email"],
+			'fullname'    => $social_data["name"],
+			'picture_url' => 'https://graph.facebook.com/'.$social_data["id"].'/picture/',
+			'doctype_id'  => NULL,
+			'docnum'      => NULL,
+			'address'     => NULL,
+			'phone'       => NULL,
+			'zipcode'     => NULL,
+			'email'       => $social_data["email"],
+			'gender'      => strtoupper(substr($social_data["gender"], 0, 1)),
 		);
 
 		return $this->insert($data);
+	}
+
+	private function _add_from_google($social_data) {
+
+		$data = array(
+			'fullname'    => $social_data->displayName,
+			'picture_url' => $social_data->image->url,
+			'doctype_id'  => NULL,
+			'docnum'      => NULL,
+			'address'     => NULL,
+			'phone'       => NULL,
+			'zipcode'     => NULL,
+			'email'       => $email = $social_data->nickname."@gmail.com",
+			'gender'      => strtoupper(substr($social_data->gender, 0, 1)),
+		);
+
+		return $this->insert($data);
+	}
+
+	private function _get_full_picture($urlpic) {
+
+		//Check for facebook photo. Apply 400 x 400 resolution
+		if (strpos($urlpic, "https://graph.facebook.com/") !== false) {
+			$this->load->config('facebook');
+			$this->load->library('fb_connect');
+			$profile_pic = $this->fb_connect->get_profile_picture(400, 400);
+			return $profile_pic["url"];
+		}
+
+		//Check for google photo. Apply 400 x 400 resolution
+		if (strpos($urlpic, "https://lh3.googleusercontent.com/") !== false) {
+			$profile_pic = str_replace("sz=50", "sz=400", $urlpic);
+			return $profile_pic;
+		}
+
+		//Return same URL for uploaded files.
+		return $urlpic;
+
 	}
 
 	public function getAll() {
@@ -34,15 +73,15 @@ class people_model extends MY_Model {
 	public function getAllPag($byPage, $uriSegment) {
 		if ($byPage > 0) {
 			$limit = " LIMIT ";
-			$limit .= ($uriSegment != '') ? ($uriSegment . ', ') : ('');
+			$limit .= ($uriSegment != '')?($uriSegment.', '):('');
 			$limit .= $byPage;
 		} else {
 			$limit = '';
 		}
 
 		$sql_total = "SELECT * ";
-		$sql_total .= "FROM " . $this->_table;
-		$sql_pagination = $sql_total . $limit;
+		$sql_total .= "FROM ".$this->_table;
+		$sql_pagination = $sql_total.$limit;
 
 		$data['users'] = $this->db->query($sql_pagination)->result();
 		$data['total'] = $this->db->query($sql_total)->num_rows();
@@ -57,10 +96,10 @@ class people_model extends MY_Model {
 	public function init() {
 
 		$row = array(
-			'username' => '',
-			'firstname' => '',
-			'lastname' => '',
-			'email' => '',
+			'username'     => '',
+			'firstname'    => '',
+			'lastname'     => '',
+			'email'        => '',
 			'action_title' => 'Novo',
 		);
 
@@ -74,6 +113,21 @@ class people_model extends MY_Model {
 			$new_id = $this->_add_from_facebook($social_data);
 			return $this->get($new_id);
 		}
+		return $row;
+	}
+
+	public function sync_from_google($social_data) {
+
+		$email = $social_data->nickname."@gmail.com";
+
+		var_dump($social_data);
+
+		$row = $this->searchPeopleByEmail($email);
+		if (!$row) {
+			$new_id = $this->_add_from_google($social_data);
+			return $this->get($new_id);
+		}
+
 		return $row;
 	}
 
@@ -93,14 +147,17 @@ class people_model extends MY_Model {
 
 		if ($rs_people !== false) {
 
-			if (is_null($rs_people->picture_url) | empty($rs_people->picture_url)) {
+			//Get no profile photo.
+			if (is_null($rs_people->picture_url)|empty($rs_people->picture_url)) {
 
 				$rs_people->picture_url = get_no_profile_picture($rs_people->gender);
 			}
 
-			$rs_people->firstname = strpos($rs_people->fullname, ' ') !== false ? substr($rs_people->fullname, 0, strpos($rs_people->fullname, " ")) : $rs_people->fullname;
+			$rs_people->full_picture_url = $this->_get_full_picture($rs_people->picture_url);
 
-			if (!(is_null($rs_people->dateofbirth) | empty($rs_people->dateofbirth))) {
+			$rs_people->firstname = strpos($rs_people->fullname, ' ') !== false?substr($rs_people->fullname, 0, strpos($rs_people->fullname, " ")):$rs_people->fullname;
+
+			if (!(is_null($rs_people->dateofbirth)|empty($rs_people->dateofbirth))) {
 
 				$rs_people->dateofbirth = mdate("%d/%m/%Y", strtotime($rs_people->dateofbirth));
 			}
@@ -121,16 +178,16 @@ class people_model extends MY_Model {
 		if (!$row) {
 
 			$arr_filter = array(
-				'fullname' => (isset($postdata['inputFullName']) ? $postdata['inputFullName'] : ''),
-				'picture_url' => NULL,
-				'doctype_id' => (isset($postdata['inputDocType']) ? $postdata['inputDocType'] : NULL),
-				'docnum' => (isset($postdata['inputNumDoc']) ? $postdata['inputNumDoc'] : ''),
-				'gender' => (isset($postdata['inputGender']) ? $postdata['inputGender'] : ''),
-				'dateofbirth' => (isset($postdata['inputDateOfBirth']) ? mdate("%Y-%m-%d", strtotime($postdata["inputDateOfBirth"])) : ''),
-				'address' => (isset($postdata['inputAddress']) ? $postdata['inputAddress'] : ''),
-				'phone' => (isset($postdata['inputPhone']) ? $postdata['inputPhone'] : ''),
-				'zipcode' => (isset($postdata['inputZipCode']) ? $postdata['inputZipCode'] : ''),
-				'email' => (isset($postdata['inputEmail']) ? $postdata['inputEmail'] : ''),
+				'fullname'     => (isset($postdata['inputFullName'])?$postdata['inputFullName']:''),
+				'picture_url'  => NULL,
+				'doctype_id'   => (isset($postdata['inputDocType'])?$postdata['inputDocType']:NULL),
+				'docnum'       => (isset($postdata['inputNumDoc'])?$postdata['inputNumDoc']:''),
+				'gender'       => (isset($postdata['inputGender'])?$postdata['inputGender']:''),
+				'dateofbirth'  => (isset($postdata['inputDateOfBirth'])?mdate("%Y-%m-%d", strtotime($postdata["inputDateOfBirth"])):''),
+				'address'      => (isset($postdata['inputAddress'])?$postdata['inputAddress']:''),
+				'phone'        => (isset($postdata['inputPhone'])?$postdata['inputPhone']:''),
+				'zipcode'      => (isset($postdata['inputZipCode'])?$postdata['inputZipCode']:''),
+				'email'        => (isset($postdata['inputEmail'])?$postdata['inputEmail']:''),
 				'creationdate' => date('Y-m-d H:i:s'),
 			);
 
@@ -145,18 +202,18 @@ class people_model extends MY_Model {
 	public function update($postdata, $file) {
 
 		$data = new stdClass();
-		$id = $postdata['inputIdPeople'];
+		$id   = $postdata['inputIdPeople'];
 
-		$data->fullname = (isset($postdata['inputFullName']) ? $postdata['inputFullName'] : '');
+		$data->fullname    = (isset($postdata['inputFullName'])?$postdata['inputFullName']:'');
 		$data->picture_url = $postdata['inputPictureURL'];
-		$data->doctype_id = (isset($postdata['inputDocType']) ? $postdata['inputDocType'] : NULL);
-		$data->docnum = (isset($postdata['inputNumDoc']) ? $postdata['inputNumDoc'] : '');
-		$data->gender = (isset($postdata['inputGender']) ? $postdata['inputGender'] : '');
-		$data->dateofbirth = (isset($postdata['inputDateOfBirth']) ? mdate("%Y-%m-%d", strtotime($postdata["inputDateOfBirth"])) : '');
-		$data->address = (isset($postdata['inputAddress']) ? $postdata['inputAddress'] : '');
-		$data->phone = (isset($postdata['inputPhone']) ? $postdata['inputPhone'] : '');
-		$data->zipcode = (isset($postdata['inputZipCode']) ? $postdata['inputZipCode'] : '');
-		$data->email = (isset($postdata['inputEmail']) ? $postdata['inputEmail'] : '');
+		$data->doctype_id  = (isset($postdata['inputDocType'])?$postdata['inputDocType']:NULL);
+		$data->docnum      = (isset($postdata['inputNumDoc'])?$postdata['inputNumDoc']:'');
+		$data->gender      = (isset($postdata['inputGender'])?$postdata['inputGender']:'');
+		$data->dateofbirth = (isset($postdata['inputDateOfBirth'])?mdate("%Y-%m-%d", strtotime($postdata["inputDateOfBirth"])):'');
+		$data->address     = (isset($postdata['inputAddress'])?$postdata['inputAddress']:'');
+		$data->phone       = (isset($postdata['inputPhone'])?$postdata['inputPhone']:'');
+		$data->zipcode     = (isset($postdata['inputZipCode'])?$postdata['inputZipCode']:'');
+		$data->email       = (isset($postdata['inputEmail'])?$postdata['inputEmail']:'');
 		$data->editiondate = date('Y-m-d H:i:s');
 
 		return parent::update($id, $data);
@@ -177,9 +234,9 @@ class people_model extends MY_Model {
 
 	public function searchByName($nameUser) {
 		$sql = "SELECT * ";
-		$sql .= "FROM " . $this->_table . " ";
-		$sql .= "WHERE fullname LIKE '%" . $nameUser . "%' ";
-		$sql .= "OR email LIKE '%" . $nameUser . "%' ";
+		$sql .= "FROM ".$this->_table." ";
+		$sql .= "WHERE fullname LIKE '%".$nameUser."%' ";
+		$sql .= "OR email LIKE '%".$nameUser."%' ";
 
 		return $this->db->query($sql)->result();
 	}
@@ -187,17 +244,17 @@ class people_model extends MY_Model {
 	public function searchByNamePag($nameUser, $byPage, $uriSegment) {
 		if ($byPage > -1) {
 			$limit = " LIMIT ";
-			$limit .= ($uriSegment != '') ? ($uriSegment . ', ') : ('');
+			$limit .= ($uriSegment != '')?($uriSegment.', '):('');
 			$limit .= $byPage;
 		} else {
 			$limit = '';
 		}
 
 		$sql_total = "SELECT * ";
-		$sql_total .= "FROM " . $this->_table . " ";
-		$sql_total .= "WHERE fullname LIKE '%" . $nameUser . "%' ";
-		$sql_total .= "OR email LIKE '%" . $nameUser . "%' ";
-		$sql_pagination = $sql_total . $limit;
+		$sql_total .= "FROM ".$this->_table." ";
+		$sql_total .= "WHERE fullname LIKE '%".$nameUser."%' ";
+		$sql_total .= "OR email LIKE '%".$nameUser."%' ";
+		$sql_pagination = $sql_total.$limit;
 
 		$data['users'] = $this->db->query($sql_pagination)->result();
 		$data['total'] = $this->db->query($sql_total)->num_rows();

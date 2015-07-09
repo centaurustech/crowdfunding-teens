@@ -8,10 +8,27 @@
     </div>
     <div class="form-login-head">
       Cadastrar-se com:<br>
-      <a href="<?php echo base_url('/login/facebook');?>" class="btn btn-block btn-facebook">
-        <i class="fa fa-facebook"></i>
-        <span class="facebook-text">Facebook</span>
-      </a>
+      <div class="row">
+        <div class="col-md-4">
+          <a href="<?php echo base_url('/login/facebook/');?>" class="btn btn-block btn-social-media facebook-color">
+            <i class="fa fa-facebook fa-2x pull-left fa-fw separator-line"></i>
+            <span class="social-media-text">Facebook</span>
+          </a>
+        </div>
+        <div class="col-md-4">
+          <a href="<?php echo base_url('/login/google-plus/');?>" class="btn btn-block btn-social-media google-plus-color">
+            <i class="fa fa-google-plus fa-2x pull-left fa-fw separator-line"></i>
+            <span class="social-media-text">Google</span>
+          </a>
+        </div>
+
+        <div class="col-md-4">
+          <a href="<?php echo base_url('/login/twitter/');?>" class="btn btn-block btn-social-media twitter-color">
+            <i class="fa fa-twitter fa-2x pull-left fa-fw separator-line"></i>
+            <span class="social-media-text">Twitter</span>
+          </a>
+        </div>
+      </div>
     </div>
     <p>Ou preencher os seguintes campos:</p>
     <div class="form-group">

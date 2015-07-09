@@ -6,7 +6,7 @@ class users_model extends MY_Model {
 
 	public function users_model() {
 		parent::__construct();
-		$this->_table = 'users';
+		$this->_table      = 'users';
 		$this->primary_key = 'iduser';
 	}
 
@@ -18,7 +18,7 @@ class users_model extends MY_Model {
 	public function getAllPag($byPage, $uriSegment) {
 		if ($byPage > 0) {
 			$limit = " LIMIT ";
-			$limit .= ($uriSegment != '') ? ($uriSegment . ', ') : ('');
+			$limit .= ($uriSegment != '')?($uriSegment.', '):('');
 			$limit .= $byPage;
 		} else {
 			$limit = '';
@@ -26,7 +26,7 @@ class users_model extends MY_Model {
 
 		$sql_total = "SELECT * ";
 		$sql_total .= "FROM users";
-		$sql_pagination = $sql_total . $limit;
+		$sql_pagination = $sql_total.$limit;
 
 		$data['users'] = $this->db->query($sql_pagination)->result();
 		$data['total'] = $this->db->query($sql_total)->num_rows();
@@ -49,7 +49,7 @@ class users_model extends MY_Model {
 
 	public function searchUserByUserName($username) {
 		$row = $this->get_by("username", $username);
-		return count($row) > 0 ? $row : false;
+		return count($row) > 0?$row:false;
 	}
 
 	public function count_record() {
@@ -59,10 +59,10 @@ class users_model extends MY_Model {
 	public function init() {
 
 		$row = array(
-			'username' => '',
-			'firstname' => '',
-			'lastname' => '',
-			'email' => '',
+			'username'     => '',
+			'firstname'    => '',
+			'lastname'     => '',
+			'email'        => '',
 			'action_title' => 'Novo',
 		);
 
@@ -80,8 +80,9 @@ class users_model extends MY_Model {
 			if (!$userObj) {
 
 				$data = array(
-					'idpeople' => $idpeople,
-					'facebook_id' => $social_data["id"],
+					'idpeople'     => $idpeople,
+					'facebook_id'  => $social_data["id"],
+					'creationdate' => date('Y-m-d H:i:s'),
 				);
 
 				$user_id = $this->insert($data);
@@ -91,14 +92,53 @@ class users_model extends MY_Model {
 			} else {
 
 				$data = array(
-					'iduser' => $userObj->iduser,
+					'iduser'      => $userObj->iduser,
 					'facebook_id' => $social_data["id"],
+					'editiondate' => date('Y-m-d H:i:s'),
 				);
 
 				$user_id = $this->update($data);
 
 				return $this->get($user_id);
 
+			}
+
+		}
+
+		return $userObj;
+	}
+
+	public function sync_from_google($idpeople, $social_data) {
+
+		$userObj = $this->get_by("google_id", $social_data->id);
+
+		if (!$userObj) {
+
+			$userObj = $this->get_by("idpeople", $idpeople);
+
+			if (!$userObj) {
+
+				$data = array(
+					'idpeople'     => $idpeople,
+					'google_id'    => $social_data->id,
+					'creationdate' => date('Y-m-d H:i:s'),
+				);
+
+				$user_id = $this->insert($data);
+
+				return $this->get($user_id);
+
+			} else {
+
+				$data = array(
+					'iduser'      => $userObj->iduser,
+					'google_id'   => $social_data->id,
+					'editiondate' => date('Y-m-d H:i:s'),
+				);
+
+				$user_id = $this->update($data);
+
+				return $this->get($user_id);
 			}
 
 		}
@@ -124,13 +164,13 @@ class users_model extends MY_Model {
 		if (!$row) {
 
 			$arr_filter = array(
-				'username' => (isset($postdata['inputUser']) ? $postdata['inputUser'] : NULL),
-				'userpassword' => (isset($postdata['inputPassword']) ? md5($postdata['inputPassword']) : NULL),
+				'username'       => (isset($postdata['inputUser'])?$postdata['inputUser']:NULL),
+				'userpassword'   => (isset($postdata['inputPassword'])?md5($postdata['inputPassword']):NULL),
 				'changepassword' => 0,
-				'idpeople' => $idpeople,
-				'facebook_id' => (isset($postdata['facebook_id']) ? $postdata['facebook_id'] : NULL),
-				'is_admin' => (isset($postdata['is_admin']) ? $postdata['is_admin'] : 0),
-				'creationdate' => date('Y-m-d H:i:s'),
+				'idpeople'       => $idpeople,
+				'facebook_id'    => (isset($postdata['facebook_id'])?$postdata['facebook_id']:NULL),
+				'is_admin'       => (isset($postdata['is_admin'])?$postdata['is_admin']:0),
+				'creationdate'   => date('Y-m-d H:i:s'),
 			);
 
 			return $this->insert($arr_filter);
@@ -187,7 +227,7 @@ class users_model extends MY_Model {
 	public function searchUserByLoginPass($login, $password) {
 		$return = $this->db->get_where(
 			$this->_table, array(
-				'username' => $login,
+				'username'     => $login,
 				'userpassword' => $password,
 			)
 		)->row();
@@ -206,10 +246,10 @@ class users_model extends MY_Model {
 	public function searchByName($nameUser) {
 		$sql = "SELECT * ";
 		$sql .= "FROM users ";
-		$sql .= "WHERE fullname LIKE '%" . $nameUser . "%' ";
-		$sql .= "OR lastname LIKE '%" . $nameUser . "%' ";
-		$sql .= "OR username LIKE '%" . $nameUser . "%' ";
-		$sql .= "OR email LIKE '%" . $nameUser . "%' ";
+		$sql .= "WHERE fullname LIKE '%".$nameUser."%' ";
+		$sql .= "OR lastname LIKE '%".$nameUser."%' ";
+		$sql .= "OR username LIKE '%".$nameUser."%' ";
+		$sql .= "OR email LIKE '%".$nameUser."%' ";
 
 		return $this->db->query($sql)->result();
 	}
@@ -217,7 +257,7 @@ class users_model extends MY_Model {
 	public function searchByNamePag($nameUser, $byPage, $uriSegment) {
 		if ($byPage > -1) {
 			$limit = " LIMIT ";
-			$limit .= ($uriSegment != '') ? ($uriSegment . ', ') : ('');
+			$limit .= ($uriSegment != '')?($uriSegment.', '):('');
 			$limit .= $byPage;
 		} else {
 			$limit = '';
@@ -225,11 +265,11 @@ class users_model extends MY_Model {
 
 		$sql_total = "SELECT * ";
 		$sql_total .= "FROM users ";
-		$sql_total .= "WHERE firstname LIKE '%" . $nameUser . "%' ";
-		$sql_total .= "OR lastname LIKE '%" . $nameUser . "%' ";
-		$sql_total .= "OR username LIKE '%" . $nameUser . "%' ";
-		$sql_total .= "OR email LIKE '%" . $nameUser . "%' ";
-		$sql_pagination = $sql_total . $limit;
+		$sql_total .= "WHERE firstname LIKE '%".$nameUser."%' ";
+		$sql_total .= "OR lastname LIKE '%".$nameUser."%' ";
+		$sql_total .= "OR username LIKE '%".$nameUser."%' ";
+		$sql_total .= "OR email LIKE '%".$nameUser."%' ";
+		$sql_pagination = $sql_total.$limit;
 
 		$data['users'] = $this->db->query($sql_pagination)->result();
 		$data['total'] = $this->db->query($sql_total)->num_rows();
@@ -259,7 +299,7 @@ class users_model extends MY_Model {
 			$obj = new stdClass();
 
 			$obj->username = $user_session['username'];
-			$obj->iduser = $user_session['iduser'];
+			$obj->iduser   = $user_session['iduser'];
 			$obj->fullname = $user_session['fullname'];
 			$obj->fullname = $user_session['firstname'];
 			$obj->user_pic = $user_session['picture'];
@@ -275,7 +315,7 @@ class users_model extends MY_Model {
 		$auth_user = $this->get_auth_user();
 
 		if ($auth_user) {
-			$path = FCPATH . 'assets/uploads/' . strtolower($auth_user->username);
+			$path = FCPATH.'assets/uploads/'.strtolower($auth_user->username);
 
 			if (!is_dir($path)) {
 				mkdir($path, 0777, true);

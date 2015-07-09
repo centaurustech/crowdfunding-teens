@@ -26,8 +26,11 @@ class login extends MY_Controller {
 		parent::__construct();
 		$this->load->model('people_model');
 		$this->load->model('permissions_model');
+
 		$this->load->config('email');
 		$this->load->config('facebook');
+		$this->load->config('googleplus');
+
 		$this->load->library("email");
 
 		//$this->masterpage->use_session_info();
@@ -71,11 +74,11 @@ class login extends MY_Controller {
 
 		$password = md5($this->input->post('inputPassword'));
 
-		$data['iduser'] = $user['iduser'];
-		$data['userpassword'] = $password;
+		$data['iduser']         = $user['iduser'];
+		$data['userpassword']   = $password;
 		$data['changepassword'] = 0;
-		$data['hash_value'] = null;
-		$data['hash_date'] = null;
+		$data['hash_value']     = null;
+		$data['hash_date']      = null;
 
 		$this->users_model->update($data);
 
@@ -95,13 +98,13 @@ class login extends MY_Controller {
 
 				$user_data = $this->users_model->searchUserByPeopleId($people_data->idpeople);
 
-				$randomHash = md5($user_data->username) . md5($date->getTimestamp());
+				$randomHash = md5($user_data->username).md5($date->getTimestamp());
 
-				$data['iduser'] = $user_data->iduser;
+				$data['iduser']     = $user_data->iduser;
 				$data['hash_value'] = $randomHash;
-				$new_hour = Time() + (60 * 60 * 2);
-				$new_date = date("Y-m-d H:i.s", $new_hour);
-				$data['hash_date'] = $new_date;
+				$new_hour           = Time()+(60*60*2);
+				$new_date           = date("Y-m-d H:i.s", $new_hour);
+				$data['hash_date']  = $new_date;
 
 				$result = $this->users_model->update($data);
 
@@ -109,11 +112,11 @@ class login extends MY_Controller {
 					/*$email_from = $this->config->item('sender_email');
 					$name_from = $this->config->item('sender_name');*/
 					$name_from = "Atendimento - Presente Top";
-					$email_to = $email_user;
-					$subject = "Procedimento para Alteração de senha";
+					$email_to  = $email_user;
+					$subject   = "Procedimento para Alteração de senha";
 
 					$link_hash = base_url('/login/recoverpassword');
-					$link_hash .= "/" . $randomHash;
+					$link_hash .= "/".$randomHash;
 
 					$message = '<h1 style="font-size:14px; color:#000000; font-family:Verdana, Arial, Helvetica, sans-serif;">%greeting%</h1>';
 					$message .= '<p style="font-size:12;">%body%</p>';
@@ -122,14 +125,14 @@ class login extends MY_Controller {
 					$message .= '<p style="font-size:12;">Equipe Presente Top</p>';
 
 					$greeting = "Prezado";
-					$body = "Segue abaixo o link para criar uma nova senha e assim ter acesso na sua conta:";
+					$body     = "Segue abaixo o link para criar uma nova senha e assim ter acesso na sua conta:";
 
-					$message = str_replace('%greeting%', $greeting . ' ' . $people_data->fullname . ',', $message);
+					$message = str_replace('%greeting%', $greeting.' '.$people_data->fullname.',', $message);
 					$message = str_replace('%body%', $body, $message);
 					$message = str_replace('%url%', $link_hash, $message);
 
-					$config_email['protocol'] = $this->config->item("protocol");
-					$config_email['mailtype'] = $this->config->item("mailtype");
+					$config_email['protocol']  = $this->config->item("protocol");
+					$config_email['mailtype']  = $this->config->item("mailtype");
 					$config_email['smtp_host'] = $this->config->item("smtp_host");
 					$config_email['smtp_user'] = $this->config->item("smtp_user");
 					$config_email['smtp_pass'] = $this->config->item("smtp_pass");
@@ -167,8 +170,8 @@ class login extends MY_Controller {
 			}
 
 			$data = array(
-				"alert_type" => $success ? "success" : "danger",
-				"msg" => $message,
+				"alert_type" => $success?"success":"danger",
+				"msg"        => $message,
 			);
 
 			$this->masterpage->view('login/view_password_recovery', $data);
@@ -189,17 +192,17 @@ class login extends MY_Controller {
 
 		if (!empty($userObj)) {
 
-			$peopleObj = $this->people_model->get($userObj->idpeople);
+			$peopleObj    = $this->people_model->get($userObj->idpeople);
 			$current_date = floatval(strtotime('now'));
-			$hash_date = floatval(strtotime($userObj->hash_date));
+			$hash_date    = floatval(strtotime($userObj->hash_date));
 
 			if ($current_date < $hash_date && $hash == $userObj->hash_value) {
 
-				$data_user["fullname"] = $peopleObj->fullname;
+				$data_user["fullname"]  = $peopleObj->fullname;
 				$data_user["firstname"] = substr($peopleObj->fullname, 0, strpos($peopleObj->fullname, " "));
-				$data_user["email"] = $peopleObj->email;
-				$data_user["iduser"] = $userObj->iduser;
-				$data_user["username"] = $userObj->username;
+				$data_user["email"]     = $peopleObj->email;
+				$data_user["iduser"]    = $userObj->iduser;
+				$data_user["username"]  = $userObj->username;
 
 				$this->session->set_userdata('user', $data_user);
 
@@ -242,6 +245,7 @@ class login extends MY_Controller {
 
 				$peopleObj = $this->people_model->get($userObj->idpeople);
 
+				// Create a session for authenticating users.
 				set_session_user($username, $peopleObj, $userObj);
 
 				if ($userObj->changepassword == "0") {
@@ -268,17 +272,26 @@ class login extends MY_Controller {
 		redirect(base_url('home/'));
 	}
 
+	/*
+	 * SOCIAL MEDIA COntrollers below
+	 */
+
 	public function facebook() {
+
+		$this->_check_auth();
 
 		$this->load->library('fb_connect');
 
 		$param['redirect_uri'] = base_url("login/facebook");
-		$return_url = $this->fb_connect->login_url();
+		$return_url            = $this->fb_connect->login_url();
 		redirect($return_url);
 
 	}
 
 	public function facebook_redirect_url() {
+
+		$this->_check_auth();
+
 		$this->load->library('fb_connect');
 
 		$fb_user = $this->fb_connect->get_user();
@@ -287,22 +300,20 @@ class login extends MY_Controller {
 			//Handle not logged in,
 		} else {
 
+			//Get User Data
 			$fb_usr = $this->fb_connect->user;
-			//Handle user logged in,by updating session
-			//print_r($fb_usr) will help to see what is returned
-			//print_r($fb_usr);
 
 			// Verify Facebook data against user and people model.
 			$peopleObj = $this->people_model->sync_from_facebook($fb_usr);
 
 			$userObj = $this->users_model->sync_from_facebook($peopleObj->idpeople, $fb_usr);
 
-			$data_user["username"] = is_null($userObj->username) ? "fb-" . $userObj->facebook_id : $userObj->username;
-			$data_user["fullname"] = $peopleObj->fullname;
+			$data_user["username"]  = is_null($userObj->username)?"fb-".$userObj->facebook_id:$userObj->username;
+			$data_user["fullname"]  = $peopleObj->fullname;
 			$data_user["firstname"] = substr($peopleObj->fullname, 0, strpos($peopleObj->fullname, " "));
-			$data_user["picture"] = $peopleObj->picture_url;
-			$data_user["iduser"] = $userObj->iduser;
-			$data_user["idpeople"] = $peopleObj->idpeople;
+			$data_user["picture"]   = $peopleObj->picture_url;
+			$data_user["iduser"]    = $userObj->iduser;
+			$data_user["idpeople"]  = $peopleObj->idpeople;
 
 			$this->session->set_userdata('user', $data_user);
 
@@ -311,6 +322,114 @@ class login extends MY_Controller {
 			redirect($url);
 
 		}
+
+	}
+
+	public function google_plus() {
+
+		$this->_check_auth();
+
+		$this->load->library('googleplus');
+
+		$client = $this->googleplus->client;
+
+		redirect($client->createAuthUrl());
+
+	}
+
+	public function get_google_plus_token() {
+
+		$this->load->library('googleplus');
+		var_dump($this->googleplus->getAccessToken());
+
+	}
+
+	function set_token_google() {
+		$this->load->library('googleplus');
+
+		var_dump($_SESSION);
+
+		$this->googleplus->client->setAccessToken($_SESSION['token']);
+
+		$google_person = $this->googleplus->people->get('me');
+
+		var_dump($google_person);
+
+	}
+
+	public function google_plus_redirect_url() {
+
+		$this->_check_auth();
+
+		$this->load->library('googleplus');
+
+		$client = $this->googleplus->client;
+
+		echo '<pre>';
+
+		var_dump($_GET);
+
+		//Call back for authenticate
+		if (isset($_GET['code'])) {
+			$client->authenticate($_GET['code']);
+
+			session_start();
+			$_SESSION['token'] = $client->getAccessToken();
+			$redirect          = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
+
+			//Get Info Data
+			$google_usr = $this->googleplus->people->get('me');
+
+			// Verify Google Plus data against user and people model.
+			$peopleObj = $this->people_model->sync_from_google($google_usr);
+
+			$userObj = $this->users_model->sync_from_google($peopleObj->idpeople, $google_usr);
+
+			$data_user["username"]  = is_null($userObj->username)?"google-".$userObj->google_id:$userObj->username;
+			$data_user["fullname"]  = $peopleObj->fullname;
+			$data_user["firstname"] = substr($peopleObj->fullname, 0, strpos($peopleObj->fullname, " "));
+			$data_user["picture"]   = $peopleObj->picture_url;
+			$data_user["iduser"]    = $userObj->iduser;
+			$data_user["idpeople"]  = $peopleObj->idpeople;
+
+			$this->session->set_userdata('user', $data_user);
+
+			$url = read_prev_url_cookies();
+
+			redirect($url);
+
+			return;
+		}
+
+		if (isset($_SESSION['token'])) {
+			$client->setAccessToken($_SESSION['token']);
+		}
+
+		if (isset($_REQUEST['logout'])) {
+			unset($_SESSION['token']);
+			$client->revokeToken();
+		}
+
+		if ($client->getAccessToken()) {
+			$user = $oauth2->userinfo->get();
+
+			$email        = filter_var($user['email'], FILTER_SANITIZE_EMAIL);
+			$img          = filter_var($user['picture'], FILTER_VALIDATE_URL);
+			$personMarkup = "$email<div><img src='$img?sz=50'></div>";
+
+			$_SESSION['token'] = $client->getAccessToken();
+		} else {
+			$authUrl = $client->createAuthUrl();
+			var_dump($authUrl);
+		}
+
+		echo '</pre>';
+
+	}
+
+	public function twitter() {
+
+		$this->_check_auth();
 
 	}
 
