@@ -13,15 +13,16 @@ class people_model extends MY_Model {
 	private function _add_from_facebook($social_data) {
 
 		$data = array(
-			'fullname'    => $social_data["name"],
-			'picture_url' => 'https://graph.facebook.com/'.$social_data["id"].'/picture/',
-			'doctype_id'  => NULL,
-			'docnum'      => NULL,
-			'address'     => NULL,
-			'phone'       => NULL,
-			'zipcode'     => NULL,
-			'email'       => $social_data["email"],
-			'gender'      => strtoupper(substr($social_data["gender"], 0, 1)),
+			'fullname'     => $social_data["name"],
+			'picture_url'  => 'https://graph.facebook.com/'.$social_data["id"].'/picture/',
+			'doctype_id'   => NULL,
+			'docnum'       => NULL,
+			'address'      => NULL,
+			'phone'        => NULL,
+			'zipcode'      => NULL,
+			'email'        => $social_data["email"],
+			'gender'       => strtoupper(substr($social_data["gender"], 0, 1)),
+			'creationdate' => date('Y-m-d H:i:s'),
 		);
 
 		return $this->insert($data);
@@ -30,15 +31,34 @@ class people_model extends MY_Model {
 	private function _add_from_google($social_data) {
 
 		$data = array(
-			'fullname'    => $social_data->displayName,
-			'picture_url' => $social_data->image->url,
-			'doctype_id'  => NULL,
-			'docnum'      => NULL,
-			'address'     => NULL,
-			'phone'       => NULL,
-			'zipcode'     => NULL,
-			'email'       => $email = $social_data->nickname."@gmail.com",
-			'gender'      => strtoupper(substr($social_data->gender, 0, 1)),
+			'fullname'     => $social_data->displayName,
+			'picture_url'  => $social_data->image->url,
+			'doctype_id'   => NULL,
+			'docnum'       => NULL,
+			'address'      => NULL,
+			'phone'        => NULL,
+			'zipcode'      => NULL,
+			'email'        => $email = $social_data->nickname."@gmail.com",
+			'gender'       => strtoupper(substr($social_data->gender, 0, 1)),
+			'creationdate' => date('Y-m-d H:i:s'),
+		);
+
+		return $this->insert($data);
+	}
+
+	private function _add_from_twitter($social_data) {
+
+		$data = array(
+			'fullname'     => $social_data->name,
+			'picture_url'  => $social_data->profile_image_url,
+			'doctype_id'   => NULL,
+			'docnum'       => NULL,
+			'address'      => NULL,
+			'phone'        => NULL,
+			'zipcode'      => NULL,
+			'email'        => NULL,
+			'gender'       => NULL,
+			'creationdate' => date('Y-m-d H:i:s'),
 		);
 
 		return $this->insert($data);
@@ -57,6 +77,12 @@ class people_model extends MY_Model {
 		//Check for google photo. Apply 400 x 400 resolution
 		if (strpos($urlpic, "https://lh3.googleusercontent.com/") !== false) {
 			$profile_pic = str_replace("sz=50", "sz=400", $urlpic);
+			return $profile_pic;
+		}
+
+		//Check for twitter photo. Apply 400 x 400 resolution
+		if (strpos($urlpic, "http://pbs.twimg.com/") !== false) {
+			$profile_pic = str_replace("_normal", "", $urlpic);
 			return $profile_pic;
 		}
 
@@ -120,11 +146,21 @@ class people_model extends MY_Model {
 
 		$email = $social_data->nickname."@gmail.com";
 
-		var_dump($social_data);
-
 		$row = $this->searchPeopleByEmail($email);
 		if (!$row) {
 			$new_id = $this->_add_from_google($social_data);
+			return $this->get($new_id);
+		}
+
+		return $row;
+	}
+
+	public function sync_from_twitter($social_data) {
+
+		$row = $this->searchByTwitterID($social_data->id);
+
+		if (!$row) {
+			$new_id = $this->_add_from_twitter($social_data);
 			return $this->get($new_id);
 		}
 
@@ -217,6 +253,23 @@ class people_model extends MY_Model {
 		$data->editiondate = date('Y-m-d H:i:s');
 
 		return parent::update($id, $data);
+	}
+
+	public function searchByTwitterID($twitter_id) {
+		$query = $this->db
+		              ->select("p.*")
+		              ->from("users as u")
+		              ->join("people as p", "u.idpeople = p.idpeople")
+		              ->where('u.twitter_id', $twitter_id)
+		              ->get();
+
+		if ($query && $query->num_rows > 0) {
+
+			return $query->row();
+		}
+
+		return false;
+
 	}
 
 	public function searchPeopleByEmail($email) {

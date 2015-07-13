@@ -146,6 +146,44 @@ class users_model extends MY_Model {
 		return $userObj;
 	}
 
+	public function sync_from_twitter($idpeople, $social_data) {
+
+		$userObj = $this->get_by("twitter_id", $social_data->id);
+
+		if (!$userObj) {
+
+			$userObj = $this->get_by("idpeople", $idpeople);
+
+			if (!$userObj) {
+
+				$data = array(
+					'idpeople'     => $idpeople,
+					'twitter_id'   => $social_data->id,
+					'creationdate' => date('Y-m-d H:i:s'),
+				);
+
+				$user_id = $this->insert($data);
+
+				return $this->get($user_id);
+
+			} else {
+
+				$data = array(
+					'iduser'      => $userObj->iduser,
+					'google_id'   => $social_data->id,
+					'editiondate' => date('Y-m-d H:i:s'),
+				);
+
+				$user_id = $this->update($data);
+
+				return $this->get($user_id);
+			}
+
+		}
+
+		return $userObj;
+	}
+
 	public function get_auth() {
 		$usr_auth = $this->session->userdata('user');
 

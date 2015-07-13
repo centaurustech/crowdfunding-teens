@@ -25,7 +25,6 @@ class signup extends MY_Controller {
 		$this->load->model('people_model');
 		$this->load->model('permissions_model');
 		$this->load->config('email');
-		$this->load->config('facebook');
 		$this->load->library("email");
 
 		$this->_prepare_signup();

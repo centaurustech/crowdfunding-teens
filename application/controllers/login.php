@@ -22,16 +22,28 @@ class login extends MY_Controller {
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
 
+	private $connection;
+
 	public function __construct() {
 		parent::__construct();
 		$this->load->model('people_model');
 		$this->load->model('permissions_model');
 
+		//E-Mail
 		$this->load->config('email');
-		$this->load->config('facebook');
-		$this->load->config('googleplus');
-
 		$this->load->library("email");
+
+		//Facebook
+		$this->load->config('facebook');
+		$this->load->library('fb_connect');
+
+		//Google
+		$this->load->config('googleplus');
+		$this->load->library('googleplus');
+
+		//Twitter
+		$this->load->library('twitter_api');
+		$this->load->config('twitter');
 
 		//$this->masterpage->use_session_info();
 		$this->_prepare_login();
@@ -51,6 +63,40 @@ class login extends MY_Controller {
 		//$this->masterpage->header = "/shared/view_header_login";
 		$this->masterpage->footer = "";
 
+	}
+
+	/**
+	 * Reset session data for Twitter
+	 * @access	private
+	 * @return	void
+	 */
+	private function _twitter_reset_session() {
+		$this->session->unset_userdata('twitter_access_token');
+		$this->session->unset_userdata('twitter_access_token_secret');
+		$this->session->unset_userdata('twitter_request_token');
+		$this->session->unset_userdata('twitter_request_token_secret');
+		$this->session->unset_userdata('twitter_user_id');
+		$this->session->unset_userdata('twitter_screen_name');
+	}
+
+	/**
+	 * Reset session data for Twitter
+	 * @access	private
+	 * @return	void
+	 */
+
+	private function _twitter_create_connection() {
+		if ($this->session->userdata('twitter_access_token') && $this->session->userdata('twitter_access_token_secret')) {
+			// If user already logged in
+			$this->connection = $this->twitter_api->create($this->config->item('twitter_consumer_token'), $this->config->item('twitter_consumer_secret'), $this->session->userdata('twitter_access_token'), $this->session->userdata('twitter_access_token_secret'));
+		} elseif ($this->session->userdata('twitter_request_token') && $this->session->userdata('twitter_request_token_secret')) {
+			// If user in process of authentication
+			$this->connection = $this->twitter_api->create($this->config->item('twitter_consumer_token'), $this->config->item('twitter_consumer_secret'), $this->session->userdata('twitter_request_token'), $this->session->userdata('twitter_request_token_secret'));
+		} else {
+			// Unknown user
+			$this->connection = $this->twitter_api->create($this->config->item('twitter_consumer_token'), $this->config->item('twitter_consumer_secret'));
+		}
+		return $this->connection;
 	}
 
 	public function index() {
@@ -219,7 +265,7 @@ class login extends MY_Controller {
 	}
 
 	public function auth() {
-		$this->form_validation->set_rules('inputUser', 'Usu&#225;rio', 'trim|xss_clean');
+		$this->form_validation->set_rules('inputUser', 'Usuário', 'trim|xss_clean');
 		$this->form_validation->set_rules('inputPassword', 'Senha', 'trim|xss_clean');
 
 		$validation = $this->form_validation->run();
@@ -231,17 +277,6 @@ class login extends MY_Controller {
 			$userObj = $this->users_model->searchUserByLoginPass($username, $password);
 
 			if (!empty($userObj)) {
-
-				// Check for permission before access (disabled for now)
-				/*
-				$permissionObj = $this->permissions_model->getPermissionsByUser($userObj->iduser, true);
-
-				if (empty($permissionObj)) {
-				$data['error_login'] = "O usu&#225;rio não possui permissões configuradas.";
-				$this->load->view('view_login', $data);
-				return;
-				}
-				 */
 
 				$peopleObj = $this->people_model->get($userObj->idpeople);
 
@@ -257,11 +292,11 @@ class login extends MY_Controller {
 					redirect(base_url('login/create_password/'));
 				}
 			} else {
-				$data['error_login'] = "O usu&#225;rio ou senha est&#227;o incorretos";
+				$data['error_login'] = "O usuário ou senha estão incorretos";
 				$this->masterpage->view('login/view_login', $data);
 			}
 		} else {
-			$data["error_login"] = "O usu&#225;rio ou senha est&#227;o incorretos";
+			$data["error_login"] = "O usuário ou senha estão incorretos";
 			$this->masterpage->view('login/view_login', $data);
 		}
 	}
@@ -269,6 +304,16 @@ class login extends MY_Controller {
 	public function logout() {
 		$this->session->unset_userdata('user');
 		$this->session->unset_userdata('permissions');
+
+		if ($this->session->userdata('google_token')) {
+			$this->session->unset_userdata('google_token');
+			$this->googleplus->revokeToken();
+		}
+
+		if ($this->session->userdata('twitter_access_token')) {
+			$this->_twitter_reset_session();
+		}
+
 		redirect(base_url('home/'));
 	}
 
@@ -280,8 +325,6 @@ class login extends MY_Controller {
 
 		$this->_check_auth();
 
-		$this->load->library('fb_connect');
-
 		$param['redirect_uri'] = base_url("login/facebook");
 		$return_url            = $this->fb_connect->login_url();
 		redirect($return_url);
@@ -291,8 +334,6 @@ class login extends MY_Controller {
 	public function facebook_redirect_url() {
 
 		$this->_check_auth();
-
-		$this->load->library('fb_connect');
 
 		$fb_user = $this->fb_connect->get_user();
 
@@ -310,8 +351,8 @@ class login extends MY_Controller {
 
 			$data_user["username"]  = is_null($userObj->username)?"fb-".$userObj->facebook_id:$userObj->username;
 			$data_user["fullname"]  = $peopleObj->fullname;
-			$data_user["firstname"] = substr($peopleObj->fullname, 0, strpos($peopleObj->fullname, " "));
-			$data_user["picture"]   = $peopleObj->picture_url;
+			$data_user["firstname"] = strpos($peopleObj->fullname, " ") !== false?substr($peopleObj->fullname, 0, strpos($peopleObj->fullname, " ")):$peopleObj->fullname;
+			$data_user["picture"]   = is_null($peopleObj->picture_url) || $peopleObj->picture_url == ""?get_no_profile_picture($peopleObj->gender):$peopleObj->picture_url;
 			$data_user["iduser"]    = $userObj->iduser;
 			$data_user["idpeople"]  = $peopleObj->idpeople;
 
@@ -329,8 +370,6 @@ class login extends MY_Controller {
 
 		$this->_check_auth();
 
-		$this->load->library('googleplus');
-
 		$client = $this->googleplus->client;
 
 		redirect($client->createAuthUrl());
@@ -339,21 +378,7 @@ class login extends MY_Controller {
 
 	public function get_google_plus_token() {
 
-		$this->load->library('googleplus');
 		var_dump($this->googleplus->getAccessToken());
-
-	}
-
-	function set_token_google() {
-		$this->load->library('googleplus');
-
-		var_dump($_SESSION);
-
-		$this->googleplus->client->setAccessToken($_SESSION['token']);
-
-		$google_person = $this->googleplus->people->get('me');
-
-		var_dump($google_person);
 
 	}
 
@@ -361,21 +386,16 @@ class login extends MY_Controller {
 
 		$this->_check_auth();
 
-		$this->load->library('googleplus');
-
 		$client = $this->googleplus->client;
 
-		echo '<pre>';
-
-		var_dump($_GET);
-
+		$code = $this->input->get('code');
 		//Call back for authenticate
-		if (isset($_GET['code'])) {
-			$client->authenticate($_GET['code']);
+		if ($code !== false) {
+			$client->authenticate($code);
 
-			session_start();
-			$_SESSION['token'] = $client->getAccessToken();
-			$redirect          = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
+			$token = $client->getAccessToken();
+
+			$this->session->set_userdata('google_token', $token);
 
 			//Get Info Data
 			$google_usr = $this->googleplus->people->get('me');
@@ -387,8 +407,8 @@ class login extends MY_Controller {
 
 			$data_user["username"]  = is_null($userObj->username)?"google-".$userObj->google_id:$userObj->username;
 			$data_user["fullname"]  = $peopleObj->fullname;
-			$data_user["firstname"] = substr($peopleObj->fullname, 0, strpos($peopleObj->fullname, " "));
-			$data_user["picture"]   = $peopleObj->picture_url;
+			$data_user["firstname"] = strpos($peopleObj->fullname, " ") !== false?substr($peopleObj->fullname, 0, strpos($peopleObj->fullname, " ")):$peopleObj->fullname;
+			$data_user["picture"]   = is_null($peopleObj->picture_url) || $peopleObj->picture_url == ""?get_no_profile_picture($peopleObj->gender):$peopleObj->picture_url;
 			$data_user["iduser"]    = $userObj->iduser;
 			$data_user["idpeople"]  = $peopleObj->idpeople;
 
@@ -401,13 +421,8 @@ class login extends MY_Controller {
 			return;
 		}
 
-		if (isset($_SESSION['token'])) {
-			$client->setAccessToken($_SESSION['token']);
-		}
-
-		if (isset($_REQUEST['logout'])) {
-			unset($_SESSION['token']);
-			$client->revokeToken();
+		if ($this->session->userdata('google_token')) {
+			$client->setAccessToken($this->session->userdata('google_token'));
 		}
 
 		if ($client->getAccessToken()) {
@@ -417,22 +432,111 @@ class login extends MY_Controller {
 			$img          = filter_var($user['picture'], FILTER_VALIDATE_URL);
 			$personMarkup = "$email<div><img src='$img?sz=50'></div>";
 
-			$_SESSION['token'] = $client->getAccessToken();
+			$token = $client->getAccessToken();
+			$this->session->set_userdata('google_token', $token);
+
 		} else {
 			$authUrl = $client->createAuthUrl();
 			var_dump($authUrl);
 		}
 
-		echo '</pre>';
-
 	}
 
+	/**
+	 * Here comes authentication process begin.
+	 * @access	public
+	 * @return	void
+	 */
 	public function twitter() {
 
-		$this->_check_auth();
+		$connection = $this->_twitter_create_connection();
 
+		if ($this->session->userdata('twitter_access_token') && $this->session->userdata('twitter_access_token_secret')) {
+			// User is already authenticated. Add your user notification code here.
+			redirect(base_url('/'));
+		} else {
+
+			$request_token = $this->connection->getRequestToken(base_url('login/twitter-redirect-url'));
+
+			// Making a request for request_token
+
+			/*
+			echo '<pre>';
+			var_dump($request_token);
+			echo '</pre>';
+			exit();
+			 */
+
+			$this->session->set_userdata('twitter_request_token', $request_token['oauth_token']);
+			$this->session->set_userdata('twitter_request_token_secret', $request_token['oauth_token_secret']);
+
+			if ($connection->http_code == 200) {
+				$url = $connection->getAuthorizeURL($request_token);
+				redirect($url);
+			} else {
+				// An error occured. Make sure to put your error notification code here.
+				//redirect(base_url('/'));
+				$data['error_login'] = "Erro ao usar autenticação de Twitter. HTTP Code: ".$connection->http_code;
+				$this->masterpage->view('login/view_login', $data);
+			}
+		}
 	}
 
+	/**
+	 * Callback function, landing page for twitter.
+	 * @access	public
+	 * @return	void
+	 */
+	public function twitter_redirect_url() {
+
+		$connection = $this->_twitter_create_connection();
+
+		if ($this->input->get('oauth_token') && $this->session->userdata('twitter_request_token') !== $this->input->get('oauth_token')) {
+			$this->_twitter_reset_session();
+			redirect(base_url('/login/twitter'));
+		} else {
+			$access_token = $connection->getAccessToken($this->input->get('oauth_verifier'));
+
+			if ($connection->http_code == 200) {
+				$this->session->set_userdata('twitter_access_token', $access_token['oauth_token']);
+				$this->session->set_userdata('twitter_access_token_secret', $access_token['oauth_token_secret']);
+				$this->session->set_userdata('twitter_user_id', $access_token['user_id']);
+				$this->session->set_userdata('twitter_screen_name', $access_token['screen_name']);
+
+				$this->session->unset_userdata('twitter_request_token');
+				$this->session->unset_userdata('twitter_request_token_secret');
+
+				$twitter_usr = $this->connection->get('account/verify_credentials');
+
+				// Verify Google Plus data against user and people model.
+				$peopleObj = $this->people_model->sync_from_twitter($twitter_usr);
+
+				$userObj = $this->users_model->sync_from_twitter($peopleObj->idpeople, $twitter_usr);
+
+				$data_user["username"]  = is_null($userObj->username)?"twitter-".$userObj->google_id:$userObj->username;
+				$data_user["fullname"]  = $peopleObj->fullname;
+				$data_user["firstname"] = strpos($peopleObj->fullname, " ") !== false?substr($peopleObj->fullname, 0, strpos($peopleObj->fullname, " ")):$peopleObj->fullname;
+				$data_user["picture"]   = is_null($peopleObj->picture_url) || $peopleObj->picture_url == ""?get_no_profile_picture($peopleObj->gender):$peopleObj->picture_url;
+				$data_user["iduser"]    = $userObj->iduser;
+				$data_user["idpeople"]  = $peopleObj->idpeople;
+
+				$this->session->set_userdata('user', $data_user);
+
+				$url = read_prev_url_cookies();
+
+				redirect($url);
+
+				return;
+
+			} else {
+				// An error occured. Add your notification code here.
+				//redirect(base_url('/'));
+				$data['error_login'] = "Erro de retorno Twitter. HTTP Code: ".$connection->http_code;
+				$this->masterpage->view('login/view_login', $data);
+
+			}
+		}
+	}
 }
 
 /* End of file login.php */

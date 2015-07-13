@@ -48,6 +48,15 @@ input, label, p{
   padding-top: 36px;
 }
 
+a.white-underline{
+  color:#fff;
+  text-decoration: underline;
+}
+
+a.white-underline:hover{
+  color:#ff0000;
+}
+
 /* CUSTOMIZE THE NAVBAR
 -------------------------------------------------- */
 
