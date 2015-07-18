@@ -3,41 +3,59 @@
 /* Padding below the footer and lighter body text */
 
 html{
+  font-family: "Lato", "Helvetica Neue",Helvetica,Arial,sans-serif;
   height:  100%;
   font-size: 18px;
 }
 
 body {
   padding-bottom: 40px;
-  background-color: #f0f3f7;
-  color: #292c35;
+  background-color: #fff;
+  color: #6a6a6a;
   height:  100%;
 }
 
 h1{
+  font-family: "Lato", "Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 42px;
 }
 
 h2{
+  font-family: "Lato", "Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 36px;
 }
 
 h3{
+  font-family: "Lato", "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-weight: 600;
+  color: #050607;
   font-size: 32px;
 }
 
 h4{
+  font-family: "Lato", "Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 24px;
 }
 
 textarea{
+  font-family: "Lato", "Helvetica Neue",Helvetica,Arial,sans-serif;
   resize: none;
   border-radius: 5px;
   display: block;
 }
 
 input, label, p{
+  font-family: "Lato", "Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 18px;
+}
+
+div{
+  font-family: "Lato", "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.btn{
+  font-family: "Oswald", "Lato", "Helvetica Neue",Helvetica,Arial,sans-serif;
+  text-transform: uppercase;
 }
 
 .copy-right{
@@ -56,6 +74,39 @@ a.white-underline{
 a.white-underline:hover{
   color:#ff0000;
 }
+
+a.facebook-color{
+  color: #3c5b9a;
+  border-color: #3c5b9a;
+}
+
+a.google-plus-color{
+  color: #d94a39;
+  border-color: #d94a39;
+}
+
+a.twitter-color{
+  color: #55acee;
+  border-color: #55acee;
+}
+
+a.copy-link-color{
+  color: #777;
+  border-color: #777;
+}
+
+
+a.facebook-color:hover, 
+a.facebook-color:active,
+a.google-plus-color:hover, 
+a.google-plus-color:active,
+a.twitter-color:hover, 
+a.twitter-color:active,
+a.copy-link-color:hover,
+a.copy-link-color:active{
+  opacity: 0.7;
+}
+
 
 /* CUSTOMIZE THE NAVBAR
 -------------------------------------------------- */
@@ -127,6 +178,8 @@ a.white-underline:hover{
 }
 
 .navbar-default .navbar-nav > li > a{
+  font-family: "Oswald", "Lato", "Helvetica Neue",Helvetica,Arial,sans-serif;
+  text-transform: uppercase;
   font-size: 16px;
   color: white;
 }
@@ -158,6 +211,11 @@ a:focus.search-icon {
 
 #inputSearch {
   border-radius: 0em 0.25em 0.25em 0em;
+}
+
+.user-logged{
+  font-family: "Oswald", "Lato", "Helvetica Neue",Helvetica,Arial,sans-serif;
+  text-transform: uppercase;
 }
 
 /* Profile picture
@@ -271,12 +329,14 @@ a:focus.search-icon {
 .campaigns{
   font-size:  14px;
   padding-bottom:  220px;
+  padding-left: 6em;
+  padding-right: 6em;
 }
 
 .thumbnail {
-  background-color: #395a97;
+  background-color: #fff;
   padding: 0px;
-  border: none;
+  border: 1px solid rgba(56, 56, 56, 0.15);
 }
 
 .campaign-list-right .thumbnail {
@@ -288,7 +348,6 @@ a:focus.search-icon {
 .campaign-list, .campaign-list-right {
   padding-top:  20px;
   margin-bottom: 0px;
-  color: #fff;
   text-align: center;
 }
 
@@ -297,19 +356,29 @@ a:focus.search-icon {
 }
 
 .campaigns h3 {
-  color: #050607;
-  background-color: #f0f3f7;
-  padding-top: 0.85em;
+  font-size: 20px;
+  font-weight: normal;
+  background-color: #fff;
+  padding-top: 2.80em;
   padding-bottom: 0.85em;
   margin-top: 0em;
+  height: 4em;
+  text-transform: capitalize;
+  text-align: left;
+}
+
+.campaigns h4 {
+  font-size: 20px;
+  text-align: left;
+  padding-left: 8px;
 }
 
 a.campaign-name {
-  color: #ffffff;
+  color: #6a6a6a;
 }
 
 a.campaign-owner {
-  color: #050607;
+  color: #6a6a6a;
 }
 
 .edit-campaign-name {
@@ -365,7 +434,7 @@ a.link-edit-camp, a.link-edit-profile{
 
 
 .campaign-list p, .campaign-list-right p {
-  color: #9daccc;
+  color: #6a6a6a;
   margin-right: 10px;
   margin-left: 10px;
   text-align: left;
@@ -374,7 +443,7 @@ a.link-edit-camp, a.link-edit-profile{
 }
 
 .campaign-list .campaign-values p, .campaign-list-right .campaign-values p{
-  color: #fff;
+  color: #6a6a6a;
   font-size: 20px;
   font-weight: bold;
   height: 100%;
@@ -390,9 +459,13 @@ a.link-edit-camp, a.link-edit-profile{
   background-color: #e90e79;
 }
 
+.campaign-completed {
+  margin-top: -23px;
+}
+
 .img-gift-box {
   height: 230px;
-  background-color: #395a97;
+  background-color: #fff;
   display: table-cell;
   vertical-align: middle;
   width: 263px;
@@ -438,6 +511,12 @@ a.link-edit-camp, a.link-edit-profile{
   padding-top: 24px;
 }
 
+.btn-edit-delete-camp{
+  border: 1px solid rgba(56, 56, 56, 0.15);
+  color:#6a6a6a;
+  background: none;
+}
+
 
 .form-edit{
   padding-bottom: 16px;
@@ -446,12 +525,17 @@ a.link-edit-camp, a.link-edit-profile{
 .campaign-details{
   padding-top: 120px;
   padding-bottom: 250px;
+  padding-top: 120px;
+  padding-bottom: 250px;
+  padding-left: 80px;
+  padding-right: 138px;
 }
 
 .campaign-details h1 {
   padding-left: 32px;
-  font-size:  48px !important;
+  font-size: 44px !important;
   padding-bottom: 24px;
+  text-align: center;
 }
 
 .campaign-details h2 {
@@ -462,6 +546,9 @@ a.link-edit-camp, a.link-edit-profile{
   text-align: center;
 }
 
+.camp-name-area{
+  padding-top: 7em;
+}
 
 .campaign-full-picture {
   height: 100%;
@@ -488,7 +575,36 @@ a.link-edit-camp, a.link-edit-profile{
   border: 1px solid #cacacd;
 }
 
-.bubble-description {
+
+.profile-picture{
+  width: 88px;
+  height: 88px;
+  margin-left:10%;
+}
+
+  .select-campaign-image{
+    padding-top: 15px;
+  }
+
+  .file-selector{
+    padding-bottom: 15px;
+    font-size: 14px;
+  }
+
+  .campaign-owner{
+    margin-top: 10px;
+    padding-left: 0px;
+  }
+
+  .inputDonate{
+    width: 100%
+  }
+
+  .currency-radius{
+    border-radius: 5px !important;
+  }
+
+  .bubble-description {
     position: relative;
     width: 100%;
     height: 145px;
@@ -502,7 +618,6 @@ a.link-edit-camp, a.link-edit-profile{
     margin-left: 0px;
   }
 
-  
   .bubble-description:after {
     content: '';
     position: absolute;
@@ -517,53 +632,59 @@ a.link-edit-camp, a.link-edit-profile{
     left: 10%;
   }
 
-  .profile-picture{
-    width: 88px;
-    height: 88px;
-    margin-left:10%;
-  }
-
-  .select-campaign-image{
-    padding-top: 15px;
-  }
-
-  .file-selector{
-    padding-bottom: 15px;
-    font-size: 14px;
-  }
-
-  .campaign-owner{
-    margin-top: 10px;
-    padding-left: 10px;
-  }
-
-  .inputDonate{
-    width: 100%
-  }
-
-  .currency-radius{
-    border-radius: 5px !important;
-  }
-
 
   /* Share campaign area
    --------------------*/
+  
+
   .bubble-short-link {
     position: relative;
     width: 135px;
     height: 30px;
     padding: 6px;
-    background: #fff;
+    background: #FFFFFF;
     color: #333231;
     border: 1px solid #ccc;
-    font-size: 10px;
-    -webkit-border-radius: 0px 0px 5px 5px;
-    -moz-border-radius: 0px 0px 5px 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
     border-radius: 2px 2px 2px 2px;
+    font-size: 10px;
     margin-left: 0px;
   }
 
+  .bubble-short-link:after {
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 5px 5px 5px 0;
+    border-color: transparent #FFFFFF;
+    display: block;
+    width: 0;
+    z-index: 1;
+    margin-top: -7px;
+    left: -5px;
+    top: 50%;
+  }
+
   .bubble-short-link:before {
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 6px 6px 6px 0;
+    border-color: transparent #ccc;
+    display: block;
+    width: 0;
+    z-index: 0;
+    margin-top: -8px;
+    left: -6px;
+    top: 50%;
+  }
+
+
+
+  
+
+  .bubble-short-link-old:before {
     content: '';
     position: absolute;
     border-style: solid;
@@ -577,19 +698,7 @@ a.link-edit-camp, a.link-edit-profile{
     left: 20%;
   }
 
-  .bubble-short-link:after {
-    content: '';
-    position: absolute;
-    border-style: solid;
-    border-width: 4px 4px 0;
-    border-color: #fff transparent;
-    display: block;
-    width: 0;
-    z-index: 1;
-    margin-left: -5px;
-    bottom: -4px;
-    left: 20%;
-  }
+  
 
   .short-link-badge {
     padding-top: 8px;
@@ -715,7 +824,7 @@ a.link-edit-camp, a.link-edit-profile{
 
   .cyan-title {
     color: #1cbcb2;
-    font-weight: bold;
+    font-weight: normal;
   }
 
   .contribute-form-area{
@@ -951,19 +1060,25 @@ a.link-edit-camp, a.link-edit-profile{
   }
 
 
-/* Edit Profile
+/* Profile Area
 ------------------------- */
-  .edit-profile-picture{
-    min-width: 360px;
-    min-height: 360px;
+  .account-profile-picture{
+    min-width: 240px;
+    min-height: 240px;
   }
 
-  .edit-profile-title{
+  .account-profile-title{
     text-transform: uppercase;
+    font-family: Arial BLack, Serif;
   }
 
   .white-background{
-    background-color: #fff;
+    background-color: #fff !important;
+  }
+
+  .summary-account-data {
+    margin-top: -6px;
+    font-size: 14px;
   }
 
   .rounded-box{
@@ -971,6 +1086,97 @@ a.link-edit-camp, a.link-edit-profile{
     margin-top: 24px;
     margin-bottom: 24px;
     padding-bottom: 36px;
+  }
+
+  .profile-area {
+    padding-bottom: 250px;
+    padding-left: 120px;
+    padding-right: 24px;
+    width: 100%;
+  }
+
+  .account-info-header {
+    width: 100%;
+    background-color: #fff;
+    padding-top: 130px;
+  }
+
+  .account-info-menu{
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding-top: 8px;
+    width: 85%;
+    margin-top: 60px;
+  }
+
+  .account-info-menu>li{
+    padding-left: 18px;
+    font-size: 18px;
+    padding-right: 18px;
+    height: 36px;
+    margin-bottom: 5px;
+  }
+
+  .account-info-menu>li>a{
+    color: #2a2a2a;
+    line-height: 6px;
+    margin-bottom: 12px;
+    height: 2em;
+  }
+
+  .account-info-menu>li>a:active,
+  .account-info-menu>li>a:hover{
+    text-decoration: underline;
+    background-color: #fff;
+  }
+
+  .account-info-edit-area{
+    margin-top: 1.35em;
+  }
+
+  .btn-account-info-edit{
+    color: #fff;
+    background-color: #e90e79;
+    border-color: #e90e79;
+  }
+
+  .btn-account-info-edit:active,
+  .btn-account-info-edit:focus,
+  .btn-account-info-edit:hover{
+    color: #fff;
+    background-color: #c1005f;
+    border-color: #c1005f;
+  }
+
+  .account-info-menu>li>a.account-info-menu-selected{
+    border-bottom: 5px solid #e90e79;
+    color:#e90e79;
+    height: 44px;
+  }
+
+  .account-about-me{
+    font-size: 16px;
+    list-style: none;
+  }
+
+  .account-info{
+    font-size: 16px;
+    list-style: none;
+  }
+
+  .account-info>li {
+    padding-bottom: 12px;
+  }
+
+  .account-info>li>span.badge,
+  .account-info>li>span.label{
+    font-size: 16px;
+  }
+
+  /* My campaigns area */
+
+  .line-top{
+    border-top: 1px solid #ccc;
   }
 
 

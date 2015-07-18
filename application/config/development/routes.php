@@ -45,11 +45,7 @@ $route['default_controller'] = "home";
 $route['404_override']       = '';
 $route['assets/(:any)']      = 'assets/$1';
 $route['logout']             = "login/logout";
-
-$route['dashboard/view/users']        = "users/searchAllUsers/0";
-$route['dashboard/view/stations']     = "stations/searchAllStations/0";
-$route['dashboard/view/markets']      = "markets/searchAllMarkets/0";
-$route['dashboard/view/albums_assoc'] = "albums_assoc/searchAllAlbums_Assoc/0";
+$route['my-account']         = "profile/my-account";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

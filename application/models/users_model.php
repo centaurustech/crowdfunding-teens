@@ -184,6 +184,21 @@ class users_model extends MY_Model {
 		return $userObj;
 	}
 
+	public function get($id) {
+
+		$userObj = parent::get($id);
+
+		if ($userObj) {
+			unset($userObj->userpassword);
+			unset($userObj->hash_value);
+			unset($userObj->hash_date);
+
+			return $userObj;
+		}
+
+		return false;
+	}
+
 	public function get_auth() {
 		$usr_auth = $this->session->userdata('user');
 

@@ -2,32 +2,24 @@
 <link href="<?php echo base_url('assets/css/login.css');?>" rel="stylesheet">
 <script src="<?php echo base_url('assets/js/user-profile/edit-profile.js');?>"></script>
 <div class="container login-area">
-
-
   <form id="frmSignUp" class="form-horizontal" role="form" action="<?php echo base_url('profile/save');?>" method="post" enctype="multipart/form-data">
     <input type="hidden" name="inputIdPeople" value="<?php echo $people->idpeople;?>">
-    <h1 class="edit-profile-title"><?php echo $people->fullname;?></h1>
+    <h1 class="account-profile-title"><?php echo $people->fullname;?></h1>
     <div class="row white-background rounded-box">
-
-
-
       <div class="col-md-10">
         <h2>Dados Básicos</h2>
       </div>
-
 <?php if (isset($msg)) {?>
-	      <div class="col-md-10">
-	        <div class="alert alert-<?php echo $label_type;?>alert-dismissible" role="alert">
-	          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			      <div class="col-md-10">
+			        <div class="alert alert-<?php echo $label_type;?>alert-dismissible" role="alert">
+			          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	<?php echo $msg;?>
 	</div>
-	      </div>
+			      </div>
 	<?php }
 ?>
-
-
       <div class="col-md-4">
-        <img src="<?php echo $people->full_picture_url;?>" id = "imgProfilePicture" class="img-responsive edit-profile-picture">
+        <img src="<?php echo $people->full_picture_url;?>" id = "imgProfilePicture" class="img-responsive account-profile-picture">
         <input type="file" class="fileUploader hide" id="fileProfilePhoto" name="fileProfilePhoto" value="">
         <button class="btn btn-primary btn-block upload" type="button">Upload Foto</button>
       </div>
@@ -98,7 +90,7 @@
               <option value="">|== Selecione Tipo Documento ==|</option>
 <?php foreach ($doc_type_list as $doc_type) {
 	?>
-																		              <option value="<?php echo $doc_type->doctype_id;?>" <?php echo $people->doctype_id == $doc_type->doctype_id?"selected":"";
+			              <option value="<?php echo $doc_type->doctype_id;?>" <?php echo $people->doctype_id == $doc_type->doctype_id?"selected":"";
 	?>>
 	<?php echo $doc_type->doctype_name;?>
 	</option>

@@ -198,6 +198,18 @@ class people_model extends MY_Model {
 				$rs_people->dateofbirth = mdate("%d/%m/%Y", strtotime($rs_people->dateofbirth));
 			}
 
+			switch ($rs_people->gender) {
+				case 'M':
+					$rs_people->gender_text = "Masculino";
+					break;
+				case 'F':
+					$rs_people->gender_text = "Feminino";
+					break;
+				default:
+					$rs_people->gender_text = "Prefero não informar";
+					break;
+			}
+
 			return $rs_people;
 
 		}

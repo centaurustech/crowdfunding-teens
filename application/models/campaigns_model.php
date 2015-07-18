@@ -19,7 +19,7 @@ class campaigns_model extends MY_Model {
 		return ($query > 0);
 	}
 
-	public function list_campaigns($highlighted = false, $limit_start = 0, $limit_count = 0, $camp_owner = "") {
+	public function list_campaigns($highlighted = false, $limit_start = 0, $limit_count = 0, $camp_owner = "", $iduser = "") {
 
 		$query = $this->db
 		              ->select("
@@ -31,13 +31,16 @@ class campaigns_model extends MY_Model {
 	        				c.camp_completed,
 	        				i.imgurl
 							", false)
-		              ->from("campaigns as c")
-		              ->join("users as u", "u.iduser = c.iduser")
-		              ->join("people as p", "u.idpeople = p.idpeople")
-		              ->join("campaigns_images_gallery as i", "i.idcampaign = c.idcampaign", 'left');
+		->from("campaigns as c")
+		->join("users as u", "u.iduser = c.iduser")
+		->join("people as p", "u.idpeople = p.idpeople")
+		->join("campaigns_images_gallery as i", "i.idcampaign = c.idcampaign", 'left');
 
 		if ($camp_owner != "") {
 			$query = $query->like('p.fullname', $camp_owner);
+		}
+		if ($iduser != "") {
+			$query = $query->where('u.iduser', $iduser);
 		}
 
 		$order_field = "";
@@ -60,10 +63,34 @@ class campaigns_model extends MY_Model {
 			foreach ($query->result() as $row) {
 
 				//Set Default No Picture when imgurl is empty or null.
-				$row->imgurl = is_null($row->imgurl) | empty($row->imgurl) ? base_url("assets/img/no-campaign-picture.png") : $row->imgurl;
+				$row->imgurl = is_null($row->imgurl)|empty($row->imgurl)?base_url("assets/img/no-campaign-picture.png"):$row->imgurl;
 			}
 
 			return $query->result();
+		}
+
+		return false;
+
+	}
+
+	public function sum_amount_by_user($userid) {
+
+		$query = $this->db
+		              ->select("
+		              	SUM(camp_goal) AS sum_camp_goal,
+		              	SUM(camp_collected) AS sum_camp_collected,
+		              	", false)
+		->from($this->_table)
+			->where("iduser", $userid)
+			->get();
+
+		if ($query && $query->num_rows > 0) {
+			$row = $query->row();
+			setlocale(LC_MONETARY, 'it_IT');
+			$row->sum_camp_goal      = floatval($row->sum_camp_goal);
+			$row->sum_camp_collected = floatval($row->sum_camp_collected);
+
+			return $row;
 		}
 
 		return false;
@@ -89,17 +116,17 @@ class campaigns_model extends MY_Model {
 							u.facebook_id,
 							i.imgurl
 							", false)
-		              ->from("campaigns as c")
-		              ->join("users as u", "u.iduser = c.iduser")
-		              ->join("people as p", "u.idpeople = p.idpeople")
-		              ->join("campaigns_images_gallery as i", "i.idcampaign = c.idcampaign", 'left')
-		              ->where('c.idcampaign', $id)
-		              ->get();
+		->from("campaigns as c")
+		->join("users as u", "u.iduser = c.iduser")
+		->join("people as p", "u.idpeople = p.idpeople")
+		->join("campaigns_images_gallery as i", "i.idcampaign = c.idcampaign", 'left')
+		->where('c.idcampaign', $id)
+		->get();
 
 		if ($query && $query->num_rows > 0) {
 
 			$session = $this->users_model->get_auth_user();
-			$row = $query->row();
+			$row     = $query->row();
 
 			// Edit campaign enabled if user logged is the campaign owner.
 			if ($session && ($row->iduser == $session->iduser)) {
@@ -116,10 +143,10 @@ class campaigns_model extends MY_Model {
 			}
 
 			//Set Default No Picture when imgurl is empty or null.
-			$row->imgurl = is_null($row->imgurl) | empty($row->imgurl) ? base_url("assets/img/no-campaign-picture.png") : $row->imgurl; // Edit campaign
-			$row->camp_owner_picture = is_null($row->camp_owner_picture) | empty($row->camp_owner_picture) ? get_no_profile_picture($row->gender) : $row->camp_owner_picture;
+			$row->imgurl             = is_null($row->imgurl)|empty($row->imgurl)?base_url("assets/img/no-campaign-picture.png"):$row->imgurl;// Edit campaign
+			$row->camp_owner_picture = is_null($row->camp_owner_picture)|empty($row->camp_owner_picture)?get_no_profile_picture($row->gender):$row->camp_owner_picture;
 
-			$row->is_new_campaign = FALSE; // Edit campaign
+			$row->is_new_campaign = FALSE;// Edit campaign
 
 			return $row;
 		}
@@ -131,21 +158,21 @@ class campaigns_model extends MY_Model {
 
 		$row = new stdClass();
 
-		$row->idcampaign = "";
-		$row->camp_name = "";
-		$row->camp_description = "";
-		$row->camp_owner = $user->fullname;
-		$row->camp_owner_picture = is_null($user->user_pic) ? base_url('assets/img/no-profile-picture.jpg') : $user->user_pic;
-		$row->camp_expire = 0;
-		$row->camp_goal = 0;
-		$row->camp_completed = 0;
-		$row->camp_collected = 0;
-		$row->iduser = $user->iduser;
-		$row->username = $user->username;
-		$row->facebook_id = 0;
-		$row->imgurl = base_url('assets/img/no-campaign-picture.png');
-		$row->is_own_campaign = TRUE;
-		$row->is_new_campaign = TRUE;
+		$row->idcampaign         = "";
+		$row->camp_name          = "";
+		$row->camp_description   = "";
+		$row->camp_owner         = $user->fullname;
+		$row->camp_owner_picture = is_null($user->user_pic)?base_url('assets/img/no-profile-picture.jpg'):$user->user_pic;
+		$row->camp_expire        = 0;
+		$row->camp_goal          = 0;
+		$row->camp_completed     = 0;
+		$row->camp_collected     = 0;
+		$row->iduser             = $user->iduser;
+		$row->username           = $user->username;
+		$row->facebook_id        = 0;
+		$row->imgurl             = base_url('assets/img/no-campaign-picture.png');
+		$row->is_own_campaign    = TRUE;
+		$row->is_new_campaign    = TRUE;
 
 		return $row;
 	}
@@ -162,8 +189,8 @@ class campaigns_model extends MY_Model {
 			$action = "insert";
 
 			$data["camp_completed"] = "0";
-			$data["camp_expire"] = $camp_expire;
-			$stm = $this->insert($data);
+			$data["camp_expire"]    = $camp_expire;
+			$stm                    = $this->insert($data);
 		} else {
 
 			$action = "update";
@@ -191,19 +218,19 @@ class campaigns_model extends MY_Model {
 		//Check if campaign has contribution before deleting it.
 
 		$has_contrib = $this->_has_contribution($id);
-		$obj = new stdClass();
+		$obj         = new stdClass();
 
 		if (!$has_contrib) {
 
 			$obj->result = parent::delete($id);
 
-			$obj->msg = $obj->result ?
-			"Campanha de presente apagada com sucesso." :
+			$obj->msg = $obj->result?
+			"Campanha de presente apagada com sucesso.":
 			"Erro ao apagar esta campanha";
 
 		} else {
 			$obj->result = false;
-			$obj->msg = "A campaha não pode ser apagada porque possui contibuições associadas.";
+			$obj->msg    = "A campaha não pode ser apagada porque possui contibuições associadas.";
 		}
 
 		return $obj;
@@ -214,9 +241,9 @@ class campaigns_model extends MY_Model {
 
 		return json_encode(
 			array(
-				'result' => false,
+				'result'     => false,
 				'idcampaign' => null,
-				'msg' => 'Usuário não autenticado',
+				'msg'        => 'Usuário não autenticado',
 			)
 		);
 
@@ -229,15 +256,15 @@ class campaigns_model extends MY_Model {
 		               		c.camp_goal,
 	        				c.camp_collected
 							", false)
-		               ->from("campaigns as c")
-		               ->where('c.idcampaign', $idcampaign)
-		               ->get();
+		->from("campaigns as c")
+		->where('c.idcampaign', $idcampaign)
+		->get();
 
 		if ($result && $result->num_rows > 0) {
 			$row = $result->row();
 
-			$new_contrib = $row->camp_collected + $contrib_value;
-			$new_camp_completed = round($new_contrib / $row->camp_goal * 100, 2);
+			$new_contrib        = $row->camp_collected+$contrib_value;
+			$new_camp_completed = round($new_contrib/$row->camp_goal*100, 2);
 
 			$data = array(
 				"camp_collected" => $new_contrib,

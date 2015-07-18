@@ -1,13 +1,5 @@
 <script src="<?php echo base_url('assets/js/campaigns/campaigns.js');?>"></script>
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-var js, fjs = d.getElementsByTagName(s)[0];
-if (d.getElementById(id)) return;
-js = d.createElement(s);
-js.id = id;
-js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.3&appId=349895105208448";
-fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+<script src="<?php echo base_url('assets/js/share-social-media.js');?>"></script>
 <div class="container campaign-details">
 	<h1>
 <?php if ($rs->is_new_campaign) {?>
@@ -24,15 +16,15 @@ fjs.parentNode.insertBefore(js, fjs);
 		<input type="hidden" name= "idcampaign" id="idcampaign" class="pk_field"value="<?php echo $rs->idcampaign;?>">
 		<input type="hidden" name= "controllername" id="controllername" value="<?php echo $controller_name;?>">
 		<input type="hidden" name= "hiddenCampPriceAmount" id="hiddenCampPriceAmount" value="">
-		<div class="row"> <!-- Campaign Name -->
+		<div class="row camp-name-area"> <!-- Campaign Name -->
 		<div class="row col-md-9">
 			<div class = "col-xs-10">
 				<h2 id="current-CampName"><?php echo $rs->camp_name;?></h2>
 			</div>
 <?php if ($rs->is_own_campaign && !$rs->is_new_campaign) {?>
 	<div class = "col-xs-2 edit-campaign-name">
-						<a id="edit-CampName" class="link-edit-camp edit-area" href="#">Alterar</a>
-					</div>
+					<a id="edit-CampName" class="link-edit-camp edit-area" href="#">Alterar</a>
+				</div>
 	<?php }
 ?>
 			<div id="form-edit-CampName" class="col-md-12 form-edit <?php echo ($rs->is_new_campaign?"":"hide");?>">
@@ -41,13 +33,13 @@ fjs.parentNode.insertBefore(js, fjs);
 					<input type="text" id = "inputCampName" name = "inputCampName" data-controller="campaigns" data-db-field="camp_name"  class="form-control" placeholder="Insira o Nome do seu Presente..." value="">
 <?php if (!$rs->is_new_campaign) {?>
 	<div class="btn-group pull-right buttonset-field-campaign" role="group">
-								<button id="save-CampName" class="btn btn-success btn-save" type="button">
-								<i class="fa fa-check"></i>
-								</button>
-								<button id="cancel-edit-CampName" class="btn btn-default btn-cancel-edit" type="button">
-								<i class="fa fa-times"></i>
-								</button>
-							</div>
+							<button id="save-CampName" class="btn btn-success btn-save" type="button">
+							<i class="fa fa-check"></i>
+							</button>
+							<button id="cancel-edit-CampName" class="btn btn-default btn-cancel-edit" type="button">
+							<i class="fa fa-times"></i>
+							</button>
+						</div>
 	<?php }
 ?>
 </div><!-- /form-group -->
@@ -55,22 +47,22 @@ fjs.parentNode.insertBefore(js, fjs);
 			</div>
 <?php if ($rs->is_own_campaign) {
 	?>
-					<div class = "row col-md-3 <?php echo ($rs->is_new_campaign?"":"edit-all-campaign-area");?>">
+				<div class = "row col-md-3 <?php echo ($rs->is_new_campaign?"":"edit-all-campaign-area");?>">
 	<?php if (!$rs->is_new_campaign) {?>
 		<div class = "row edit-all-campaign-idle">
-									<div class = "row edit-all-campaign">
-										<button id="btnEditAllCampaign" class="btn btn-primary btn-lg btn-block" type="button">
-										<i class="fa fa-edit"></i>
-										Alterar Campanha
-										</button>
-									</div>
-									<div class = "row delete-campaign">
-										<button id="btnDelAllCampaign" class="btn btn-danger btn-lg btn-block" type="submit">
-										<i class="fa fa-trash-o"></i>
-										Apagar Campanha
-										</button>
-									</div>
-								</div>
+							<div class = "row edit-all-campaign">
+								<button id="btnEditAllCampaign" class="btn btn-edit-delete-camp btn-block" type="button">
+								<i class="fa fa-edit"></i>
+								Alterar Campanha
+								</button>
+							</div>
+							<div class = "row delete-campaign">
+								<button id="btnDelAllCampaign" class="btn btn-edit-delete-camp btn-block" type="submit">
+								<i class="fa fa-trash-o"></i>
+								Apagar Campanha
+								</button>
+							</div>
+						</div>
 		<?php }
 	?>
 	</div>
@@ -81,46 +73,46 @@ fjs.parentNode.insertBefore(js, fjs);
 			<div class="col-md-9">
 <?php if (!$rs->is_new_campaign) {
 	?>
-						<div id="boxCampaignFullPicture" class="campaign-full-picture-box">
-							<img id="current-CampaignFullPicture" class="campaign-full-picture centered" src="<?php echo $rs->imgurl;?>">
+					<div id="boxCampaignFullPicture" class="campaign-full-picture-box">
+						<img id="current-CampaignFullPicture" class="campaign-full-picture centered" src="<?php echo $rs->imgurl;?>">
+					</div>
+					<div id="form-edit-CampaignFullPicture" class="form-group edit-campaign hide">
+						<div class="campaign-full-picture-box">
+							<img id="inputCampaignFullPicture" class="campaign-full-picture centered" src="" data-controller="campaigns" data-db-field="imgurl">
 						</div>
-						<div id="form-edit-CampaignFullPicture" class="form-group edit-campaign hide">
-							<div class="campaign-full-picture-box">
-								<img id="inputCampaignFullPicture" class="campaign-full-picture centered" src="" data-controller="campaigns" data-db-field="imgurl">
-							</div>
-						</div>
+					</div>
 	<?php if ($rs->is_own_campaign) {
 		?>
-								<div class="row browse-picture-area">
-								<form id="fake"></form>
-								<form id="imgUploadFullPicture" name="imgUploadFullPicture" method = "post" action="<?php echo base_url('campaigns/save-img/'.$rs->idcampaign);?>" enctype="multipart/form-data">
-									<p class="select-campaign-image">
-										<small class="col-md-offset-1 col-md-11 camp-image-edit-area">
-										Procurar Foto do Presente no seu computador
-										</small>
-										<small>
-										<div class="col-md-offset-1 col-md-8 camp-image-edit-area">
-											<input id="edit-CampaignFullPicture" name ="uploadCampaignPict" class="file-selector" type="file" />
-										</div>
+						<div class="row browse-picture-area">
+						<form id="fake"></form>
+						<form id="imgUploadFullPicture" name="imgUploadFullPicture" method = "post" action="<?php echo base_url('campaigns/save-img/'.$rs->idcampaign);?>" enctype="multipart/form-data">
+							<p class="select-campaign-image">
+								<small class="col-md-offset-1 col-md-11 camp-image-edit-area">
+								Procurar Foto do Presente no seu computador
+								</small>
+								<small>
+								<div class="col-md-offset-1 col-md-8 camp-image-edit-area">
+									<input id="edit-CampaignFullPicture" name ="uploadCampaignPict" class="file-selector" type="file" />
+								</div>
 		<?php if (!$rs->is_new_campaign) {?>
 			<div class="col-md-3 btn-edit-CampaignFullPicture buttonset-field-campaign hide">
-													<div class="btn-group btn-group-edit-photo" role="group">
-														<button id="save-CampaignFullPicture" name ="btnUpload" class="btn btn-success" type="submit">
-														<i class="fa fa-check"></i>
-														</button>
-														<button id="cancel-edit-CampaignFullPicture" class="btn btn-default btn-cancel-edit" type="button">
-														<i class="fa fa-times"></i>
-														</button>
-													</div>
-												</div>
+										<div class="btn-group btn-group-edit-photo" role="group">
+											<button id="save-CampaignFullPicture" name ="btnUpload" class="btn btn-success" type="submit">
+											<i class="fa fa-check"></i>
+											</button>
+											<button id="cancel-edit-CampaignFullPicture" class="btn btn-default btn-cancel-edit" type="button">
+											<i class="fa fa-times"></i>
+											</button>
+										</div>
+									</div>
 			<?php }
 		?>
 		</small>
-									</p>
-								</form>
-							</div>
+							</p>
+						</form>
+					</div>
 		<?php }// Own campaign for hiding editing photo?>
-					<?php }// New campaign for hiding whole photo?>
+				<?php }// New campaign for hiding whole photo?>
 			<div class="row bubble-description">
 				<div id="current-CampDescription" class="col-sm-10"><?php echo $rs->camp_description;?></div>
 <?php if ($rs->is_own_campaign && !$rs->is_new_campaign) {?>
@@ -134,13 +126,13 @@ fjs.parentNode.insertBefore(js, fjs);
 					</div>
 <?php if (!$rs->is_new_campaign) {?>
 	<div class="btn-group pull-right buttonset-field-campaign" role="group">
-								<button id="save-CampDescription" class="btn btn-success btn-save" type="button">
-								<i class="fa fa-check"></i>
-								</button>
-								<button id="cancel-edit-CampDescription" class="btn btn-default btn-cancel-edit" type="button">
-								<i class="fa fa-times"></i>
-								</button>
-							</div>
+							<button id="save-CampDescription" class="btn btn-success btn-save" type="button">
+							<i class="fa fa-check"></i>
+							</button>
+							<button id="cancel-edit-CampDescription" class="btn btn-default btn-cancel-edit" type="button">
+							<i class="fa fa-times"></i>
+							</button>
+						</div>
 	<?php }
 ?>
 				</div>
@@ -155,68 +147,83 @@ fjs.parentNode.insertBefore(js, fjs);
 							</div>
 <?php if (false/*!$rs->is_new_campaign*/) {// TODO: Force to Bypass HTML rendering, meanwhile. ?>
 	<div class="btn-group btn-group-edit-photo buttonset-field-campaign" role="group">
-										<button id="save-CampOwnerPhoto" class="btn btn-success" type="button">
-										<i class="fa fa-check"></i>
-										</button>
-										<button id="cancel-edit-CampOwnerPhoto" class="btn btn-default btn-cancel-edit" type="button">
-										<i class="fa fa-times"></i>
-										</button>
-									</div>
+									<button id="save-CampOwnerPhoto" class="btn btn-success" type="button">
+									<i class="fa fa-check"></i>
+									</button>
+									<button id="cancel-edit-CampOwnerPhoto" class="btn btn-default btn-cancel-edit" type="button">
+									<i class="fa fa-times"></i>
+									</button>
+								</div>
 	<?php }
 ?>
 						</div>
 						<p id="current-CampOwnerName"><?php echo $rs->camp_owner;?></p>
 <?php if ($rs->is_own_campaign && !$rs->is_new_campaign) {?>
-								<p>
-									<a id="edit-CampOwnerName" class="link-edit-profile edit-area" href="<?php echo base_url('profile/edit/'.$rs->iduser);?>">Alterar Perfil</a>
-								</p>
+							<p>
+								<a id="edit-CampOwnerName" class="link-edit-profile edit-area" href="<?php echo base_url('profile/edit/'.$rs->iduser);?>">Alterar Perfil</a>
+							</p>
 	<?php }
 ?>
 </div>
 				</div>
 <?php if (!$rs->is_new_campaign) {?>
-						<div class="col-xs-8 share-campaign-area">
-							<div class="row">
-								<div class="col-sm-4 share-campaign-element">
-									<div class="fb-share-button" data-href="<?php tiny_site_url();?>" data-layout="box_count">
-									</div>
-								</div>
-								<div class="col-sm-2 share-campaign-element">
-									<a
-										class="twitter-share-button"
-										href="https://twitter.com/share"
-										data-text="Gostaria de ganhar este presente."
-										data-count="vertical"
-										data-lang="pt-BR"
-										data-url=  <?php tiny_site_url();?>
+					<div class="col-xs-8 share-campaign-area">
+						<div class="row">
+							<span>Pode ajudar ao dono desta campanha, compartilhando este link nas redes sociais.</span>
+						</div>
+						<div class="row">
+							<div class="col-sm-2 share-campaign-element">
+								<span class="fa-stack fa-2x">
+									<a href="https://www.facebook.com/sharer/sharer.php"
+										class="share_popup facebook-color"
+										data-social-media="facebook"
+										data-app-id="349895105208448"
+										data-url="<?php tiny_site_url();?>"
+										title = "Compartilhar esta Campanha no Facebook"
 										>
-										Tweet
+										<i class="fa fa-circle fa-stack-2x"></i>
+										<i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
 									</a>
-									<script>
-									window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
-									</script>
-								</div>
+								</span>
 							</div>
-							<div class="row">
-								<div class="col-sm-4 share-campaign-element">
-									<!-- Place this tag in your head or just before your close body tag. -->
-									<script src="https://apis.google.com/js/platform.js" async defer>
-									{lang: 'pt-BR'}
-									</script>
-									<!-- Place this tag where you want the share button to render. -->
-									<div class="g-plus" data-action="share" data-annotation="vertical-bubble" data-height="60" data-href="<?php tiny_site_url();?>">
-									</div>
-								</div>
-								<div class="col-sm-7 share-campaign-element">
-									<div  id = "short-url-text" class="row bubble-short-link"><?php tiny_site_url();?></div>
-									<div class="row short-link-badge">
-										<a id = "select-short-url" href="#" class="label label-default" title="Click para selecionar Link Curto. Após seleçao, usar Ctrl + C para copiar o link no portapapel.">
-											<i class="fa fa-link"></i> Link Curto
-										</a>
-									</div>
-								</div>
+							<div class="col-sm-2 share-campaign-element">
+								<span class="fa-stack fa-2x">
+									<a href="https://twitter.com/share"
+										class="share_popup twitter-color"
+										data-social-media="twitter"
+										data-url="<?php tiny_site_url();?>"
+										data-text="Gostaria de ganhar este presente."
+										title = "Tweetar esta Campanha"
+										>
+										<i class="fa fa-circle fa-stack-2x"></i>
+										<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+									</a>
+								</span>
+							</div>
+							<div class="col-sm-2 share-campaign-element">
+								<span class="fa-stack fa-2x">
+									<a href="https://plus.google.com/share"
+										class="share_popup google-plus-color"
+										data-social-media="google-plus"
+										data-url="<?php tiny_site_url();?>"
+										title = "Compartilhar esta Campanha no Google+"
+										>
+										<i class="fa fa-circle fa-stack-2x"></i>
+										<i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+									</a>
+								</span>
+							</div>
+							<div class="col-sm-5 share-campaign-element">
+								<span class="fa-stack fa-2x">
+									<a id = "select-short-url" class ="copy-link-color" href="#" href="#" title="Click para selecionar Link Curto. Após seleçao, usar Ctrl + C para copiar o link no portapapel.">
+										<i class="fa fa-circle fa-stack-2x"></i>
+										<i class="fa fa-link fa-stack-1x fa-inverse"></i>
+									</a>
+								</span>
+								<span  id = "short-url-text" class="bubble-short-link"><?php tiny_site_url();?></span>
 							</div>
 						</div>
+					</div>
 	<?php }
 ?>
 			</div>
@@ -231,16 +238,16 @@ fjs.parentNode.insertBefore(js, fjs);
 						</div>
 <?php if ($rs->is_own_campaign && !$rs->is_new_campaign) {?>
 	<div class = "col-xs-6 edit-price">
-									<a id="edit-CampPriceAmount" class="link-edit-camp edit-area" href="#">Alterar</a>
-								</div>
+								<a id="edit-CampPriceAmount" class="link-edit-camp edit-area" href="#">Alterar</a>
+							</div>
 	<?php }
 ?>
 </div>
 					<div class="form-edit">
 <?php if (!$rs->is_new_campaign) {?>
-								<div id="current-CampPriceAmount" class="price-amount">
-									<span class="currencyText" data-a-sign="R$ " data-aSep ="." data-aDec ="," data-bv-notempty="false"><?php echo $rs->camp_goal;?></span>
-								</div>
+							<div id="current-CampPriceAmount" class="price-amount">
+								<span class="currencyText" data-a-sign="R$ " data-aSep ="." data-aDec ="," data-bv-notempty="false"><?php echo $rs->camp_goal;?></span>
+							</div>
 	<?php }
 ?>
 						<div id="form-edit-CampPriceAmount" class="form-group edit-campaign <?php echo $rs->is_new_campaign?"":"hide";?>">
@@ -249,13 +256,13 @@ fjs.parentNode.insertBefore(js, fjs);
 								<input id = "inputCampPriceAmount" name = "inputCampPriceAmount" type="text" data-controller="campaigns" data-db-field="camp_goal" class="form-control <?php echo $rs->is_new_campaign?"":"camp-price-amount-inline ";?>currency currency-radius" placeholder="Insira um valor..." value="<?php echo $rs->is_new_campaign?'':$rs->camp_goal;?>">
 <?php if (!$rs->is_new_campaign) {?>
 	<span id="buttonsetCampPriceAmount" class="input-group-btn buttonset-field-campaign">
-											<button id="save-CampPriceAmount" class="btn btn-success btn-save" type="button">
-											<i class="fa fa-check"></i>
-											</button>
-											<button id="cancel-edit-CampPriceAmount" class="btn btn-default btn-cancel-edit" type="button">
-											<i class="fa fa-times"></i>
-											</button>
-										</span>
+										<button id="save-CampPriceAmount" class="btn btn-success btn-save" type="button">
+										<i class="fa fa-check"></i>
+										</button>
+										<button id="cancel-edit-CampPriceAmount" class="btn btn-default btn-cancel-edit" type="button">
+										<i class="fa fa-times"></i>
+										</button>
+									</span>
 	<?php }
 ?>
 								</div><!-- /input-group -->
@@ -277,27 +284,27 @@ fjs.parentNode.insertBefore(js, fjs);
 			</div>
 <?php if (!$rs->is_new_campaign) {
 	?>
-					<div id = "campaignContribArea" class="row campaign-list-right">
-					<form id="fake2"></form>
-					<form id="frmContribute" name="frmContribute" method="post" action="<?php echo base_url('checkout/contribute');?>">
-						<div class="thumbnail">
-							<div class = "campaign-values">
-								<p>Presentei com</p>
-								<div class="contribute-form-area">
-									<div class="form-group">
-										<div class="input-group text-area-box">
-											<input type="text" class="form-control currency currency-radius" id="inputContribute" name = "inputContribute" placeholder="R$50, R$ 100, R$ 200" value="">
-											<input type="hidden" name= "idCampaignContrib" id="idCampaignContrib" value="<?php echo $rs->idcampaign;?>">
-											<input type="hidden" name="inputValContribute" id="inputValContribute" value="">
-											</div><!-- /input-group -->
-										</div>
+				<div id = "campaignContribArea" class="row campaign-list-right">
+				<form id="fake2"></form>
+				<form id="frmContribute" name="frmContribute" method="post" action="<?php echo base_url('checkout/contribute');?>">
+					<div class="thumbnail">
+						<div class = "campaign-values">
+							<p>Presentei com</p>
+							<div class="contribute-form-area">
+								<div class="form-group">
+									<div class="input-group text-area-box">
+										<input type="text" class="form-control currency currency-radius" id="inputContribute" name = "inputContribute" placeholder="R$50, R$ 100, R$ 200" value="">
+										<input type="hidden" name= "idCampaignContrib" id="idCampaignContrib" value="<?php echo $rs->idcampaign;?>">
+										<input type="hidden" name="inputValContribute" id="inputValContribute" value="">
+										</div><!-- /input-group -->
 									</div>
-									<button type="submit" class="btn btn-header-options btn-contribute-now" href="#">Presentar Agora!</button>
 								</div>
+								<button type="submit" class="btn btn-header-options btn-contribute-now" href="#">Presentar Agora!</button>
 							</div>
-						</form>
-					</div>
-					<div class="row comments-area"> <!-- Right Pane -->
+						</div>
+					</form>
+				</div>
+				<div class="row comments-area"> <!-- Right Pane -->
 	<?php
 	if ($rs_notes) {
 		$is_first_contrib = true;
@@ -306,44 +313,44 @@ fjs.parentNode.insertBefore(js, fjs);
 				$is_first_contrib = false;
 				?>
 				<div class="row">
-												<div class="row alert alert-hightlight hightlight-dark-red alert-dismissible alert-comments" role="alert">
+								<div class="row alert alert-hightlight hightlight-dark-red alert-dismissible alert-comments" role="alert">
 				<?php if ($rs->is_own_campaign) {?>
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-															</button>
-															<button type="button" class="close next" aria-label="Seguinte">
-															<span aria-hidden="true">+</span>
-															</button>
+										<span aria-hidden="true">&times;</span>
+										</button>
+										<button type="button" class="close next" aria-label="Seguinte">
+										<span aria-hidden="true">+</span>
+										</button>
 					<?}
 				?>
 				<p align="justify">
 				<?php echo $msg->notes;?>
 				</p>
-													<p align="right">
+									<p align="right">
 				<?php echo $msg->nickname;?>
 				</p>
-												</div>
-											</div>
+								</div>
+							</div>
 				<?php } else {?>
 				<div class="row next-campaign-comment">
-												<p align="justify">
+								<p align="justify">
 				<?php echo $msg->notes;?>
 				</p>
-												<p align="right">
+								<p align="right">
 				<?php echo $msg->nickname;?>
 				</p>
-											</div>
+							</div>
 				<?php }
 			?>
-									<?php }
+						<?php }
 		?>
 		</div>
 		<?php } else {?>
 		<div class="row next-campaign-comment">
-							<p align="justify">Começa logo a promocionar tua campanha para assim familiares e amigos te adujem a alcançar teu sonho...</p>
-							<p align="right">Equipe Presente Top</p>
-						</div>
-					</div>
+					<p align="justify">Começa logo a promocionar tua campanha para assim familiares e amigos te adujem a alcançar teu sonho...</p>
+					<p align="right">Equipe Presente Top</p>
+				</div>
+			</div>
 		<?php }
 }
 ?>
@@ -360,14 +367,14 @@ fjs.parentNode.insertBefore(js, fjs);
 <div class = "col-md-3">
 <?php if (!$rs->is_new_campaign) {?>
 	<button id="cancel-edit-AllCampaign" class="btn btn-default btn-block" type="button">
+		<i class="fa fa-times"></i>
+		Cancelar
+		</button>
+	<?php } else {?>
+		<a href="<?php echo base_url('home');?>" class="btn btn-default btn-block">
 			<i class="fa fa-times"></i>
 			Cancelar
-			</button>
-	<?php } else {?>
-			<a href="<?php echo base_url('home');?>" class="btn btn-default btn-block">
-				<i class="fa fa-times"></i>
-				Cancelar
-			</a>
+		</a>
 	<?php }
 ?>
 </div>
@@ -379,26 +386,26 @@ fjs.parentNode.insertBefore(js, fjs);
 <?php if (!$rs->is_new_campaign) {
 	if ($rs_contrib !== false) {
 		?>
-				<?php foreach ($rs_contrib as $contrib) {
+		<?php foreach ($rs_contrib as $contrib) {
 			?>
 			<div class="row alert alert-default" role="alert">
-						Um presente
+			Um presente
 			<?php if (!$contrib->hide_contrib_value) {?>
-								de <span class="hightlight-dark-red currency"><?php echo $contrib->amount;?></span>
+				de <span class="hightlight-dark-red currency"><?php echo $contrib->amount;?></span>
 				<?php }
 			?>
-						foi adicionado por <?php echo $contrib->nickname;?>
+			foi adicionado por <?php echo $contrib->nickname;?>
 			</div>
 			<?php }
 	} else {?>
 		<div class="row alert alert-default" role="alert">
-				Está campanha de presente ainda não recebeu contribuição. Se empolga e contribuia para fazer acontecer...
-				</div>
+		Está campanha de presente ainda não recebeu contribuição. Se empolga e contribuia para fazer acontecer...
+		</div>
 		<?php }
 } else {?>
 	<div class="row alert alert-default" role="alert">
-		Você está <span class="hightlight-dark-red">criando</span> uma nova campanha para ganhar o presente sonhado
-		</div>
+	Você está <span class="hightlight-dark-red">criando</span> uma nova campanha para ganhar o presente sonhado
+	</div>
 	<?php }
 ?>
 </div>	<!-- Left Pane -->
