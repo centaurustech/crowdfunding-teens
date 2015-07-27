@@ -1,10 +1,6 @@
 
-.navbar-wrapper{
-    height: 95px !important;
-  }
-
 .login-area{
-  padding-top: 95px;
+  padding-top: 145px;
   padding-bottom: 250px;
 }
 
@@ -136,4 +132,14 @@
 .form-login .twitter-color:hover {
   color: #dadada;
   opacity: 0.7;
+}
+
+
+/* RESPONSIVE CSS
+-------------------------------------------------- */
+
+@media (min-width: 992px) {
+.navbar-wrapper{
+    height: 95px !important;
+  }
 }

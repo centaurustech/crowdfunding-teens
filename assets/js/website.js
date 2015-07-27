@@ -181,17 +181,15 @@ $(document).ready(function() {
                 }
 
                 if(method.toLowerCase() =='edit' | method.toLowerCase() =='addnew'){
-                    execAction = '/save/';
+                    //execAction = '/save/';
                     msgWarning = 'Salvar esta campanha de presentes?';
                 }
                 else{
-                    execAction = '/delete/';
+                    //execAction = '/delete/';
                     msgWarning = 'Tem certeza de deletar esta campanha de presentes?';
                 }
 
-                $("#form-campaigns").attr('action',baseURL+$('#controllername').val() + execAction);
-
-                console.log($("#form-campaigns"));
+                //$("#form-campaigns").attr('action',baseURL+$('#controllername').val() + execAction);
 
                 bootbox.confirm({
                     title: 'Alerta!!!',
@@ -209,13 +207,13 @@ $(document).ready(function() {
                     callback: function(result) {
                         if (result) {
 
-                            $("#form-campaigns").bootstrapValidator('destroy');
-                            $("#hiddenCampPriceAmount").val($("#inputCampPriceAmount").autoNumeric('get'));
-                            $("#form-campaigns").submit(); //Delete record
-
-                        }
-                        else{
-
+                            if(method.toLowerCase() =='edit' | method.toLowerCase() =='addnew'){
+                                $("#form-campaigns").bootstrapValidator('destroy');
+                                $("#form-campaigns").submit(); //Delete record
+                            }
+                            else{
+                                window.location.href = $("#btnDelAllCampaign").attr("href");
+                            }
                         }
                     }
                 });
@@ -288,11 +286,6 @@ $(document).ready(function() {
          $(this).previewImage(e, "inputCampaignFullPicture");
          $(".contribution-log").addClass('contribution-log-add-edit');
          $(this).initEdit();
-    });
-
-    $("#select-short-url").click(function(e) {
-        e.preventDefault();
-        $(this).selectText("short-url-text");
     });
 
     $("#btnEditAllCampaign").click(function(e) {
@@ -382,14 +375,57 @@ $(document).ready(function() {
         return false;
     });
 
-    
-    $(".fileUploader").change(function(e) {
-        //var currentID = $(this).attr('id');
-        $(this).previewImage(e, "imgProfilePicture");
+    $(".clear-picture").click(function(e) {
+        var imgID = $(this).data('img');
+        $("#"+imgID).attr('src',$("#imgNoPicture").val());
+        $("#emptyPicture").val('1');
     });
-    
 
-    
+    $(".clear-profile-picture").click(function(e) {
+        var imgID = $(this).data('img');
+        var gender = $("#inputGender").val().toString().toUpperCase();
+
+        switch(gender) {
+            case "M":
+                $("#"+imgID).attr('src',$("#imgNoProfilePictMale").val());
+                break;
+            case "F":
+                $("#"+imgID).attr('src',$("#imgNoProfilePictFemale").val());
+                break;
+            default:
+                $("#"+imgID).attr('src',$("#imgNoProfilePictNeutral").val());
+                break;
+        }
+
+        $("#emptyPicture").val('1');
+    });
+
+    $("#inputGender").click(function(e){
+
+        var imgID = "imgProfilePicture";
+        var gender = $("#inputGender").val().toString().toUpperCase();
+
+        if($("#emptyPicture").val() == '1') {
+            switch(gender) {
+                case "M":
+                    $("#"+imgID).attr('src',$("#imgNoProfilePictMale").val());
+                    break;
+                case "F":
+                    $("#"+imgID).attr('src',$("#imgNoProfilePictFemale").val());
+                    break;
+                default:
+                    $("#"+imgID).attr('src',$("#imgNoProfilePictNeutral").val());
+                    break;
+            }
+        }
+
+    });
+
+    $(".fileUploader").change(function(e) {
+        var imgID = $(this).data('img');
+        $(this).previewImage(e, imgID);
+        $("#emptyPicture").val('0');
+    });
 
 });
 

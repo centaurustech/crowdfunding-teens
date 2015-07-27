@@ -45,6 +45,11 @@ class home extends MY_Controller {
 		redirect(base_url('login/logout/'));
 	}
 
+	public function test() {
+		$text = "Cesar Manuel Urdaneta";
+		echo strlen($text);
+	}
+
 }
 
 /* End of file home.php */

@@ -19,17 +19,17 @@
 <?php
 if ($my_contrib_received !== false) {
 	foreach ($my_contrib_received as $contrib) {?>
-				        <tr>
-				          <td><?php echo $contrib->payment_date;?></td>
-				          <td>
-				            <a href="<?php echo base_url('campaigns/details'.$contrib->idcampaign)?>">
+		        <tr>
+		          <td><?php echo $contrib->payment_date;?></td>
+		          <td>
+		            <a href="<?php echo base_url('campaigns/details'.$contrib->idcampaign)?>">
 		<?php echo $contrib->camp_name;?>
-				            </a>
-				          </td>
-				          <td class="currency"><?php echo $contrib->amount;?></td>
-				          <td><?php echo $contrib->nickname;?></td>
-				          <td><?php echo $contrib->short_notes;?></td>
-				        </tr>
+		            </a>
+		          </td>
+		          <td class="currency"><?php echo $contrib->amount;?></td>
+		          <td><?php echo $contrib->nickname;?></td>
+		          <td><?php echo $contrib->short_notes;?></td>
+		        </tr>
 		<?php }
 }
 ?>

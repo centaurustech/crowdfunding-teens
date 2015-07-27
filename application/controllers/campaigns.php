@@ -35,54 +35,93 @@ class campaigns extends MY_Controller {
 	}
 
 	/*	Private Methods	 */
-	private function _render($idcampaign = "") {
+	private function _render($idcampaign = "", $action = null) {
 
 		// Request data to model for editing or querying campaign.
 
 		$action = strtolower($this->router->method);
 
-		/*
-		Uncomment block for redirecting to listing campaign instead of showing 404 page.
-		if ($idcampaign == "") {
-		show_404();
-		return;
-		}
-		 */
+		$usr_auth    = $this->users_model->get_auth_user();
+		$rs_contrib  = false;
+		$rs_notes    = false;
+		$promote     = false;
+		$msg_promote = "";
 
-		$usr_auth   = $this->users_model->get_auth_user();
-		$rs_contrib = false;
-		$rs_notes   = false;
+		switch ($action) {
+			case 'details':
+			case 'edit':
+			case 'promote':
+				$rs               = $this->campaigns_model->get_campaign_info($idcampaign);
+				$rs_contrib_msg   = $this->contributions_model->get_contrib_msg($idcampaign);
+				$rs_notes         = $this->contributions_model->get_last_notes($idcampaign);
+				$view_name_suffix = $action == "edit"?"_add_edit":"";
+				$msg_action       = "Alterar ";
+				if ($action == "edit" && !$usr_auth) {
+					redirect(base_url('login'));
+					return;
+				}
 
-		if ($action == 'details'|$action == 'edit') {
-			$rs         = $this->campaigns_model->get_campaign_info($idcampaign);
-			$rs_contrib = $this->contributions_model->get_by_campaign($idcampaign);
-			$rs_notes   = $this->contributions_model->get_last_notes($idcampaign);
+				if ($action == 'promote') {
+					$promote = true;
+					// Hardcoded promotions message
+					if ($action == "updated") {
+						$msg_promote = "Você atualizou sua campanha. Informe aos seus amigos as novidades.";
+					} else {
+						$msg_promote = "Parabéns, você criou a campanha. Comece a promove-la agora.";
+					}
+				}
 
-		} else if ($action == 'add-new'|$action == 'add_new') {
+				break;
 
-			if (!$usr_auth) {
-				redirect(base_url('login'));
+			case 'add-new':
+			case 'add_new':
+				if (!$usr_auth) {
+					redirect(base_url('login'));
+					return;
+				}
+
+				$msg_action     = "Criar ";
+				$rs_contrib_msg = null;
+				$rs_notes       = null;
+
+				$view_name_suffix = "_add_edit";
+				$rs               = $this->campaigns_model->init($usr_auth);
+				break;
+
+			default:
+				show_404();
 				return;
-			}
+		}
 
-			$rs = $this->campaigns_model->init($usr_auth);
-		} else {
-			show_404();
+		//Redirect to detail when campaign does't belong to the auth user.
+		if ($action == "edit" && $rs->iduser != $usr_auth->iduser) {
+			redirect(base_url("campaigns/details/".$idcampaign));
 			return;
 		}
 
-		// // Prepare array data before sending to the view
+		//Read Get variable for returning previous URL
+		if (isset($_GET['from_my_account'])) {
+			$previous_url = base_url('profile/my-campaigns');
+		} else {
+			$previous_url = base_url('campaigns/details/'.$idcampaign);
+		}
+
+		// Prepare array data before sending to the view
 
 		$data = array(
 			'rs'              => $rs,
-			'rs_contrib'      => $rs_contrib,
+			'rs_contrib_msg'  => $rs_contrib_msg,
 			'rs_notes'        => $rs_notes,
 			'controller_name' => $this->router->class,
 			'action_name'     => $action,
+			'msg_action'      => $msg_action,
+			'previous_url'    => $previous_url,
+			'promote'         => $promote,
+			'msg_promote'     => $msg_promote,
 		);
 
 		if ($data['rs']) {
-			$view_name = "details";
+			$view_name = "details".$view_name_suffix;
 		} else {
 			$view_name = "not_found";
 		}
@@ -138,6 +177,12 @@ class campaigns extends MY_Controller {
 
 	}
 
+	public function promote($action, $idcampaign = "") {
+
+		$this->_render($idcampaign, $action);
+
+	}
+
 	public function edit($idcampaign = "") {
 
 		$this->_render($idcampaign);
@@ -182,7 +227,7 @@ class campaigns extends MY_Controller {
 		}
 	}
 
-	public function save_img($idcampaign = "") {
+	private function _save_img($idcampaign = "") {
 
 		if (!$this->input->post() || $idcampaign == "") {
 			show_404();
@@ -221,6 +266,13 @@ class campaigns extends MY_Controller {
 
 	}
 
+	private function _clear_picture($idcampaign = "") {
+
+		$imgurl = base_url("assets/img/no-campaign-picture.png");
+		return $this->camp_pictures->save($idcampaign, $imgurl);
+
+	}
+
 	public function add_new() {
 
 		$usr_auth = $this->users_model->get_auth_user();
@@ -229,20 +281,25 @@ class campaigns extends MY_Controller {
 
 	}
 
-	public function delete() {
+	public function delete($idcampaign = "") {
 
-		if (!$this->input->post()) {
+		$usr_auth = $this->users_model->get_auth_user();
+
+		if ($idcampaign == "") {
 			show_404();
 			return;
 		}
 
-		$deleted = $this->campaigns_model->delete(
-			$this->input->post('idcampaign')
-		);
+		if (!$usr_auth) {
+			redirect(base_url('login'));
+			return;
+		}
+
+		$deleted = $this->campaigns_model->delete($idcampaign);
 
 		$data = array(
 			"msg"        => $deleted->msg,
-			"source_url" => "",
+			"source_url" => "profile/my-campaigns",
 		);
 
 		$this->masterpage->view("campaigns/status_action", $data);
@@ -270,10 +327,17 @@ class campaigns extends MY_Controller {
 
 			$idcampaign = $this->input->post("idcampaign");
 
-			$id = $this->campaigns_model->save($idcampaign, $data);
+			$status = $this->campaigns_model->save($idcampaign, $data);
 
-			if ($id) {
-				redirect(base_url('campaigns/details/'.$id));
+			if ($status->id) {
+
+				if ($this->input->post("emptyPicture") == 1) {
+					$this->_clear_picture($$status->id);
+				} else {
+					$this->_save_img($status->id);
+				}
+
+				redirect(base_url('campaigns/promote/'.$status->action.'/'.$status->id));
 			} else {
 				$data = array(
 					"msg" => "Error ao salvar a campanha",

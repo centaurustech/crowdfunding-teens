@@ -78,32 +78,35 @@
 <?php if ($rs_camp_highlighted) {
 	?>
 	<h2>Presentes em destaque</h2>
-	    <!-- Three columns of text below the carousel -->
-	    <hr>
-	    <div class="row">
+		    <!-- Three columns of text below the carousel -->
+		    <hr>
+		    <div class="row">
 	<?php foreach ($rs_camp_highlighted as $camp) {
 		?>
-		      <div class="col-md-3 campaign-list">
-		        <h3><a class = "campaign-owner" href="<?php echo base_url("campaigns/details/".$camp->idcampaign);?>"><?php echo $camp->camp_owner;
-		?></a></h3>
-		        <div class="thumbnail">
-		          <div class="img-gift-box">
-		            <img class="img-gift" src="<?php echo $camp->imgurl;?>">
-		          </div>
-		          <h4><a class = "campaign-name" href="campaigns/details/<?php echo $camp->idcampaign;?>"><?php echo $camp->camp_name;
+				      <div class="col-md-3 campaign-list">
+				        <h3>
+				          <a class = "campaign-owner" href="<?php echo base_url("campaigns/details/".$camp->idcampaign);?>">
+		<?php echo $camp->camp_owner;?>
+				            </a>
+				        </h3>
+				        <div class="thumbnail">
+				          <div class="img-gift-box">
+				            <img class="img-gift" src="<?php echo $camp->imgurl;?>">
+				          </div>
+				          <h4><a class = "campaign-name" href="campaigns/details/<?php echo $camp->idcampaign;?>"><?php echo $camp->camp_name;
 		?></a></h4>
-		          <p><?php echo $camp->camp_description;?></p>
-		          <div class = "campaign-values">
-		            <p><span class="currency"><?php echo $camp->camp_goal;?></span></p>
-		            <div class="progress">
-		              <div class="progress-bar" role="progressbar" aria-valuenow="<?php echo $camp->camp_completed;?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $camp->camp_completed;?>%;">
-		                <span class="sr-only"><?php echo $camp->camp_completed;?>% Complete</span>
-		              </div>
-		            </div>
-		            <p class="campaign-completed"><?php echo $camp->camp_completed;?>%</p>
-		          </div>
-		        </div>
-		        </div><!-- /.col-md-3 -->
+				          <p><?php echo $camp->camp_description;?></p>
+				          <div class = "campaign-values">
+				            <p><span class="currency"><?php echo $camp->camp_goal;?></span></p>
+				            <div class="progress">
+				              <div class="progress-bar" role="progressbar" aria-valuenow="<?php echo $camp->camp_completed;?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $camp->camp_completed;?>%;">
+				                <span class="sr-only"><?php echo $camp->camp_completed;?>% Complete</span>
+				              </div>
+				            </div>
+				            <p class="campaign-completed"><?php echo $camp->camp_completed;?>%</p>
+				          </div>
+				        </div>
+				        </div><!-- /.col-md-3 -->
 		<?php }
 } else {
 	?>

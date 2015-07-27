@@ -99,7 +99,7 @@ class Facebook {
 			$uri = '/me/picture/?redirect=false';
 
 			//Put large picture when width or height have values.
-			if ($width > 0|$height > 0) {
+			if ($width > 0 || $height > 0) {
 				$uri .= "&type=large";
 			}
 

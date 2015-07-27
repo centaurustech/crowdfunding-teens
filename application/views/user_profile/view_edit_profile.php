@@ -19,9 +19,14 @@
 	<?php }
 ?>
       <div class="col-md-4">
+        <input type="hidden" id="imgNoProfilePictMale" value="<?php echo base_url("assets/img/no-profile-picture-male.jpg");?>">
+        <input type="hidden" id="imgNoProfilePictFemale" value="<?php echo base_url("assets/img/no-profile-picture-female.jpg");?>">
+        <input type="hidden" id="imgNoProfilePictNeutral" value="<?php echo base_url("assets/img/no-profile-picture-neutral.jpg");?>">
+        <input type="hidden" id="emptyPicture" name="emptyPicture" value="0">
         <img src="<?php echo $people->full_picture_url;?>" id = "imgProfilePicture" class="img-responsive account-profile-picture">
-        <input type="file" class="fileUploader hide" id="fileProfilePhoto" name="fileProfilePhoto" value="">
-        <button class="btn btn-primary btn-block upload" type="button">Upload Foto</button>
+        <input type="file" class="fileUploader hide" id="fileProfilePhoto" name="fileProfilePhoto" value="" data-img="imgProfilePicture">
+        <button class="btn btn-upload upload" type="button"><i class="fa fa-camera"></i></button>
+        <button class="btn btn-clear-picture clear-profile-picture" data-img="imgProfilePicture" type="button"><i class="fa fa-times"></i></button>
       </div>
       <div class="col-md-8">
         <div class="row">
@@ -40,7 +45,7 @@
           <div class="col-md-4">
             <div class="form-group">
               <label for="inputGender" class="control-label">Gênero</label>
-              <select class = "form-control" name="inputGender">
+              <select class = "form-control" id="inputGender" name="inputGender">
                 <option value="">|== Selecione seu gênero ==|</option>
                 <option value="M" <?php echo $people->gender == "M"?"selected":"";?>>Masculino</option>
                 <option value="F" <?php echo $people->gender == "F"?"selected":"";?>>Feminino</option>

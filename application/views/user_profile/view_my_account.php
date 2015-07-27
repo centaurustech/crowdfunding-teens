@@ -1,6 +1,6 @@
 <!-- Custom styles for this template -->
 <link href="<?php echo base_url('assets/css/login.css');?>" rel="stylesheet">
-<script src="<?php echo base_url('assets/js/user-profile/edit-profile.js');?>"></script>
+<script src="<?php echo base_url('assets/js/user-profile/my-campaign.js');?>"></script>
 <div class="container profile-area white-background">
   <div class="row ">
     <div class="col-md-4">

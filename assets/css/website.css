@@ -95,6 +95,11 @@ a.copy-link-color{
   border-color: #777;
 }
 
+a.user-looged-name{
+  color:#5a5a5a;
+  text-decoration: underline;
+}
+
 
 a.facebook-color:hover, 
 a.facebook-color:active,
@@ -105,6 +110,10 @@ a.twitter-color:active,
 a.copy-link-color:hover,
 a.copy-link-color:active{
   opacity: 0.7;
+}
+
+.user-logged {
+  color:#5a5a5a !important;
 }
 
 
@@ -296,7 +305,7 @@ a:focus.search-icon {
 /* MAIN BUTTONS HOME
 -------------------------------------------------- */
 .home-header-buttons{
-  margin-bottom: 50px;
+  margin-bottom: 10em;
 }
 
 .show-more-area{
@@ -326,11 +335,11 @@ a:focus.search-icon {
 -------------------------------------------------- */
 
 /* Center align the text within the three columns below the carousel */
-.campaigns{
+.campaigns {
   font-size:  14px;
   padding-bottom:  220px;
-  padding-left: 6em;
-  padding-right: 6em;
+  padding-left: 2em;
+  padding-right: 2em;
 }
 
 .thumbnail {
@@ -353,24 +362,27 @@ a:focus.search-icon {
 
 .campaigns h2 {
    color: #79797c;
+   font-size: 28px;
 }
 
 .campaigns h3 {
-  font-size: 20px;
+  font-size: 32px;
   font-weight: normal;
   background-color: #fff;
-  padding-top: 2.80em;
-  padding-bottom: 0.85em;
+  padding-bottom: 0.6em;
   margin-top: 0em;
-  height: 4em;
+  margin-bottom: 0px;
+  height: 2em;
   text-transform: capitalize;
   text-align: left;
+  display: table;
 }
 
 .campaigns h4 {
-  font-size: 20px;
+  font-size: 16px;
   text-align: left;
   padding-left: 8px;
+  font-weight: bold;
 }
 
 a.campaign-name {
@@ -379,6 +391,8 @@ a.campaign-name {
 
 a.campaign-owner {
   color: #6a6a6a;
+  display: table-cell;
+  vertical-align: bottom;
 }
 
 .edit-campaign-name {
@@ -406,7 +420,7 @@ a.campaign-owner {
 
 .campaign-progress {
   height: 20px;
-  margin-top: -8px;
+  margin-top: 14px;
   margin-bottom: 5px;
 }
 
@@ -444,8 +458,8 @@ a.link-edit-camp, a.link-edit-profile{
 
 .campaign-list .campaign-values p, .campaign-list-right .campaign-values p{
   color: #6a6a6a;
-  font-size: 20px;
-  font-weight: bold;
+  font-size: 16px;
+  font-weight: normal;
   height: 100%;
   padding-top: 15px;
 }
@@ -464,7 +478,6 @@ a.link-edit-camp, a.link-edit-profile{
 }
 
 .img-gift-box {
-  height: 230px;
   background-color: #fff;
   display: table-cell;
   vertical-align: middle;
@@ -511,10 +524,27 @@ a.link-edit-camp, a.link-edit-profile{
   padding-top: 24px;
 }
 
-.btn-edit-delete-camp{
-  border: 1px solid rgba(56, 56, 56, 0.15);
-  color:#6a6a6a;
+.btn-edit-camp,
+.btn-delete-camp{
+  font-size: 16px;
+  border: 1px solid #ddd;
+  color: #e90e79;
   background: none;
+}
+
+.btn-edit-camp:active,
+.btn-edit-camp:hover,
+.btn-edit-camp:focus{
+  background-color: #f5f5f5;
+  color: #6a6a6a;
+}
+
+.btn-delete-camp:active,
+.btn-delete-camp:hover,
+.btn-delete-camp:focus{
+  background-color: #df7a7a !important;
+  color: #FFFFFF !important;
+  border-color: #c05a58;
 }
 
 
@@ -525,25 +555,23 @@ a.link-edit-camp, a.link-edit-profile{
 .campaign-details{
   padding-top: 120px;
   padding-bottom: 250px;
-  padding-top: 120px;
-  padding-bottom: 250px;
-  padding-left: 80px;
-  padding-right: 138px;
+  padding-left: 40px;
+  padding-right: 40px;
 }
 
 .campaign-details h1 {
   padding-left: 32px;
   font-size: 44px !important;
-  padding-bottom: 24px;
+  margin-bottom: 0px;
   text-align: center;
 }
 
 .campaign-details h2 {
   padding-left: 32px;
-  font-size:  42px;
+  font-size: 42px;
   padding-bottom: 12px;
-  font-weight: bold;
   text-align: center;
+  padding-top: 54px;
 }
 
 .camp-name-area{
@@ -557,11 +585,41 @@ a.link-edit-camp, a.link-edit-profile{
 
 .campaign-full-picture-box {
   height: 100%;
-  background-color: #e4e4e4;
+  background-color: #ededed;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   padding-top: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
 
+}
+
+.edit-campaign-full-picture-box {
+  height: 400px;
+  width: 400px;
+  background-color: #fff;
+  display:inline-block;
+  position:relative;
+}
+
+.btn-upload{
+    position:absolute;
+    top:6px;
+    left:24px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    background:#1cbcb2;
+    color:#FFF;
+}
+
+.btn-clear-picture {
+    position:absolute;
+    top:6px;
+    left:63px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    background:#6a6a6a;
+    color:#FFF;
 }
 
 .browse-picture-area{
@@ -571,15 +629,19 @@ a.link-edit-camp, a.link-edit-profile{
   border-bottom: 1px solid #f0f3f7;
 }
 
+
 .grey-line{
   border: 1px solid #cacacd;
 }
 
+.thin-line {
+
+}
 
 .profile-picture{
   width: 88px;
   height: 88px;
-  margin-left:10%;
+  margin-left:22%;
 }
 
   .select-campaign-image{
@@ -609,9 +671,8 @@ a.link-edit-camp, a.link-edit-profile{
     width: 100%;
     height: 145px;
     padding: 10px;
-    background: #e4e4e4;
-    color: #333231;
-    font-size: 18px;
+    background: #ededed;
+    font-size: 16px;
     -webkit-border-radius: 0px 0px 5px 5px;
     -moz-border-radius: 0px 0px 5px 5px;
     border-radius: 0px 0px 5px 5px;
@@ -623,13 +684,13 @@ a.link-edit-camp, a.link-edit-profile{
     position: absolute;
     border-style: solid;
     border-width: 10px 10px 0;
-    border-color: #dadada transparent;
+    border-color: #ededed transparent;
     display: block;
     width: 0;
     z-index: 1;
     margin-left: -10px;
     bottom: -10px;
-    left: 10%;
+    left: 11%;
   }
 
 
@@ -639,70 +700,53 @@ a.link-edit-camp, a.link-edit-profile{
 
   .bubble-short-link {
     position: relative;
-    width: 135px;
-    height: 30px;
+    width: 250px;
+    height: 120px;
     padding: 6px;
     background: #FFFFFF;
-    color: #333231;
-    border: 1px solid #ccc;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
-    border-radius: 2px 2px 2px 2px;
-    font-size: 10px;
-    margin-left: 0px;
+    border-radius: 5px;
+    border: #7F7F7F solid 1px;
   }
 
   .bubble-short-link:after {
     content: '';
     position: absolute;
     border-style: solid;
-    border-width: 5px 5px 5px 0;
-    border-color: transparent #FFFFFF;
+    border-width: 0 5px 5px;
+    border-color: #FFFFFF transparent;
     display: block;
     width: 0;
     z-index: 1;
-    margin-top: -7px;
-    left: -5px;
-    top: 50%;
+    margin-left: -5px;
+    top: -5px;
+    left: 20%;
   }
 
   .bubble-short-link:before {
     content: '';
     position: absolute;
     border-style: solid;
-    border-width: 6px 6px 6px 0;
-    border-color: transparent #ccc;
+    border-width: 0 5px 5px;
+    border-color: #7F7F7F transparent;
     display: block;
     width: 0;
     z-index: 0;
-    margin-top: -8px;
-    left: -6px;
-    top: 50%;
-  }
-
-
-
-  
-
-  .bubble-short-link-old:before {
-    content: '';
-    position: absolute;
-    border-style: solid;
-    border-width: 5px 5px 0;
-    border-color: #ccc transparent;
-    display: block;
-    width: 0;
-    z-index: 0;
-    margin-left: -6px;
-    bottom: -6px;
+    margin-left: -5px;
+    top: -6px;
     left: 20%;
   }
 
   
 
-  .short-link-badge {
-    padding-top: 8px;
-    padding-left: 17px;
+  .short-link-area {
+    margin-bottom: 2em;
+    display: none;
+  }
+
+  .share-buttons{
+    margin-top: 24px;
   }
 
   .share-campaign-area {
@@ -720,14 +764,16 @@ a.link-edit-camp, a.link-edit-profile{
   }
 
   .alert-default {
-    color: #888887;
-    background-color: #e4e4e4;
-    border-color: #f5f5f5;
+    color: #1CBCB2;
+    border-color: #1CBCB2;
+    border-width: 1px;
+    font-size: 16px;
   }
 
 
   .alert-hightlight .close {
     position: relative;
+    font-size: 16px;
     top: -10px;
     right: -30px;
     color: #f9f9f9;
@@ -749,7 +795,19 @@ a.link-edit-camp, a.link-edit-profile{
   }
 
   .comments-area {
-    border: 6px solid #c5c5c5;
+    border: 1px solid rgba(56, 56, 56, 0.15);
+    border-radius: 4px;
+    margin-bottom: 24px;
+  }
+
+  .campaign-comment-title{
+    font-size: 16px;
+    font-weight: bold;
+    padding-top: 14px;
+  }
+
+  .campaign-comment-text{
+    font-size: 14px;
   }
 
   .next-campaign-comment{
@@ -839,6 +897,11 @@ a.link-edit-camp, a.link-edit-profile{
     width: 97% !important;
     font-size: 24px !important;
 
+  }
+
+  .campaign-owner-name{
+    font-size: 16px;
+    text-align: center;
   }
 
   #inputContribMsg{
@@ -1069,7 +1132,8 @@ a.link-edit-camp, a.link-edit-profile{
 
   .account-profile-title{
     text-transform: uppercase;
-    font-family: Arial BLack, Serif;
+    letter-spacing: 2px;
+    margin-left: 12%;
   }
 
   .white-background{
@@ -1118,7 +1182,7 @@ a.link-edit-camp, a.link-edit-profile{
   }
 
   .account-info-menu>li>a{
-    color: #2a2a2a;
+    color: #6a6a6a;
     line-height: 6px;
     margin-bottom: 12px;
     height: 2em;
@@ -1135,9 +1199,9 @@ a.link-edit-camp, a.link-edit-profile{
   }
 
   .btn-account-info-edit{
-    color: #fff;
-    background-color: #e90e79;
+    color: #e90e79;
     border-color: #e90e79;
+    font-size: 16px;
   }
 
   .btn-account-info-edit:active,
@@ -1249,6 +1313,7 @@ footer .container{
     width:  50%;
     text-align: center;
     border: none;
+    margin-bottom: 12px;
   }
 
   .navbar-default .navbar-nav > li > a{
@@ -1325,6 +1390,10 @@ footer .container{
 
 @media (min-width: 768px) {
   
+  a.user-looged-name {
+    color:#fff;
+  }
+
   .navbar-wrapper .navbar .container .navbar-header .navbar-brand {
     margin-top: -20px;
   }
@@ -1406,7 +1475,6 @@ footer .container{
     top: -11px;
     left: 80%;
   }
-  
 
   .navbar-nav > li.search-campaign {
     position: absolute;
@@ -1449,6 +1517,26 @@ footer .container{
   }
 
 
+  /* CAMPAIGNS */
+  .campaigns {
+    padding-left: 6em;
+    padding-right: 6em;
+  }
+
+  .campaigns h3 {
+    font-size: 28px;
+  }
+
+  .edit-all-campaign-idle{
+    margin-top: 3em;
+  }
+
+  .bubble-short-link {
+    margin-left: 17.4em;
+  }
+
+
+
   /*
   Comment Section For Campaign Details
    */
@@ -1461,10 +1549,7 @@ footer .container{
     height: 410px;
   }
 
-  .campaign-full-picture {
-    height: 100%;
-    width: auto;
-  }
+
   /*CHECKOUT */
   .checkout-flow-steps{
     display: block;
@@ -1584,6 +1669,16 @@ footer .container{
     background-color: transparent !important;
   }
 
+  .img-gift-box {
+    height: 230px;
+  }
+
+  /* CAMPAIGNS */
+
+  .campaigns h3 {
+    font-size: 20px;
+  }
+  
   .campaign-list {
     width: 25%;
   }
@@ -1594,6 +1689,16 @@ footer .container{
   .thumbnail>img {
     height: 150px;
   }
+
+  .edit-all-campaign-idle{
+    margin-top: 0em;
+    margin-left: 10%;
+  }
+
+  .bubble-short-link {
+    margin-left: 17em;
+  }
+
 
   /*
   Font size for choose buttons
@@ -1623,7 +1728,9 @@ footer .container{
   .contribution-log {
     margin-right: 15px;
     margin-left: -15px;
-    margin-top: -200px;
+    margin-top: -150px;
+    border-top: 1px solid rgba(56, 56, 56, 0.15);
+    padding-top: 12px;
   }
   .contribution-log-add-edit{
     margin-top: 0px;
@@ -1685,8 +1792,22 @@ footer .container{
     width: 300px;
   }
   
+  /* CAMPAIGNS */
+
+  .campaigns h3 {
+    
+  }
+
   .campaign-list p {
     height: 100px;
+  }
+
+  /* Campaign Details
+  -------------------------------------------------- */
+
+  .campaign-details{
+    padding-left: 80px;
+    padding-right: 138px;
   }
 
   /*
@@ -1706,6 +1827,10 @@ footer .container{
 
   .campaign-contribution-amount{
     width: 190%;
+  }
+
+  .bubble-short-link {
+    margin-left: 18.2em;
   }
 
   /*CHECKOUT */

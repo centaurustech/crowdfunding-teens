@@ -7,16 +7,16 @@ class campaigns_model extends MY_Model {
 	public function campaigns_model() {
 		parent::__construct();
 		$this->primary_key = 'idcampaign';
+		$this->load->model('people_model');
 	}
 
 	private function _has_contribution($idcampaign) {
 
 		$query = $this->db
 		              ->from("contributions")
-		              ->where("idcampaign", $idcampaign)
-		              ->count_all_results();
+		              ->where("idcampaign", $idcampaign);
 
-		return ($query > 0);
+		return ($query->count_all_results() > 0);
 	}
 
 	public function list_campaigns($highlighted = false, $limit_start = 0, $limit_count = 0, $camp_owner = "", $iduser = "") {
@@ -29,6 +29,7 @@ class campaigns_model extends MY_Model {
 	        				p.fullname camp_owner,
 	        				c.camp_goal,
 	        				c.camp_completed,
+	        				c.camp_collected,
 	        				i.imgurl
 							", false)
 		->from("campaigns as c")
@@ -104,6 +105,7 @@ class campaigns_model extends MY_Model {
 		               		c.idcampaign,
 		               		c.camp_name,
 		               		c.camp_description,
+	        				p.idpeople,
 	        				p.fullname camp_owner,
 	        				p.picture_url camp_owner_picture,
 	        				p.gender,
@@ -143,8 +145,13 @@ class campaigns_model extends MY_Model {
 			}
 
 			//Set Default No Picture when imgurl is empty or null.
-			$row->imgurl             = is_null($row->imgurl)|empty($row->imgurl)?base_url("assets/img/no-campaign-picture.png"):$row->imgurl;// Edit campaign
-			$row->camp_owner_picture = is_null($row->camp_owner_picture)|empty($row->camp_owner_picture)?get_no_profile_picture($row->gender):$row->camp_owner_picture;
+			$row->imgurl = is_null($row->imgurl) || empty($row->imgurl)?base_url("assets/img/no-campaign-picture.png"):$row->imgurl;// Edit campaign
+
+			if (is_null($row->camp_owner_picture) || $row->camp_owner_picture == '') {
+				$row->camp_owner_picture = get_no_profile_picture($row->gender);
+			} else {
+				//$row->camp_owner_picture = $this->people_model->get_profile_picture($row->idpeople);
+			}
 
 			$row->is_new_campaign = FALSE;// Edit campaign
 
@@ -186,14 +193,14 @@ class campaigns_model extends MY_Model {
 			date_add($creationdate, date_interval_create_from_date_string("90 days"));
 			$camp_expire = date_format($creationdate, "Y-m-d H:i:s");
 
-			$action = "insert";
+			$action = "added";
 
 			$data["camp_completed"] = "0";
 			$data["camp_expire"]    = $camp_expire;
 			$stm                    = $this->insert($data);
 		} else {
 
-			$action = "update";
+			$action = "updated";
 
 			$stm = $this->update($idcampaign, $data);
 
@@ -201,13 +208,18 @@ class campaigns_model extends MY_Model {
 
 		if ($stm != false) {
 			$result = true;
+			$obj    = new stdClass();
 
-			if ($action == "update") {
-				return intval($idcampaign);
+			$obj->action = $action;
+
+			if ($action == "updated") {
+				$obj->id = intval($idcampaign);
 
 			} else {
-				return intval($stm);
+				$obj->id = intval($stm);
 			}
+
+			return $obj;
 		}
 
 		return false;

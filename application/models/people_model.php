@@ -64,19 +64,19 @@ class people_model extends MY_Model {
 		return $this->insert($data);
 	}
 
-	private function _get_full_picture($urlpic) {
+	private function _get_full_picture($urlpic, $height = 400, $width = 400) {
 
 		//Check for facebook photo. Apply 400 x 400 resolution
 		if (strpos($urlpic, "https://graph.facebook.com/") !== false) {
 			$this->load->config('facebook');
 			$this->load->library('fb_connect');
-			$profile_pic = $this->fb_connect->get_profile_picture(400, 400);
+			$profile_pic = $this->fb_connect->get_profile_picture($height, $width);
 			return $profile_pic["url"];
 		}
 
 		//Check for google photo. Apply 400 x 400 resolution
 		if (strpos($urlpic, "https://lh3.googleusercontent.com/") !== false) {
-			$profile_pic = str_replace("sz=50", "sz=400", $urlpic);
+			$profile_pic = str_replace("sz=50", "sz=".$height, $urlpic);
 			return $profile_pic;
 		}
 
@@ -88,6 +88,20 @@ class people_model extends MY_Model {
 
 		//Return same URL for uploaded files.
 		return $urlpic;
+
+	}
+
+	public function get_profile_picture($idpeople) {
+
+		$rs_people = $this->get($idpeople);
+
+		if ($rs_people !== false) {
+
+			return $rs_people->thumb_picture_url;
+
+		}
+
+		return false;
 
 	}
 
@@ -190,6 +204,8 @@ class people_model extends MY_Model {
 			}
 
 			$rs_people->full_picture_url = $this->_get_full_picture($rs_people->picture_url);
+
+			$rs_people->thumb_picture_url = $this->_get_full_picture($rs_people->picture_url, 100, 100);
 
 			$rs_people->firstname = strpos($rs_people->fullname, ' ') !== false?substr($rs_people->fullname, 0, strpos($rs_people->fullname, " ")):$rs_people->fullname;
 

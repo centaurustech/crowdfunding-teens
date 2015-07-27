@@ -44,6 +44,8 @@
     <script src="<?php echo base_url('assets/js/ie10-viewport-bug-workaround.js');?>"></script>
     <!-- Autonumeric library -->
     <script src="<?php echo base_url('assets/js/autonumeric.js');?>"></script>
+    <!-- Custom Fonts library -->
+    <link href="http://fonts.googleapis.com/css?family=Dosis:400|Oswald:400|Droid+Serif:400,700,italic|Lato:400,normal|Open+Sans" rel="stylesheet" type="text/css" />
   </head>
   <!-- NAVBAR
   ================================================== -->
@@ -84,24 +86,24 @@
                     </div>
                   </li>
 <?php if (isset($current_user)) {?>
-			                  <li class="menu-sign-up last-element-mobile">
-			                    <div class="profile-info">
-			                      <img class="img-rounded" src="<?php echo $user_pic;?>">
-			                      <small>
-			                      <a class="white-underline" href="<?php echo base_url('profile/my-account')?>" title="Minha Conta"><?php echo $current_user;?></a>
-			                      </small>
-			                    </div>
-			                  </li>
-			                  <li class = "menu-login last-element">
-			                    <a href="<?php echo base_url('logout');?>">Logout</a>
-			                  </li>
+		                  <li class="menu-sign-up last-element-mobile">
+		                    <div class="profile-info">
+		                      <img class="img-rounded" src="<?php echo $user_pic;?>">
+		                      <small class="user-logged">
+		                      <a class="user-looged-name" href="<?php echo base_url('profile/my-account')?>" title="Minha Conta"><?php echo $current_user;?></a>
+		                      </small>
+		                    </div>
+		                  </li>
+		                  <li class = "menu-login last-element">
+		                    <a href="<?php echo base_url('logout');?>">Logout</a>
+		                  </li>
 	<?php } else {?>
-			                  <li class="menu-sign-up last-element-mobile">
-			                    <a href="<?php echo base_url('signup');?>">Registre-se</a>
-			                  </li>
-			                  <li class = "menu-login last-element">
-			                    <a href="<?php echo base_url('login');?>">Login</a>
-			                  </li>
+		                  <li class="menu-sign-up last-element-mobile">
+		                    <a href="<?php echo base_url('signup');?>">Registre-se</a>
+		                  </li>
+		                  <li class = "menu-login last-element">
+		                    <a href="<?php echo base_url('login');?>">Login</a>
+		                  </li>
 	<?php }
 ?>
                 </ul>
@@ -113,7 +115,7 @@
       <div class="container account-info-header">
         <div class="row">
           <div class="col-md-8">
-            <h1 class="account-profile-title text-center"><?php echo $user_fullname;?></h1>
+            <h1 class="account-profile-title"><?php echo $user_fullname;?></h1>
           </div>
           <div class="col-md-2 account-info-edit-area">
             <a href="<?php echo base_url('profile/edit');?>" class="btn btn-account-info-edit btn-lg btn-block">

@@ -65,6 +65,19 @@ jQuery(function ($) {
 		    return false;
 		});
 
+		
+		$(".select-short-url").click(function(e) {
+	        e.preventDefault();
+	        
+	        var selectedID = $(this).attr('id').replace('link-get-short-url', 'short-url-text');
+	        var ballonLink = "#" + $(this).attr('id').replace('link-get-short-url', 'short-link-ballon');
+
+
+	        $(ballonLink).slideDown(500,function(){
+	            $(this).selectText(selectedID);
+	        });
+    	});
+
 
 	});
 });

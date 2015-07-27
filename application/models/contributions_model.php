@@ -236,9 +236,42 @@ class contributions_model extends MY_Model {
 
 		if ($query && $query->num_rows > 0) {
 			return $query->result();
+		} else {
+
+			$contrib           = new stdClass();
+			$contrib->notes    = "Começa logo a promocionar tua campanha para assim familiares e amigos te adujem a alcançar teu sonho...";
+			$contrib->nickname = "Equipe Presente Top";
+
+			return array($contrib);
+		}
+	}
+
+	public function get_contrib_msg($idcampaign) {
+
+		$rs_contrib = $this->get_by_campaign($idcampaign);
+
+		if ($rs_contrib) {
+
+			$contrib_msg = array();
+
+			foreach ($rs_contrib as $contrib) {
+				$msg = "Um presente";
+
+				if (!$contrib->hide_contrib_value) {
+					$msg .= ' de <span class="currency">'.strval($contrib->amount).'</span>';
+				}
+
+				$msg .= ' foi adicionado por '.$contrib->nickname;
+				$contrib_msg += array($msg);
+
+			}
+
+			return $contrib_msg;
+
+		} else {
+			return array("Está campanha de presente ainda não recebeu contribuição. Se empolga e contribuia para fazer acontecer...");
 		}
 
-		return false;
 	}
 
 }

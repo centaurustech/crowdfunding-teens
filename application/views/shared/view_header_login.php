@@ -39,6 +39,8 @@
     <script src="<?php echo base_url('assets/js/ie10-viewport-bug-workaround.js');?>"></script>
     <!-- Autonumeric library -->
     <script src="<?php echo base_url('assets/js/autonumeric.js');?>"></script>
+    <!-- Custom Fonts library -->
+    <link href="http://fonts.googleapis.com/css?family=Dosis:400|Oswald:400|Droid+Serif:400,700,italic|Lato:400,normal|Open+Sans" rel="stylesheet" type="text/css" />
   </head>
   <!-- NAVBAR
   ================================================== -->
