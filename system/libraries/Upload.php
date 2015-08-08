@@ -139,9 +139,9 @@ class CI_Upload {
 
 		$config['upload_path']   = './assets/uploads/';
 		$config['allowed_types'] = 'gif|jpg|png';
-		$config['max_size']      = '2048';
-		$config['max_width']     = '1600';
-		$config['max_height']    = '1200';
+		$config['max_size']      = '5120';
+		$config['max_width']     = '2048';
+		$config['max_height']    = '1536';
 
 		$this->initialize($config);
 

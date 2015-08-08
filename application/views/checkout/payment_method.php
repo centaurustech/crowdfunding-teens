@@ -4,7 +4,7 @@
 		<div class="contrib-value-info">
 			<div class="row">
 				<div class="col-md-4">
-					<img src="<?php echo $rs->imgurl;?>" class="checkout-campaign-photo">
+					<img class="img-responsive" src="<?php echo $rs->imgurl;?>" class="checkout-campaign-photo">
 				</div>
 				<div class="col-md-8 contrib-paymant-summary">
 					<h3>Resumo do Presente</h3>

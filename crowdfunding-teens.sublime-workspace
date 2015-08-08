@@ -1,0 +1,1366 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"var_d",
+				"var_dump_pretty($data"
+			],
+			[
+				"padd",
+				"padding-top"
+			],
+			[
+				"BASE",
+				"base_url()	string"
+			],
+			[
+				"png",
+				"$png_file〔variable〕"
+			],
+			[
+				"offset_f",
+				"$offset_fillY〔variable〕"
+			],
+			[
+				"img",
+				"$img_saved〔variable〕"
+			],
+			[
+				"off",
+				"set_offset()	mixed"
+			],
+			[
+				"strrepl",
+				"substr_replace"
+			],
+			[
+				"open",
+				"openImage($fileName)	mixed"
+			],
+			[
+				"resize",
+				"resized"
+			],
+			[
+				"file",
+				"fileName"
+			],
+			[
+				"var_",
+				"var_dump_pretty()	mixed"
+			],
+			[
+				"_",
+				"_set_filters_sent"
+			],
+			[
+				"base",
+				"base_url"
+			],
+			[
+				"th",
+				"th	Tag"
+			],
+			[
+				"input",
+				"inputc	input - checkbox"
+			],
+			[
+				"var_dum",
+				"var_dump_pretty〔function〕"
+			],
+			[
+				"str_re",
+				"str_replace〔function〕"
+			],
+			[
+				"var_du",
+				"var_dump_pretty〔function〕"
+			],
+			[
+				"format",
+				"$format_creation_date〔variable〕"
+			],
+			[
+				"sub",
+				"submit	.submit()"
+			],
+			[
+				"endfor",
+				"endforeach〔keyword〕"
+			],
+			[
+				"padding",
+				"padding-top"
+			],
+			[
+				"text-",
+				"text-align"
+			],
+			[
+				"font",
+				"font-weight"
+			],
+			[
+				"p",
+				"p	<p>"
+			],
+			[
+				"font-",
+				"font-size"
+			],
+			[
+				"repla",
+				"replace(${0:regexp|substr}, 'string')	String"
+			],
+			[
+				"base_",
+				"base_url()	string"
+			],
+			[
+				"sli",
+				"slideDown〔function〕"
+			],
+			[
+				"margin",
+				"margin-left"
+			],
+			[
+				"bas",
+				"base_url()	string"
+			],
+			[
+				"people",
+				"people_model"
+			],
+			[
+				"scr",
+				"src"
+			],
+			[
+				"border-lef",
+				"border-top-left-radius"
+			],
+			[
+				"bo",
+				"border-radius"
+			],
+			[
+				"back",
+				"background-color"
+			],
+			[
+				"tex",
+				"$text〔variable〕"
+			],
+			[
+				"text",
+				"text-transform"
+			],
+			[
+				"camp",
+				"campaign"
+			],
+			[
+				"border",
+				"border-bottom"
+			],
+			[
+				"for",
+				"foreach	<?php foreach (…) … <?php endforeach ?>"
+			],
+			[
+				"mar",
+				"margin-top"
+			],
+			[
+				"hea",
+				"header	<header>"
+			],
+			[
+				"useri",
+				"$userid〔variable〕"
+			],
+			[
+				"load",
+				"loadPopUp"
+			],
+			[
+				"twi",
+				"_twitter_reset_session()	void"
+			],
+			[
+				"google",
+				"google_person"
+			],
+			[
+				"sessio",
+				"session_start〔function〕"
+			],
+			[
+				"session_de",
+				"session_destroy〔function〕"
+			],
+			[
+				"h",
+				"height"
+			],
+			[
+				"he",
+				"line-height"
+			],
+			[
+				"border-right",
+				"border-right-color"
+			],
+			[
+				"wi",
+				"$width〔variable〕"
+			],
+			[
+				"redi",
+				"redirect"
+			],
+			[
+				"marg",
+				"margin-bottom"
+			],
+			[
+				"peo",
+				"people_model"
+			],
+			[
+				"inputf",
+				"inputf	input - file"
+			],
+			[
+				"us",
+				"$user〔variable〕"
+			],
+			[
+				"get_",
+				"get_by()	mixed"
+			],
+			[
+				"wid",
+				"width"
+			],
+			[
+				"pa",
+				"padding-top"
+			],
+			[
+				"paddin",
+				"padding-bottom"
+			],
+			[
+				"syn",
+				"syncSignature"
+			],
+			[
+				"change",
+				"change"
+			],
+			[
+				"campai",
+				"campaigns"
+			],
+			[
+				"is_nu",
+				"is_numeric〔function〕"
+			],
+			[
+				"remove",
+				"removeClass"
+			],
+			[
+				"pad",
+				"padding-left"
+			],
+			[
+				"style",
+				"style"
+			],
+			[
+				"order",
+				"$order_field〔variable〕"
+			],
+			[
+				"sho",
+				"show_404〔function〕"
+			],
+			[
+				"table",
+				"table-cell"
+			],
+			[
+				"limit",
+				"$limit_count〔variable〕"
+			],
+			[
+				"idcamp",
+				"idcampaign"
+			],
+			[
+				"isset",
+				"isset〔function〕"
+			],
+			[
+				"margi",
+				"margin-top: 〔property〕"
+			],
+			[
+				"cla",
+				"class	Attr"
+			],
+			[
+				"len",
+				"length	Object"
+			],
+			[
+				"_s",
+				"_set_checkout_step($step_name)	mixed"
+			],
+			[
+				"cha",
+				"change	Event"
+			],
+			[
+				"blur",
+				"blur	Event"
+			],
+			[
+				"check",
+				"checkout"
+			],
+			[
+				"border-ra",
+				"border-bottom-right-radius"
+			],
+			[
+				"border-b",
+				"border-bottom"
+			],
+			[
+				"b",
+				"background"
+			],
+			[
+				"fotn",
+				"font-size"
+			],
+			[
+				"paddi",
+				"padding-top: 〔property〕"
+			],
+			[
+				"base64",
+				"base64_encode"
+			],
+			[
+				"length",
+				"length	Array"
+			],
+			[
+				"data",
+				"$data〔variable〕"
+			],
+			[
+				"idc",
+				"$idcampaign〔variable〕"
+			],
+			[
+				"campa",
+				"campaigns_model"
+			],
+			[
+				"jso",
+				"json_encode"
+			],
+			[
+				"exir",
+				"exit〔keyword〕"
+			],
+			[
+				"pos",
+				"post"
+			],
+			[
+				"border-top",
+				"border-top-right-radius"
+			],
+			[
+				"strto",
+				"strtolower〔function〕"
+			],
+			[
+				"field",
+				"fieldValue"
+			],
+			[
+				"__",
+				"__construct"
+			],
+			[
+				"view",
+				"view('upload_form"
+			],
+			[
+				"getEle",
+				"getElementById(${0:id})	Element"
+			],
+			[
+				"json",
+				"json_encode〔function〕"
+			],
+			[
+				"res",
+				"$result〔variable〕"
+			],
+			[
+				"func",
+				"function"
+			],
+			[
+				"js",
+				"json_encode"
+			],
+			[
+				"styl",
+				"styles"
+			],
+			[
+				"toString",
+				"toString()	String"
+			],
+			[
+				"parse",
+				"parseInt〔function〕"
+			],
+			[
+				"bac",
+				"background-color"
+			],
+			[
+				"ma",
+				"margin-left"
+			],
+			[
+				"class",
+				"className	Element"
+			],
+			[
+				"repl",
+				"replace(${0:regexp|substr}, 'string')	String"
+			],
+			[
+				"tit",
+				"title	Attr"
+			],
+			[
+				"sty",
+				"style	Attr"
+			],
+			[
+				"tr",
+				"trim〔function〕"
+			],
+			[
+				"fun",
+				"function〔keyword〕"
+			],
+			[
+				"fon",
+				"font-size"
+			],
+			[
+				"preve",
+				"preventDefault()	Event"
+			],
+			[
+				"Play",
+				"PlayStation-4"
+			],
+			[
+				"wh",
+				"width"
+			],
+			[
+				"da",
+				"data"
+			],
+			[
+				"cap",
+				"campaign"
+			],
+			[
+				"bot",
+				"bottom"
+			],
+			[
+				"function",
+				"create_function"
+			],
+			[
+				"searchByPe",
+				"searchUserByPeopleId($idpeople)	mixed"
+			],
+			[
+				"las",
+				"last_insert_id"
+			],
+			[
+				"peopleo",
+				"$peopleObj〔variable〕"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "application/models/file_uploader_model.php",
+			"settings":
+			{
+				"buffer_size": 2982,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "application/libraries/resizeimage.php",
+			"settings":
+			{
+				"buffer_size": 9152,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "application/controllers/campaigns.php",
+			"settings":
+			{
+				"buffer_size": 8536,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "application/helpers/utility_helper.php",
+			"settings":
+			{
+				"buffer_size": 5896,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "assets/css/website.css",
+			"settings":
+			{
+				"buffer_size": 29922,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 138.0,
+		"selected_items":
+		[
+			[
+				"browse re",
+				"SFTP: Browse Remote…"
+			],
+			[
+				"remote",
+				"SFTP: Diff Remote File"
+			],
+			[
+				"upload",
+				"SFTP: Upload File"
+			],
+			[
+				"comm",
+				"Toggle Block Comment"
+			],
+			[
+				"coom",
+				"Laravel Artisan: Controller: Make"
+			],
+			[
+				"comme",
+				"Toggle Block Comment"
+			],
+			[
+				"COMM",
+				"Toggle Block Comment"
+			],
+			[
+				"comment",
+				"Toggle Block Comment"
+			],
+			[
+				"commen",
+				"Toggle Block Comment"
+			],
+			[
+				"com",
+				"Toggle Block Comment"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"packa",
+				"Package Control: Remove Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"block com",
+				"Toggle Block Comment"
+			],
+			[
+				"block",
+				"Toggle Block Comment"
+			],
+			[
+				"block c",
+				"Toggle Block Comment"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"",
+				"Bookmarks: Select Next"
+			],
+			[
+				"Package Control: ins",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: inst",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: install",
+				"Package Control: Install Package"
+			],
+			[
+				"package ins",
+				"Package Control: Install Package"
+			],
+			[
+				"package install",
+				"Package Control: Install Package"
+			],
+			[
+				"package in",
+				"Package Control: Install Package"
+			],
+			[
+				"package control",
+				"Preferences: Package Control Settings – Default"
+			],
+			[
+				"pack",
+				"Preferences: Browse Packages"
+			],
+			[
+				"Package Control",
+				"Preferences: Package Control Settings – Default"
+			],
+			[
+				"Package Control: INS",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: i",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 746.0
+	},
+	"console":
+	{
+		"height": 222.0,
+		"history":
+		[
+			"ls",
+			"find",
+			"git",
+			"reset",
+			"clear",
+			"help",
+			"ls",
+			"import urllib.request,os,hashlib; h = 'eb2297e1a458f27d836c04bb0cbaf282' + 'd0e7a3098092775ccb37ca9d6b2e4b7d'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)",
+			"help"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/upcesar/dev-php/crowdfunding-teens",
+		"/home/upcesar/dev-php/crowdfunding-teens/application",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/models",
+		"/home/upcesar/dev-php/crowdfunding-teens/assets",
+		"/home/upcesar/dev-php/crowdfunding-teens/assets/css",
+		"/home/upcesar/dev-php/crowdfunding-teens/assets/uploads",
+		"/home/upcesar/dev-php/crowdfunding-teens/assets/uploads/teste",
+		"/home/upcesar/dev-php/crowdfunding-teens/assets/uploads/teste007",
+		"/home/upcesar/dev-php/crowdfunding-teens/assets/uploads/teste991"
+	],
+	"file_history":
+	[
+		"/home/upcesar/dev-php/crowdfunding-teens/application/libraries/resizeimage.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/sftp-config.json",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/models/file_uploader_model.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/libraries/fb_connect.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/assets/css/website.css",
+		"/home/upcesar/dev-php/crowdfunding-teens/system/libraries/Upload.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/controllers/campaigns.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/config/development/config.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/libraries/resizeimage.php-tmp",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/libraries/Googleplus.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/config/development/autoload.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/libraries/masterpage.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/models/contributions_model.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/controllers/profile.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/views/user_profile/view_my_contrib_received.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/views/user_profile/view_my_contrib_sent.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/assets/js/user-profile/my-contributions.js",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/helpers/utility_helper.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/assets/js/user-profile/my-received-contributions.js",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/views/user_profile/view_my_campaigns.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/models/campaigns_model.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/views/campaigns/details.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/assets/js/website.js",
+		"/home/upcesar/dev-php/crowdfunding-teens/assets/js/user-profile/edit-profile.js",
+		"/home/upcesar/dev-php/crowdfunding-teens/assets/js/user-profile/my-campaign.js",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/models/people_model.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/views/user_profile/view_edit_profile.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/views/user_profile/view_my_account.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/views/campaigns/details_add_edit.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/views/shared/view_header_profile.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/controllers/home.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/views/campaigns/list.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/views/home/view_home.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/assets/js/campaigns/promote.js",
+		"/home/upcesar/dev-php/crowdfunding-teens/assets/js/share-social-media.js",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/views/campaigns/status_action.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/libraries/facebook/facebook.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/controllers/login.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/views/shared/view_header_checkout.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/views/shared/view_header_login.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/assets/css/login.css",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/views/campaigns/details_edit_delete.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/models/users_model.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/views/campaigns/details_edit.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/system/core/Input.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/controllers/tools.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/views/shared/view_header.php",
+		"/home/upcesar/Google Drive/work/freelance/sven/2014/entregas/silverstallionagency/VPH_SERVER-AND-MAGENTO-DEMO.txt",
+		"/tmp/sublime-sftp-browse-1437429410/mapped/public_html/index.php",
+		"/tmp/sublime-sftp-browse-1437429364/mapped/public_html/projects/crowdfunding-teens/index.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/controllers/checkout.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/views/user_profile/view_myaccount.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/core/MY_Model.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/views/user_profile/view_profile.php",
+		"/home/upcesar/Desktop/protocolo vivo.txt",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/controllers/users.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/config/testing/routes.php",
+		"/tmp/sublime-sftp-browse-1436997046/mapped/public_html/projects/crowdfunding-teens/application/views/campaigns/details.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/config/production/config.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/config/testing/config.php",
+		"/etc/bluetooth/main.conf",
+		"/home/upcesar/bluetooth/sixpair.c",
+		"/tmp/sublime-sftp-browse-1436596072/mapped/public_html/projects/crowdfunding-teens/application/controllers/login.php",
+		"/tmp/sublime-sftp-browse-1436595938/mapped/public_html/projects/crowdfunding-teens/application/controllers/login.php",
+		"/tmp/sublime-sftp-browse-1436595771/mapped/public_html/projects/crowdfunding-teens/application/controllers/login.php",
+		"/tmp/sublime-sftp-browse-1436595696/mapped/public_html/projects/crowdfunding-teens/application/controllers/login.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/config/testing/twitter.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/libraries/Twitter/Twitteroauth.php",
+		"/tmp/sublime-sftp-browse-1436593214/mapped/public_html/projects/crowdfunding-teens/application/libraries/twitter_api.php",
+		"/tmp/sublime-sftp-browse-1436591783/mapped/public_html/projects/crowdfunding-teens/index.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/config/testing/googleplus.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/libraries/twitter_api.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/controllers/twitter.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/config/development/twitter.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/controllers/signup.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/libraries/Twitter/OAuth.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/libraries/Twitteroauth.php",
+		"/home/upcesar/dev-php/Codeigniter-TwitterOAuth/application/third_party/OAuth.php",
+		"/home/upcesar/dev-php/Codeigniter-TwitterOAuth/application/libraries/Twitteroauth.php",
+		"/home/upcesar/dev-php/Codeigniter-TwitterOAuth/application/controllers/twitter.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/views/login/view_login.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/libraries/Google/Client.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/config/development/googleplus.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/libraries/google-api-php-client/examples/idtoken.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/libraries/google-api-php-client/examples/fileupload.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/views/signup/view_signup.php",
+		"/home/upcesar/Google Drive/work/betadevconsult/customers/andre-gianinni/teenage-crowdfunding/Presente Top Login Test-62211a0818ae.json",
+		"/home/upcesar/Downloads/Presente Top Login Test-62211a0818ae.json",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/libraries/facebook/src/Facebook/FacebookRequest.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/models/document_type_model.php",
+		"/home/upcesar/dev-php/formula-ouro/.git/info/exclude",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/models/campaigns_images_gallery_model.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/views/profile/view_edit_profile.php",
+		"/home/upcesar/dev-php/radar5/application/models/albums_assoc_model.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/assets/js/user-profile/login.js",
+		"/home/upcesar/dev-php/crowdfunding-teens/assets/js/user-profile/sign-up.js",
+		"/tmp/sublime-sftp-browse-1435987861/mapped/public_html/projects/crowdfunding-teens/application/controllers/users.php",
+		"/home/upcesar/dev-php/radar5/application/controllers/users.php",
+		"/home/upcesar/dev-php/radar5/application/models/users_model.php",
+		"/home/upcesar/dev-php/radar5/application/controllers/albums_assoc.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/assets/js/validator.js",
+		"/home/upcesar/dev-php/radar5/application/views/view_dashboard_images_albums.php",
+		"/home/upcesar/dev-php/radar5/assets/js/albums.js",
+		"/home/upcesar/dev-php/radar5/application/views/view_header.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/views/signup/view_welcome_user.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/views/shared/view_message.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/views/signup/view_confirmation.php",
+		"/tmp/sublime-sftp-browse-1435806434/mapped/public_html/projects/crowdfunding-teens/fatalux.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/.htaccess",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/config/testing/email.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/config/development/email.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/views/login/view_password_recovery.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/libraries/facebook/docs/FacebookJavaScriptLoginHelper.fbmd",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/controllers/login.php-tmp",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/views/login/view_create_password.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/assets/js/users.js",
+		"/home/upcesar/dev-php/crowdfunding-teens/assets/js/checkout/checkout-confirm.js",
+		"/home/upcesar/dev-php/crowdfunding-teens/assets/js/campaigns/campaigns.js",
+		"/home/upcesar/Google Drive/work/betadevconsult/customers/jorge-guerra/analises/csv/cronograma.csv",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/controllers/campaigns.php-tmp",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/language/pt-br/form_validation_lang.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/system/helpers/url_helper.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/config/testing/autoload.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/language/pt-br/calendar_lang.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/views/checkout/confirm_contribution.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/models/contributions_model.php-tmp",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/views/checkout/payment_confirmation.php",
+		"/home/upcesar/dev-php/crowdfunding-teens/application/views/checkout/payment_method.php"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			"",
+			"*.css",
+			"",
+			"/home/upcesar/dev-php/radar5/application/",
+			"",
+			"/home/upcesar/dev-php/radar5",
+			"",
+			"/home/upcesar/dev-php/crowdfunding-teens/application/models",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"getSizeByFixedHeight",
+			"scale(",
+			"getDimensions",
+			"getSizeByAuto",
+			"getDimensions",
+			"scale(",
+			"getDimensions",
+			"getSizeByAuto",
+			"checkSizeWhenScaling",
+			"scale(",
+			"checkSizeWhenScaling",
+			"scale(",
+			"getDimensions",
+			"scale(",
+			"img-gift-box",
+			"offset",
+			"scale(",
+			"'scale'",
+			"getSizeByAuto",
+			"getDimensions",
+			"openImage",
+			"load_default_param",
+			"_rename_extension",
+			"500",
+			"getDimensions",
+			"var_dump_pretty",
+			"var_dum_pretty",
+			"max_width",
+			"width",
+			"upload",
+			"file",
+			"_save_img",
+			" $",
+			"_save_img",
+			"phisical",
+			"openImage",
+			"_save_img",
+			"resize(",
+			"scale",
+			"getDimensions",
+			"_rename_extension",
+			"set_offset",
+			"imageResized",
+			"loadImage",
+			"getDimensions",
+			"ext_name",
+			"openImage",
+			"getSizeByAuto",
+			"'resized...'",
+			"_get",
+			"Fb_connect",
+			"saveImage",
+			"_get_phisical_path",
+			"openImage",
+			"resizeImage",
+			"Fb_connect",
+			"file_uploader",
+			"file_uploader_model",
+			"Googleplus",
+			"Fb_connect",
+			"librar",
+			"Crop(",
+			"crop(",
+			"crop",
+			"_set_filters_sent",
+			"var_dump_pretty",
+			"_set_filters_sent",
+			"/details",
+			"_set_filters_sent",
+			" $",
+			"_set_filters_sent",
+			"where_sql",
+			"_set_filters_sent",
+			"filter",
+			"where_sql",
+			"filter =",
+			"_set_filters_sent",
+			"get_sent_by_user",
+			"my-received-contributions.js",
+			"number_hidden",
+			"_set_filters_sent",
+			"get_sent_by_user(",
+			"_set_filters_sent",
+			"\n		->join(\"users ",
+			"_set_filters_sent",
+			"contributions_model->count_received",
+			"count_received",
+			"_set_filters_sent",
+			"get_sent_by_user",
+			"my_sent_contributions",
+			"hover",
+			"count_contrib",
+			"_set_filters",
+			"sum_",
+			"_set_filters",
+			"my_camp",
+			"profile-area",
+			"inputCreationDate",
+			"formFilterCamp",
+			"my_campaigns",
+			"get_received_by_user",
+			"border-bottom: 1px solid #ccc;",
+			";\n",
+			"border-bottom: 1px solid",
+			"1px solid",
+			"profile",
+			".contribution-log",
+			".contribution-log {",
+			"inputDateOfBirth",
+			"save(",
+			"inputDateOfBirth",
+			"money_hidden",
+			"autoNumeric",
+			"my-camp",
+			"$camp_name",
+			"$highlighted",
+			"list_campaigns",
+			"$highlighted",
+			"bubble-de",
+			".contribution-log",
+			"grey-line",
+			"light",
+			"lightte",
+			"_render",
+			"exit",
+			"promote",
+			"promote/",
+			"_render"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"physical",
+			"my-contributions.js",
+			"inputContribDate",
+			"formFilterContribReceived",
+			"number_hidden",
+			"tools",
+			"count_received",
+			"summary_received",
+			"my_received_contributions",
+			"account-profile-title",
+			"account-profile-picture",
+			"'twitter_access_token_secret'",
+			"'twitter_access_token'",
+			"twitter_api",
+			"file_uploader",
+			"document_type",
+			"profile",
+			"$this->_table",
+			"$this->primary_key",
+			"$this->_table",
+			".img-logo-responsive",
+			"body",
+			"greeting",
+			"col-xs-4",
+			"col-xs-7",
+			"$rs_campaign",
+			"base_url",
+			"hightlight-dark-red",
+			"checkout",
+			"contributions",
+			"<?php echo base_url('assets/uploads/joaozinho/samsung-smart-tv.jpg'); ?>",
+			"<?php echo base_url('assets/uploads/joaozinho/iphone-6-plus.jpg'); ?>",
+			"<?php echo base_url('assets/uploads/joaozinho/nike-air-max.jpg'); ?>",
+			"<?php echo base_url('assets/uploads/joaozinho/PlayStation-4.jpg'); ?>",
+			"<?php echo base_url('campaigns/details/4'); ?>",
+			"<?php echo base_url('campaigns/details/3'); ?>",
+			"<?php echo base_url('campaigns/details/2'); ?>",
+			"<?php echo base_url('campaigns/details/1'); ?>",
+			"betadev_crowdfunding_teens",
+			"link-edit-camp",
+			".camp-image-edit-area",
+			"$idcampaign",
+			" = ",
+			"campaigns_images_gallery",
+			"/details/",
+			"->_table",
+			"campaigns_images_gallery",
+			"$rs->is_own_campaign",
+			"currency",
+			"currency-input",
+			"campaigns",
+			"fa-check",
+			"alert-default",
+			"campaign-list",
+			".campaign-list",
+			".campaign-details",
+			"campaigns",
+			"products",
+			"signup",
+			"strlen",
+			"searchPeople",
+			"iduser",
+			"people_model",
+			"Element(",
+			"Element",
+			"href=\"images/",
+			"href=\"/images/",
+			".goto-portfolio"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "application/models/file_uploader_model.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2982,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2489,
+								2489
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"function_name_status_row": 104,
+							"incomplete_sync": null,
+							"is_xml": false,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1294.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "application/libraries/resizeimage.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9152,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6057,
+								6057
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"function_name_status_row": 292,
+							"history_list_is_closing": true,
+							"incomplete_sync": null,
+							"is_xml": false,
+							"remote_loading": false,
+							"sftp_duplicate_views": 0,
+							"synced": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2865.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "application/controllers/campaigns.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8536,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6059,
+								6059
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"function_name_status_row": 247,
+							"incomplete_sync": null,
+							"is_xml": false,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3402.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "application/helpers/utility_helper.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5896,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								690,
+								690
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"function_name_status_row": 31,
+							"incomplete_sync": null,
+							"is_xml": false,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 405.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "assets/css/website.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 29922,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								8162,
+								8162
+							]
+						],
+						"settings":
+						{
+							"function_name_status_row": 490,
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 6984.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 33.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 118.0
+	},
+	"output.sftp":
+	{
+		"height": 112.0
+	},
+	"project": "crowdfunding-teens.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+			[
+				"",
+				"~/dev-php/betadevconsult/betadev-site.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+		],
+		"width": 701.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 298.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

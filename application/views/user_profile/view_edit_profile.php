@@ -10,12 +10,12 @@
         <h2>Dados Básicos</h2>
       </div>
 <?php if (isset($msg)) {?>
-			      <div class="col-md-10">
-			        <div class="alert alert-<?php echo $label_type;?>alert-dismissible" role="alert">
-			          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				      <div class="col-md-10">
+				        <div class="alert alert-<?php echo $label_type;?>alert-dismissible" role="alert">
+				          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	<?php echo $msg;?>
 	</div>
-			      </div>
+				      </div>
 	<?php }
 ?>
       <div class="col-md-4">
@@ -55,7 +55,7 @@
           </div>
           <div class="col-md-offset-1 col-md-4">
             <div class="form-group">
-              <label for="inputGender" class="control-label">Data de Nascimento</label>
+              <label for="inputDateOfBirth" class="control-label">Data de Nascimento</label>
               <div class='input-group date' id='inputDateOfBirth'>
                 <input type="text" class="form-control" placeholder="dd/mm/aaaa" name = "inputDateOfBirth" value="<?php echo $people->dateofbirth;?>" />
                 <span class="input-group-addon">
@@ -95,7 +95,7 @@
               <option value="">|== Selecione Tipo Documento ==|</option>
 <?php foreach ($doc_type_list as $doc_type) {
 	?>
-			              <option value="<?php echo $doc_type->doctype_id;?>" <?php echo $people->doctype_id == $doc_type->doctype_id?"selected":"";
+				              <option value="<?php echo $doc_type->doctype_id;?>" <?php echo $people->doctype_id == $doc_type->doctype_id?"selected":"";
 	?>>
 	<?php echo $doc_type->doctype_name;?>
 	</option>

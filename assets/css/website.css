@@ -480,15 +480,14 @@ a.link-edit-camp, a.link-edit-profile{
 .img-gift-box {
   background-color: #fff;
   display: table-cell;
-  vertical-align: middle;
-  width: 263px;
-  padding-bottom: 24px;
-  width: 700px;
+  padding-top: 1px;
+  padding-left: 1px;
+  padding-right: 1px;
 }
 
 .img-gift {
   max-width: 100%;
-  max-height: 100%;
+  /*max-height: 100%;*/
 }
 
 
@@ -588,10 +587,9 @@ a.link-edit-camp, a.link-edit-profile{
   background-color: #ededed;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-  padding-top: 15px;
-  padding-left: 15px;
-  padding-right: 15px;
-
+  padding-top: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .edit-campaign-full-picture-box {
@@ -1237,6 +1235,12 @@ a.link-edit-camp, a.link-edit-profile{
     font-size: 16px;
   }
 
+  .profile-search-title{
+    padding-bottom: 12px;
+    padding-left: 16px;
+  }
+
+
   /* My campaigns area */
 
   .line-top{
@@ -1670,7 +1674,7 @@ footer .container{
   }
 
   .img-gift-box {
-    height: 230px;
+    height: 140px;
   }
 
   /* CAMPAIGNS */
@@ -1726,12 +1730,13 @@ footer .container{
   }
 
   .contribution-log {
+    width: 95%;
     margin-right: 15px;
-    margin-left: -15px;
-    margin-top: -150px;
+    margin-left: 15px;
     border-top: 1px solid rgba(56, 56, 56, 0.15);
     padding-top: 12px;
   }
+
   .contribution-log-add-edit{
     margin-top: 0px;
   }

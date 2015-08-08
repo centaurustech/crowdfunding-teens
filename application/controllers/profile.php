@@ -34,9 +34,9 @@ class profile extends MY_Controller {
 
 	private function _set_header($iduser) {
 
-		$count_camp             = $this->campaigns_model->count_by("iduser", $iduser);
-		$amount_contrib_sent    = $this->contributions_model->summary_sent($iduser);
-		$count_contrib_received = $this->contributions_model->count_received($iduser);
+		$count_camp               = $this->campaigns_model->count_by("iduser", $iduser);
+		$amount_contrib_sent      = $this->contributions_model->summary_sent($iduser);
+		$summary_contrib_received = $this->contributions_model->summary_received($iduser);
 
 		$method_called = $this->router->fetch_method();
 		$method_called = str_replace("-", "_", $method_called);
@@ -47,7 +47,7 @@ class profile extends MY_Controller {
 		$this->masterpage->header_vars['my_sent_contributions']     = "";
 
 		$this->masterpage->header_vars['header_count_camp']             = $count_camp;
-		$this->masterpage->header_vars['header_count_contrib_received'] = $count_contrib_received->count_contrib;
+		$this->masterpage->header_vars['header_count_contrib_received'] = $summary_contrib_received->count_contrib;
 		$this->masterpage->header_vars['header_count_contrib_sent']     = $amount_contrib_sent->count_sent_contrib;
 
 		$this->masterpage->header_vars[$method_called] = "account-info-menu-selected";
@@ -71,7 +71,7 @@ class profile extends MY_Controller {
 			$count_camp             = $this->campaigns_model->count_by("iduser", $user->iduser);
 			$amount_received        = $this->campaigns_model->sum_amount_by_user($user->iduser);
 			$amount_contrib_sent    = $this->contributions_model->summary_sent($user->iduser);
-			$count_contrib_received = $this->contributions_model->count_received($user->iduser);
+			$count_contrib_received = $this->contributions_model->summary_received($user->iduser);
 
 			$data = array(
 				"people"               => $people,
@@ -100,6 +100,7 @@ class profile extends MY_Controller {
 
 	public function my_campaigns() {
 
+		$filtered = false;
 		$usr_auth = $this->session->userdata('user');
 
 		if ($usr_auth) {
@@ -107,22 +108,36 @@ class profile extends MY_Controller {
 			$people = $this->people_model->get_auth();
 			$user   = $this->users_model->get_auth();
 
-			$count_camp   = $this->campaigns_model->count_by("iduser", $user->iduser);
-			$my_campaigns = $this->campaigns_model->get_many_by("iduser", $user->iduser);
-			$my_campaigns = $this->campaigns_model->list_campaigns(false, 0, 0, "", $user->iduser);
+			$post = $this->input->post();
+
+			//$count_camp = $this->campaigns_model->count_by("iduser", $user->iduser);
+			//$my_campaigns = $this->campaigns_model->get_many_by("iduser", $user->iduser);
+			if (!$post) {
+				$my_campaigns = $this->campaigns_model->list_campaigns(false, 0, 0, "", $user->iduser);
+			} else {
+
+				$my_campaigns = $this->campaigns_model->list_campaigns(
+					false, 0, 0, "", $user->iduser,
+					$post['inputCampName'], $post['inputCreationDate'], $post['inputCompletedVal'],
+					$post['inputGoalMinVal'], $post['inputGoalMaxVal'],
+					$post['inputCollectedMinVal'], $post['inputCollectedMaxVal']
+				);
+
+				$filtered = true;
+
+			}
+
+			$count_camp = $my_campaigns?count($my_campaigns):0;
 
 			$data = array(
 				"people"       => $people,
 				"user"         => $user,
 				"num_campaign" => $count_camp,
 				"my_campaigns" => $my_campaigns,
+				"filtered"     => $filtered,
 			);
 
-			/*
-			echo '<pre>';
-			var_dump($data);
-			echo '</pre>';
-			 */
+			//var_dump_pretty($data);
 
 			$this->_set_header($user->iduser);
 			$this->masterpage->view("user_profile/view_my_campaigns", $data);
@@ -136,23 +151,39 @@ class profile extends MY_Controller {
 	public function my_received_contributions() {
 
 		$usr_auth = $this->session->userdata('user');
+		$filtered = false;
 
 		if ($usr_auth) {
 
 			$people = $this->people_model->get_auth();
 			$user   = $this->users_model->get_auth();
 
-			$count_contrib_received = $this->contributions_model->count_received($user->iduser);
-			$my_contrib_received    = $this->contributions_model->get_received_by_user($user->iduser);
-			$my_campaigns           = $this->campaigns_model->get_many_by("iduser", $user->iduser);
-			$sum_contrib_received   = $this->campaigns_model->sum_amount_by_user($user->iduser);
+			$post = $this->input->post();
+
+			if ($post) {
+				$summary_contrib_received = $this->contributions_model->summary_received($user->iduser,
+					$post["inputCampName"], $post["inputSignature"],
+					$post["inputContribFromVal"], $post["inputContribToVal"], $post["inputContribDate"]);
+
+				$my_contrib_received = $this->contributions_model->get_received(
+					$user->iduser, $post["inputCampName"], $post["inputSignature"],
+					$post["inputContribFromVal"], $post["inputContribToVal"], $post["inputContribDate"]);
+
+				$filtered = true;
+
+			} else {
+				$summary_contrib_received = $this->contributions_model->summary_received($user->iduser);
+				$my_contrib_received      = $this->contributions_model->get_received($user->iduser);
+
+			}
 
 			$data = array(
 				"people"                 => $people,
 				"user"                   => $user,
-				"sum_contrib_received"   => $sum_contrib_received->sum_camp_collected,
-				"count_contrib_received" => $count_contrib_received->count_contrib,
+				"sum_contrib_received"   => $summary_contrib_received->sum_camp_collected,
+				"count_contrib_received" => $summary_contrib_received->count_contrib,
 				"my_contrib_received"    => $my_contrib_received,
+				"filtered"               => $filtered,
 			);
 
 			/*echo '<pre>';
@@ -172,14 +203,28 @@ class profile extends MY_Controller {
 	public function my_sent_contributions() {
 
 		$usr_auth = $this->session->userdata('user');
+		$filtered = false;
 
 		if ($usr_auth) {
 
 			$people = $this->people_model->get_auth();
 			$user   = $this->users_model->get_auth();
 
-			$my_contrib_sent      = $this->contributions_model->get_sent_by_user($user->iduser);
-			$summary_contrib_sent = $this->contributions_model->summary_sent($user->iduser);
+			$post = $this->input->post();
+
+			if ($post) {
+
+				$my_contrib_sent = $this->contributions_model->get_sent_by_user($user->iduser,
+					$post["inputCampName"], $post["inputCampOwner"],
+					$post["inputContribFromVal"], $post["inputContribToVal"], $post["inputContribDate"]);
+
+				$summary_contrib_sent = $this->contributions_model->summary_sent($user->iduser);
+
+			} else {
+				$my_contrib_sent      = $this->contributions_model->get_sent_by_user($user->iduser);
+				$summary_contrib_sent = $this->contributions_model->summary_sent($user->iduser);
+
+			}
 
 			$data = array(
 				"people"             => $people,
@@ -188,11 +233,6 @@ class profile extends MY_Controller {
 				"sum_contrib_sent"   => $summary_contrib_sent->sum_sent_contrib,
 				"my_contrib_sent"    => $my_contrib_sent,
 			);
-
-			/*
-			echo '<pre>';
-			var_dump($data);
-			echo '</pre>';*/
 
 			$this->_set_header($user->iduser);
 			$this->masterpage->view("user_profile/view_my_contrib_sent", $data);

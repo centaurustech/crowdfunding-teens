@@ -19,10 +19,9 @@ class campaigns_model extends MY_Model {
 		return ($query->count_all_results() > 0);
 	}
 
-	public function list_campaigns($highlighted = false, $limit_start = 0, $limit_count = 0, $camp_owner = "", $iduser = "") {
-
-		$query = $this->db
-		              ->select("
+	private function _prepare_query() {
+		return $this->db
+		            ->select("
 		               		c.idcampaign,
 		               		c.camp_name,
 		               		c.camp_description,
@@ -30,20 +29,73 @@ class campaigns_model extends MY_Model {
 	        				c.camp_goal,
 	        				c.camp_completed,
 	        				c.camp_collected,
+	        				c.creationdate,
+	        				c.editiondate,
 	        				i.imgurl
 							", false)
 		->from("campaigns as c")
 		->join("users as u", "u.iduser = c.iduser")
 		->join("people as p", "u.idpeople = p.idpeople")
 		->join("campaigns_images_gallery as i", "i.idcampaign = c.idcampaign", 'left');
+	}
 
+	public function list_campaigns(
+		$highlighted = false, $limit_start = 0,
+		$limit_count = 0, $camp_owner = "", $iduser = "",
+		$camp_name = "", $creation_date = "", $completed = "",
+		$goal_min = "", $goal_max = "",
+		$collected_min = "", $collected_max = "") {
+
+		$query = $this->_prepare_query();
+
+		// Prepare WHERE
 		if ($camp_owner != "") {
 			$query = $query->like('p.fullname', $camp_owner);
 		}
+
 		if ($iduser != "") {
 			$query = $query->where('u.iduser', $iduser);
 		}
 
+		if ($camp_name != "") {
+			$query = $query->like('c.camp_name', $camp_name);
+		}
+
+		if ($creation_date != "") {
+
+			$creation_date_start = str_replace("/", "-", $creation_date);
+
+			$creation_date_start = mdate("%Y-%m-%d", strtotime($creation_date_start));
+
+			$creation_date_end = date_create($creation_date_start);
+			$creation_date_end = date_add($creation_date_end, date_interval_create_from_date_string("1 days"));
+			$creation_date_end = date_format($creation_date_end, "Y-m-d");
+
+			$query = $query->where('c.creationdate >=', $creation_date_start);
+			$query = $query->where('c.creationdate <', $creation_date_end);
+		}
+
+		if ($goal_min != "" && $goal_min > 0) {
+			$query = $query->where('c.camp_goal >=', $goal_min);
+		}
+
+		if ($goal_max != "" && $goal_max > 0) {
+			$query = $query->where('c.camp_goal <=', $goal_max);
+		}
+
+		if ($collected_min != "" && $collected_min > 0) {
+			$query = $query->where('c.camp_collected >=', $collected_min);
+		}
+
+		if ($collected_max != "" && $collected_max > 0) {
+			$query = $query->where('c.camp_collected <=', $collected_max);
+		}
+
+		if ($completed != "") {
+			$query = $query->where('c.camp_completed', $completed);
+		}
+
+		// Prepare ORDER BY
 		$order_field = "";
 		if ($highlighted) {
 			$order_field = "c.camp_completed desc";
@@ -56,6 +108,8 @@ class campaigns_model extends MY_Model {
 		if ($limit_count > 0) {
 			$query = $query->limit($limit_count, $limit_start);
 		}
+
+		//var_dump_pretty($query);
 
 		$query = $query->get();
 

@@ -10,6 +10,94 @@ class contributions_model extends MY_Model {
 
 	}
 
+	private function _set_filters($query, $camp_name = "", $nickname = "",
+		$contrib_from = "", $contrib_to = "", $contrib_date = "") {
+
+		if ($camp_name != "") {
+			$query = $query->like('c.camp_name', $camp_name);
+		}
+
+		if ($nickname != "") {
+			$query = $query->where('co.nickname', $nickname);
+		}
+
+		if ($contrib_from != "") {
+			$query = $query->where('co.amount >=', $contrib_from);
+		}
+
+		if ($contrib_to != "") {
+			$query = $query->where('co.amount <=', $contrib_to);
+		}
+
+		if ($contrib_date != "") {
+
+			$contrib_date_start = str_replace("/", "-", $contrib_date);
+
+			$contrib_date_start = mdate("%Y-%m-%d", strtotime($contrib_date_start));
+
+			$contrib_date_end = date_create($contrib_date_start);
+			$contrib_date_end = date_add($contrib_date_end, date_interval_create_from_date_string("1 days"));
+			$contrib_date_end = date_format($contrib_date_end, "Y-m-d");
+
+			$query = $query->where('co.payment_date >=', $contrib_date_start);
+			$query = $query->where('co.payment_date <', $contrib_date_end);
+		}
+
+		return $query;
+
+	}
+
+	private function _set_filters_sent($userid, $camp_name = "", $camp_owner = "",
+		$contrib_from = "", $contrib_to = "", $contrib_date = "") {
+
+		$obj_filter               = new stdClass();
+		$obj_filter->where_sql    = "";
+		$obj_filter->where_values = array();
+
+		$obj_filter->where_values[] = $userid;
+
+		if ($camp_name != "") {
+			$obj_filter->where_sql .= " AND LOWER(c.camp_name) LIKE ? ";
+			$obj_filter->where_values[] = "%".strtolower($camp_name)."%";
+		}
+
+		if ($camp_owner != "") {
+			$obj_filter->where_sql      = " AND (LOWER(p.fullname) LIKE ? OR LOWER(o.username) LIKE ?) ";
+			$obj_filter->where_values[] = "%".strtolower($camp_owner)."%";
+			$obj_filter->where_values[] = "%".strtolower($camp_owner)."%";
+		}
+
+		if ($contrib_from != "") {
+			$obj_filter->where_sql .= " AND co.amount >= ? ";
+			$obj_filter->where_values[] = $contrib_from;
+		}
+
+		if ($contrib_to != "") {
+			$obj_filter->where_sql .= " AND co.amount <= ? ";
+			$obj_filter->where_values[] = $contrib_to;
+		}
+
+		if ($contrib_date != "") {
+
+			$contrib_date_start = str_replace("/", "-", $contrib_date);
+
+			$contrib_date_start = mdate("%Y-%m-%d", strtotime($contrib_date_start));
+
+			$contrib_date_end = date_create($contrib_date_start);
+			$contrib_date_end = date_add($contrib_date_end, date_interval_create_from_date_string("1 days"));
+			$contrib_date_end = date_format($contrib_date_end, "Y-m-d");
+
+			$obj_filter->where_sql .= " AND co.payment_date >= ? ";
+			$obj_filter->where_sql .= " AND co.payment_date < ? ";
+			$obj_filter->where_values[] = $contrib_date_start;
+			$obj_filter->where_values[] = $contrib_date_end;
+
+		}
+
+		return $obj_filter;
+
+	}
+
 	public function calculate_payment($contrib_value) {
 
 		$payment_data = new stdClass();
@@ -68,15 +156,20 @@ class contributions_model extends MY_Model {
 
 	}
 
-	public function count_received($userid) {
+	public function summary_received($userid, $camp_name = "", $nickname = "",
+		$contrib_from = "", $contrib_to = "", $contrib_date = "") {
 
 		$query = $this->db
-		              ->select("count(1) count_contrib", false)
-		              ->from("contributions as co")
-		              ->join("campaigns as c", "co.idcampaign = c.idcampaign")
-		              ->join("users as u", "u.iduser = c.iduser")
-		              ->where('u.iduser', $userid)
-		              ->get();
+		              ->select("count(1) count_contrib,
+		              	SUM(co.amount) sum_camp_collected", false)
+		->from("contributions as co")
+		->join("campaigns as c", "co.idcampaign = c.idcampaign")
+		->join("users as u", "u.iduser = c.iduser")
+		->where('u.iduser', $userid);
+
+		$query = $this->_set_filters($query, $camp_name, $nickname, $contrib_from, $contrib_to, $contrib_date);
+
+		$query = $query->get();
 
 		if ($query && $query->num_rows > 0) {
 			$row = $query->row();
@@ -121,22 +214,27 @@ class contributions_model extends MY_Model {
 
 	}
 
-	public function get_received_by_user($userid) {
+	public function get_received(
+		$userid, $camp_name = "", $nickname = "",
+		$contrib_from = "", $contrib_to = "", $contrib_date = "") {
 
 		$query = $this->db
 		              ->select("c.idcampaign,
 								c.camp_name,
+								co.idcontribution,
 								co.amount,
 								co.nickname,
 								co.payment_date,
-								co.notes",
-			false)
+								co.notes", false)
 		->from("contributions as co")
 		->join("campaigns as c", "co.idcampaign = c.idcampaign")
 		->join("users as u", "u.iduser = c.iduser")
 		->where('u.iduser', $userid)
-		->order_by('co.payment_date', 'desc')
-		->get();
+		->order_by('co.payment_date', 'desc');
+
+		$query = $this->_set_filters($query, $camp_name, $nickname, $contrib_from, $contrib_to, $contrib_date);
+
+		$query = $query->get();
 
 		if ($query && $query->num_rows > 0) {
 			$result = $query->result();
@@ -157,26 +255,44 @@ class contributions_model extends MY_Model {
 
 	}
 
-	public function get_sent_by_user($userid) {
+	public function get_sent_by_user($userid,
+		$camp_name = "", $camp_owner = "",
+		$contrib_from = "", $contrib_to = "",
+		$contrib_date = "", $notes = "") {
 
-		$query = $this->db
-		              ->select("c.idcampaign,
+		/*if ($contrib_from != "" || $contrib_to != "") {
+		var_dump_pretty(array(
+		"contrib_from" => $contrib_from,
+		"contrib_to"   => $contrib_to,
+		//"query"        => $query,
+		//"sql"          => $str_sql,
+		//"where_values" => $filter->where_values,
+		)
+
+		);
+		}*/
+
+		$filter = $this->_set_filters_sent($userid, $camp_name, $camp_owner,
+			$contrib_from, $contrib_to, $contrib_date);
+
+		$str_sql = "SELECT c.idcampaign,
 		              			c.camp_name,
 		              			p.fullname camp_owner,
 		              			o.username camp_owner_nickname,
 		              			co.amount,
 								co.payment_date,
 								co.service_fee,
-								co.total_payment",
-			false)
-		->from("contributions as co")
-		->join("campaigns as c", "co.idcampaign = c.idcampaign")
-		->join("users as o", "o.iduser = c.iduser")
-		->join("people as p", "p.idpeople = o.idpeople")
-		->join("users as u", "u.iduser = co.iduser")
-		->where('u.iduser', $userid)
-		->order_by('co.payment_date', 'desc')
-		->get();
+								co.total_payment
+				FROM contributions AS co
+				INNER JOIN campaigns as c ON co.idcampaign = c.idcampaign
+				INNER JOIN users as o ON o.iduser = c.iduser
+				INNER JOIN people as p ON p.idpeople = o.idpeople
+				INNER JOIN users as u ON u.iduser = co.iduser
+				WHERE u.iduser = ? ".
+		$filter->where_sql.
+		" ORDER BY co.payment_date desc";
+
+		$query = $this->db->query($str_sql, $filter->where_values);
 
 		if ($query && $query->num_rows > 0) {
 			return $query->result();

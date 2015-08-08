@@ -1,32 +1,32 @@
 <script src="<?php echo base_url('assets/js/campaigns/campaigns.js');?>"></script>
 <?php if ($promote) {?>
-	<script src="<?php echo base_url('assets/js/campaigns/promote.js');?>"></script>
+			<script src="<?php echo base_url('assets/js/campaigns/promote.js');?>"></script>
 	<?php }
 ?>
 <div class="container campaign-details">
 <?php if ($rs->is_own_campaign) {?>
-		<div class = "row edit-all-campaign-idle">
-			<div class = "col-md-offset-3 col-md-3 edit-all-campaign">
-				<a href="<?php echo base_url("campaigns/edit/".$rs->idcampaign);?>" class="btn btn-edit-camp btn-block">
-					<i class="fa fa-edit"></i>
-					Editar Campanha
-				</a>
-			</div>
-			<div class = "col-md-3 edit-all-campaign">
-				<a href="<?php echo base_url("/profile/my-received-contributions/".$rs->idcampaign);?>" class="btn btn-edit-camp btn-block">
-					<i class="fa fa-money"></i>
-					Resgatar Cotas
-				</a>
-			</div>
-			<div class = "col-md-3 delete-campaign">
-				<input type="hidden" name= "idcampaign" id="idcampaign" class="pk_field" value="<?php echo $rs->idcampaign;?>">
-				<a href="<?php echo base_url("campaigns/delete/".$rs->idcampaign);?>" id="btnDelAllCampaign" class="btn btn-delete-camp btn-block">
-					<i class="fa fa-trash-o"></i>
-					Apagar Campanha
-				</a>
-			</div>
-		</div>
-		<hr class="grey-line">
+				<div class = "row edit-all-campaign-idle">
+					<div class = "col-md-offset-3 col-md-3 edit-all-campaign">
+						<a href="<?php echo base_url("campaigns/edit/".$rs->idcampaign);?>" class="btn btn-edit-camp btn-block">
+							<i class="fa fa-edit"></i>
+							Editar Campanha
+						</a>
+					</div>
+					<div class = "col-md-3 edit-all-campaign">
+						<a href="<?php echo base_url("/profile/my-received-contributions/".$rs->idcampaign);?>" class="btn btn-edit-camp btn-block">
+							<i class="fa fa-money"></i>
+							Resgatar Cotas
+						</a>
+					</div>
+					<div class = "col-md-3 delete-campaign">
+						<input type="hidden" name= "idcampaign" id="idcampaign" class="pk_field" value="<?php echo $rs->idcampaign;?>">
+						<a href="<?php echo base_url("campaigns/delete/".$rs->idcampaign);?>" id="btnDelAllCampaign" class="btn btn-delete-camp btn-block">
+							<i class="fa fa-trash-o"></i>
+							Apagar Campanha
+						</a>
+					</div>
+				</div>
+				<hr class="grey-line">
 	<?php }
 ?>
 <h1>
@@ -115,6 +115,22 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="row">	<!-- Alert Pane -->
+			<div class="col-md-9 contribution-log"> <!-- Right Pane -->
+			<!-- hr class="grey-line" -->
+<?php foreach ($rs_contrib_msg as $msg):?>
+<div class="row alert alert-default" role="alert">
+<?php echo ($msg);?>
+</div>
+<?php endforeach;
+?>
+			</div>	<!-- Left Pane -->
+		</div> <!-- Right Pane -->
+
+
+
+
 	</div>
 	<div class="col-md-3">
 		<div class="row campaign-list-right"><!-- Campaign Price -->
@@ -143,7 +159,7 @@
 		</div>
 	</div>
 	<div id="campaignContribArea" class="row campaign-list-right">
-		<form id="frmContribute" name="frmContribute" method="post" action="http://localhost/projects/crowdfunding-teens/checkout/contribute">
+		<form id="frmContribute" name="frmContribute" method="post" action="<?php echo base_url('checkout/contribute');?>">
 			<input type="hidden" name= "idcampaign" id="idcampaign" class="pk_field" value="<?php echo $rs->idcampaign;?>">
 			<input type="hidden" name= "controllername" id="controllername" value="<?php echo $controller_name;?>">
 			<input type="hidden" name= "hiddenCampPriceAmount" id="hiddenCampPriceAmount" value="">
@@ -168,26 +184,14 @@
 			Mural de Recados
 		</div>
 <?php
-foreach ($rs_notes as $msg) {?>
-			<div class="row comments-area"> <!-- Right Pane -->
-			<div class="row next-campaign-comment">
-				<p class="campaign-comment-text text-justify"><?php echo $msg->notes;?></p>
-				<p class="campaign-comment-text text-right"><?php echo $msg->nickname;?></p>
-			</div>
+foreach ($rs_notes as $msg):?>
+		<div class="row comments-area"> <!-- Right Pane -->
+		<div class="row next-campaign-comment">
+			<p class="campaign-comment-text text-justify"><?php echo $msg->notes;?></p>
+			<p class="campaign-comment-text text-right"><?php echo $msg->nickname;?></p>
 		</div>
-	<?php }
-?>
-</div>
-</div>
-<div class="row">	<!-- Alert Pane -->
-<div class="col-md-9 contribution-log"> <!-- Right Pane -->
-<!-- hr class="grey-line" -->
-<?php foreach ($rs_contrib_msg as $msg) {?>
-	<div class="row alert alert-default" role="alert">
-	<?php echo ($msg);?>
 	</div>
-	<?php }
-?>
-</div>	<!-- Left Pane -->
-</div> <!-- Right Pane -->
+<?php endforeach;?>
+</div>
+</div>
 </div>

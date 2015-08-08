@@ -35,7 +35,7 @@ class campaigns extends MY_Controller {
 	}
 
 	/*	Private Methods	 */
-	private function _render($idcampaign = "", $action = null) {
+	private function _render($idcampaign = "", $action_param = null) {
 
 		// Request data to model for editing or querying campaign.
 
@@ -63,8 +63,9 @@ class campaigns extends MY_Controller {
 
 				if ($action == 'promote') {
 					$promote = true;
+
 					// Hardcoded promotions message
-					if ($action == "updated") {
+					if ($action_param == "updated") {
 						$msg_promote = "Você atualizou sua campanha. Informe aos seus amigos as novidades.";
 					} else {
 						$msg_promote = "Parabéns, você criou a campanha. Comece a promove-la agora.";
@@ -245,24 +246,22 @@ class campaigns extends MY_Controller {
 
 		if (!is_null($imgurl)) {
 
+			$imgurl = $this->file_uploader->resize_uploaded_img(677, 351);
+
 			//Save the image url in DB.
 			$result = $this->camp_pictures->save($idcampaign, $imgurl);
 
 			if ($result != false) {
-				redirect(base_url("campaigns/details/".$idcampaign));
-				return;
+
+				return false;
 			}
 
 		}
 
-		$data = array(
+		return array(
 			"msg"        => $file["error"],
 			"source_url" => "campaigns/details/".$idcampaign,
 		);
-
-		$this->masterpage->view("campaigns/status_action", $data);
-
-		var_dump($file);// Meanwhile, we spit variable. Later, create a view for error.
 
 	}
 
@@ -332,12 +331,22 @@ class campaigns extends MY_Controller {
 			if ($status->id) {
 
 				if ($this->input->post("emptyPicture") == 1) {
-					$this->_clear_picture($$status->id);
+					$this->_clear_picture($status->id);
+					$err_img_saved = true;
 				} else {
-					$this->_save_img($status->id);
+					$err_img_saved = $this->_save_img($status->id);
 				}
 
-				redirect(base_url('campaigns/promote/'.$status->action.'/'.$status->id));
+				if ($err_img_saved === false) {
+					redirect(base_url('campaigns/promote/'.$status->action.'/'.$status->id));
+				} else {
+
+					//var_dump_pretty($data);
+
+					$this->masterpage->view("campaigns/status_action", $err_img_saved);
+
+				}
+
 			} else {
 				$data = array(
 					"msg" => "Error ao salvar a campanha",

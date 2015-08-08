@@ -273,7 +273,7 @@ class people_model extends MY_Model {
 		$data->doctype_id  = (isset($postdata['inputDocType'])?$postdata['inputDocType']:NULL);
 		$data->docnum      = (isset($postdata['inputNumDoc'])?$postdata['inputNumDoc']:'');
 		$data->gender      = (isset($postdata['inputGender'])?$postdata['inputGender']:'');
-		$data->dateofbirth = (isset($postdata['inputDateOfBirth'])?mdate("%Y-%m-%d", strtotime($postdata["inputDateOfBirth"])):'');
+		$data->dateofbirth = (isset($postdata['inputDateOfBirth'])?mdate("%Y-%m-%d", strtotime(str_replace("/", "-", $postdata["inputDateOfBirth"]))):'');
 		$data->address     = (isset($postdata['inputAddress'])?$postdata['inputAddress']:'');
 		$data->phone       = (isset($postdata['inputPhone'])?$postdata['inputPhone']:'');
 		$data->zipcode     = (isset($postdata['inputZipCode'])?$postdata['inputZipCode']:'');

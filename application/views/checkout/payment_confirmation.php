@@ -18,7 +18,7 @@ fjs.parentNode.insertBefore(js, fjs);
 <div class="contrib-confirm-value-info">
 	<div class="row">
 		<div class="col-md-4">
-			<img src="<?php echo $rs_campaign->imgurl;?>" class="checkout-campaign-photo">
+			<img class="img-responsive" src="<?php echo $rs_campaign->imgurl;?>" class="checkout-campaign-photo">
 		</div>
 		<div class="col-md-8">
 			<h3>Resumo do Presente</h3>
